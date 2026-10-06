@@ -4,38 +4,74 @@
 
 \chapter{\IfLanguageName{dutch}{Resultaat en validatie}{Result and validation}}%
 \label{ch:resultaat}
-
+TODO!
 %% Richtlengte: 1 tot 2 bladzijden.
 %%
 %% Hier toon je dat het werkt, en hoe je dat weet. Een project dat niemand
 %% getest heeft, is een project waarvan niemand weet of het werkt.
 
-Vervang deze tekst door een korte inleiding op het hoofdstuk.
+Het resultaat van het graduaatsproject is een uitbreiding van de bestaande templatefunctionaliteit van het Vesalius-platform. 
+De oplossing werd ontworpen om de bestaande werking te behouden wanneer geen specifieke configuratie wordt gebruikt en om bijkomende controle te bieden wanneer een template wel specifiek wordt geconfigureerd.
 
 \section{\IfLanguageName{dutch}{Wat er opgeleverd is}{What was delivered}}%
 \label{sec:opgeleverd}
-
+TODO!
 %% Beschrijf het eindresultaat zoals een gebruiker het ziet. Voeg een of twee
 %% schermafbeeldingen toe: dat is het bewijsstuk waar de lezer het snelst iets
 %% aan heeft.
+Voor documenttemplates werd functionaliteit voorzien om één of meerdere artsen aan een template te koppelen. De selectie is beperkt tot gebruikers die als arts geregistreerd zijn. Een template zonder gekoppelde artsen behoudt het bestaande gedrag.
+Wanneer een template wel aan specifieke artsen gekoppeld is en automatische generatie actief is, wordt de automatische generatie afgestemd op de gekoppelde arts. De koppeling heeft geen invloed op de zichtbaarheid van de template en manuele generatie blijft beschikbaar.
+Voor Scribe-consultatemplates werd een configuratiemogelijkheid voorzien waarmee de gewenste doelgroep van de output kan worden vastgelegd. Hierbij wordt onderscheid gemaakt tussen patiëntgerichte en artsgerichte output.
+In het definitieve rapport worden hier bij voorkeur één of twee screenshots opgenomen die respectievelijk de configuratie van de artskoppeling en de doelgroepinstelling tonen.
 
 \section{\IfLanguageName{dutch}{Testen}{Testing}}%
 \label{sec:testen}
-
+TODO!
 %% Hoe heb je gecontroleerd dat het doet wat het moet doen? Geautomatiseerde
 %% tests, handmatige scenario's, een proefdraai bij het team? Wat werd er
 %% getest, en wat bewust niet?
+De functionaliteit werd gecontroleerd aan de hand van de acceptatiecriteria uit de JIRA-tickets. Hierbij moeten zowel de nieuwe scenario's als de bestaande standaardscenario's worden gecontroleerd.
+Voor documenttemplates zijn minstens de volgende scenario's relevant:
+
+\begin{itemize}
+    \item Een template zonder gekoppelde artsen gedraagt zich zoals vóór de wijziging.
+    \item Een template kan aan één arts worden gekoppeld.
+    \item Een template kan aan meerdere artsen worden gekoppeld.
+    \item Niet-artsen verschijnen niet in de artsselectie.
+    \item Automatische generatie met gekoppelde artsen gebeurt enkel voor een gekoppelde arts.
+    \item Manuele generatie blijft mogelijk voor gebruikers die niet aan de template gekoppeld zijn.
+    \item De zichtbaarheid van de template verandert niet door de artskoppeling.
+\end{itemize}
+
+Voor Scribe zijn minstens de volgende scenario's relevant:
+
+\begin{itemize}
+    \item Een consultatietemplate kan als patiëntgericht worden ingesteld.
+    \item Een consultatietemplate kan als artsgericht worden ingesteld.
+    \item De gekozen doelgroep wordt correct opgeslagen.
+    \item De gekozen doelgroep wordt gebruikt bij de generatie van de output.
+\end{itemize}
+
+Naast de functionele scenario's is het belangrijk om regressies te controleren. Bestaande templates zonder nieuwe configuratie mogen bijvoorbeeld niet plots een andere generatieflow krijgen.
+In de definitieve versie van het rapport kunnen de concrete testresultaten worden aangevuld met een tabel waarin per acceptatiecriterium wordt vermeld of het scenario geslaagd is.
 
 \section{\IfLanguageName{dutch}{Terugkoppeling van het bedrijf}{Feedback from the company}}%
 \label{sec:terugkoppeling}
-
+TODO!
 %% Wat vond je mentor of je team ervan? Wordt het gebruikt, of wordt het
 %% gebruikt na verdere afwerking? Wat zou er nodig zijn om het echt in
 %% productie te nemen?
+De terugkoppeling van het Vesalius.ai-team vormt een belangrijk onderdeel van de validatie, omdat de functionaliteit uiteindelijk binnen de bestaande bedrijfsomgeving gebruikt moet kunnen worden.
+Tijdens het project werd de oplossing afgestemd met de betrokken teamleden en werd rekening gehouden met de bestaande architectuur en ontwikkelafspraken. De concrete feedback van de mentor en het team kan in de definitieve versie van dit hoofdstuk worden aangevuld met de belangrijkste opmerkingen, eventuele gevraagde wijzigingen en de beslissing over verdere ingebruikname.
+Hierbij is het relevant om niet enkel te vermelden of de oplossing technisch werkt, maar ook of ze aansluit bij de verwachte gebruikersflow en onderhoudbaar is voor het ontwikkelingsteam.
+
 
 \section{\IfLanguageName{dutch}{Beperkingen}{Limitations}}%
 \label{sec:beperkingen}
-
+TODO!
 %% Wat werkt nog niet, of enkel onder bepaalde voorwaarden? Eerlijk zijn over
 %% de grenzen van je oplossing wordt gewaardeerd; ze verzwijgen valt op tijdens
 %% de vragenronde.
+De belangrijkste beperking van het project is de afgebakende scope. Het graduaatsproject behandelt twee specifieke bestaande JIRA-tickets en probeert niet het volledige systeem voor templatebeheer of outputgeneratie te herontwerpen.
+Het bredere idee van een WYSIWYG-editor voor e-mails valt buiten scope. Een dergelijke functionaliteit zou bijkomende analyse vereisen rond HTML-generatie, rendering en compatibiliteit tussen verschillende e-mailclients. Dit vormt op zichzelf een omvangrijk technisch probleem en was daarom niet nodig om de doelstellingen van dit graduaatsproject te behalen.
+Ook andere types templates die een afzonderlijke werking hebben, zijn niet automatisch meegenomen in de nieuwe documenttemplatefunctionaliteit. Een uitbreiding naar andere templatecategorieën zou eerst afzonderlijk moeten worden geanalyseerd.

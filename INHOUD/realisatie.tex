@@ -4,24 +4,30 @@
 
 \chapter{\IfLanguageName{dutch}{Realisatie}{Implementation}}%
 \label{ch:realisatie}
-
+TODO!
 %% Richtlengte: 3 tot 4 bladzijden - het langste hoofdstuk.
 %%
 %% Beschrijf wat je gebouwd hebt en hoe. Niet chronologisch ("op dag drie deed
 %% ik..."), maar per onderdeel of per probleem dat je opgelost hebt.
 
-Vervang deze tekst door een korte inleiding op het hoofdstuk.
+De realisatie bestond uit het vertalen van de functionele vereisten naar wijzigingen in de bestaande frontend, backend en gegevenslaag. De implementatie werd niet chronologisch opgebouwd in dit rapport, maar wordt besproken volgens de belangrijkste technische onderdelen.
+
 
 \section{\IfLanguageName{dutch}{Opbouw van de code}{Structure of the code}}%
 \label{sec:opbouw-code}
-
+TODO!
 %% Hoe is je repository ingedeeld, en waarom zo? Welke lagen of modules zijn
 %% er? Iemand die je code voor het eerst opent, moet na deze sectie weten waar
 %% hij moet beginnen kijken.
+De code werd geïntegreerd in de bestaande structuur van het Vesalius-platform. De frontendfunctionaliteit bevindt zich binnen de bestaande Angular-architectuur. Componenten en configuraties voor templates werden uitgebreid zodat de nieuwe instellingen via de bestaande gebruikersinterface beheerd kunnen worden.
+Aan de backendzijde werd de bestaande Laravel-structuur gevolgd. De backend staat in voor het verwerken en bewaren van de configuratie en voor het toepassen van de regels tijdens automatische generatie.
+De gegevenslaag werd uitgebreid volgens de bestaande MySQL-structuur. Hierbij werd rekening gehouden met de bestaande relaties en met het behoud van het huidige gedrag wanneer geen bijkomende configuratie aanwezig is.
+Door de bestaande structuur te volgen blijft de nieuwe functionaliteit herkenbaar voor andere ontwikkelaars binnen het team. Dit vermindert de onderhoudskost en maakt het eenvoudiger om de functionaliteit later verder uit te breiden.
+
 
 \section{\IfLanguageName{dutch}{Werkwijze en versiebeheer}{Way of working and version control}}%
 \label{sec:werkwijze}
-
+TODO!
 %% Hoe heb je gewerkt: in welke stappen, met welk versiebeheer, met welke
 %% afspraken over commits en branches? Hoe hield je je voortgang bij, en hoe
 %% stemde je af met je mentor?
@@ -29,25 +35,35 @@ Vervang deze tekst door een korte inleiding op het hoofdstuk.
 %% Vermeld ook je ontwikkelomgeving: editor, hulpmiddelen, testomgeving,
 %% eventueel containers of een pijplijn. Ook dit is een verwacht onderdeel van
 %% je verdediging.
+De werkzaamheden werden opgevolgd via Jira. De geselecteerde JIRA-tickets vormden de functionele basis van het graduaatsproject. Tijdens de analyse werden de acceptatiecriteria gebruikt om de vereisten verder te concretiseren.
+De broncode werd beheerd met Git en Bitbucket. Wijzigingen werden tijdens de ontwikkeling afzonderlijk bijgehouden zodat de voortgang en aanpassingen aan de bestaande codebase traceerbaar bleven.
+Voor de ontwikkeling werd Visual Studio Code gebruikt. De lokale ontwikkelomgeving draaide op Windows 11 met Ubuntu via WSL2. Docker werd gebruikt binnen de bestaande ontwikkelworkflow.
+De ontwikkeling gebeurde iteratief. Eerst werd de bestaande werking onderzocht, vervolgens werd het gegevensmodel en de backendlogica aangepast, waarna de frontendconfiguratie en de interactie met de nieuwe functionaliteit werden toegevoegd. Na iedere relevante wijziging werd gecontroleerd of zowel het nieuwe gedrag als het bestaande gedrag correct bleef functioneren.
+
 
 \section{\IfLanguageName{dutch}{Belangrijkste onderdelen}{Key components}}%
 \label{sec:onderdelen}
-
+TODO!+lees na 
 %% Bespreek de twee of drie onderdelen waar het echte werk zat. Toon per
 %% onderdeel een kort codefragment - een tiental regels, niet een volledig
 %% bestand - en leg uit waarom het zo opgelost is.
 
+Een belangrijk onderdeel van de realisatie was de koppeling tussen documenttemplates en artsen. Hiervoor moest zowel de configuratie-interface als de onderliggende gegevensstructuur rekening houden met meerdere gekoppelde artsen.
+Een tweede belangrijk onderdeel was de logica voor automatische generatie. De aanwezigheid of afwezigheid van een artskoppeling bepaalt hierbij of het bestaande organisatiebrede gedrag behouden blijft of dat de generatie beperkt wordt tot de gekoppelde arts.
+Een derde onderdeel was de doelgroepconfiguratie van Scribe-consultatemplates. De gekozen doelgroep wordt als configuratiegegeven opgeslagen en vervolgens gebruikt om de gewenste vorm van de gegenereerde output te bepalen.
+Bij het implementeren van deze onderdelen werd geprobeerd om de verantwoordelijkheden duidelijk te scheiden. De frontend is verantwoordelijk voor configuratie en gebruikersinteractie, terwijl de backend verantwoordelijk blijft voor de bedrijfsregels en gegevensverwerking.
+Een representatief fragment uit de implementatie kan in het definitieve rapport worden opgenomen zodra de definitieve code is geselecteerd. Daarbij verdient een kort fragment dat de artsfiltering, de automatische-generatieregel of de doelgroepkeuze toont de voorkeur boven een volledig bestand.
+
 \begin{listing}[htbp]
-  \begin{minted}{python}
-    def bereken_score(criteria, gewichten):
-        """Voorbeeld: vervang dit door een fragment uit je eigen code."""
-        totaal = sum(c * g for c, g in zip(criteria, gewichten))
-        return round(totaal / sum(gewichten), 2)
+  \begin{minted}{php}
+  // Vervang dit voorbeeld door een werkelijk codefragment
+  // uit de eigen implementatie.
+  $template->doctors()
+      ->where('function', 'doctor')
+      ->get();
   \end{minted}
-  \caption[Voorbeeld van een codefragment]{\label{lst:voorbeeld}%
-    Vervang dit fragment door een stuk van je eigen code, en leg in de tekst
-    uit wat het doet en waarom het zo opgelost is. Neem nooit hele bestanden
-    op: kies het fragment dat iets uitlegt.}
+  \caption[Voorbeeld van een technisch codefragment]{Voorbeeld van het soort codefragment dat in het definitieve rapport kan worden opgenomen. Vervang dit door het effectieve fragment uit de implementatie.}
+  \label{lst:voorbeeld}
 \end{listing}
 
 %% Mag je je code niet tonen omdat ze eigendom is van het bedrijf of onder een
@@ -67,7 +83,11 @@ Vervang deze tekst door een korte inleiding op het hoofdstuk.
 
 \section{\IfLanguageName{dutch}{Problemen onderweg}{Problems along the way}}%
 \label{sec:problemen}
-
+TODO!
 %% Wat liep er anders dan gepland, en hoe ben je eruit geraakt? Dit is geen
 %% zwakte om te verbergen: het is een van de interessantste delen van je
 %% rapport, en het toont zelfstandigheid.
+Een belangrijk aandachtspunt tijdens de realisatie was het correct interpreteren van de bestaande functionaliteit. Omdat de tickets een uitbreiding vormen op bestaand gedrag, was het noodzakelijk om eerst te begrijpen hoe templates momenteel worden opgeslagen, geconfigureerd en automatisch gegenereerd.
+Een wijziging die op zichzelf functioneel correct is, kan immers bestaande workflows beïnvloeden wanneer de oorspronkelijke standaardlogica niet behouden blijft. Vooral de voorwaarde dat een template zonder gekoppelde artsen zich exact zoals voorheen moet gedragen, vraagt daarom bijzondere aandacht.
+Daarnaast moest rekening worden gehouden met het onderscheid tussen zichtbaarheid, manuele generatie en automatische generatie. Deze begrippen lijken functioneel verwant, maar hebben een verschillende betekenis. Het ontwerp en de implementatie moesten deze verantwoordelijkheden daarom afzonderlijk behandelen.
+Bij de Scribe-functionaliteit vormt vooral de vertaling van de doelgroepkeuze naar de effectieve output een aandachtspunt. De configuratie moet niet enkel in de interface beschikbaar zijn, maar moet uiteindelijk ook correct doorwerken naar het generatieproces.

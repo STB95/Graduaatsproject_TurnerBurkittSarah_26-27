@@ -1,3 +1,4 @@
+TODO!: INLEIDING VOLLEDIG NALEZEN
 %%=============================================================================
 %% Inleiding
 %%=============================================================================
@@ -5,58 +6,47 @@
 \chapter{\IfLanguageName{dutch}{Inleiding}{Introduction}}%
 \label{ch:inleiding}
 
-%% Richtlengte: 1 tot 2 bladzijden.
-%%
-%% De inleiding geeft de lezer precies genoeg achtergrond om de rest te
-%% begrijpen. Ze is geen samenvatting en geen literatuurstudie.
-
-Vervang deze tekst door een korte inleiding: waar heb je stage gelopen, wat
-doet dat bedrijf of dat team, en in welke situatie is dit project ontstaan?
+Vesalius.ai ontwikkelt software die het dagelijkse werk van artsen en andere zorgverleners moet vereenvoudigen. Het platform ondersteunt verschillende processen binnen de medische praktijk en heeft als doel om administratieve handelingen te beperken, zodat zorgverleners zich meer kunnen richten op hun kerntaak. Binnen deze omgeving wordt voortdurend gezocht naar verbeteringen die de configuratie, automatisering en gebruiksvriendelijkheid van het platform verhogen.
+Tijdens mijn stage werkte ik mee binnen het ontwikkelingsteam van Vesalius.ai. Mijn stagewerk bestond uit verschillende taken binnen de bestaande applicatie en ontwikkelomgeving. Het graduaatsproject werd daarbinnen afgebakend als een zelfstandig project op basis van bestaande en al langere tijd openstaande JIRA-tickets. Op die manier sluit het graduaatsproject rechtstreeks aan bij een concrete behoefte van het bedrijf, terwijl het tegelijk voldoende ruimte biedt om zelfstandig analyse-, ontwerp-, ontwikkel- en testwerk uit te voeren.
+Een bredere aanleiding voor verschillende verbeteringen binnen het platform is de nood aan flexibele en correct gegenereerde communicatie en documenten. Zo staat binnen het team ook al langere tijd het idee op de backlog om e-mails die door het platform worden verstuurd via een WYSIWYG-editor te kunnen beheren. Daarbij vormt de compatibiliteit van gegenereerde HTML met verschillende e-mailclients een belangrijke technische uitdaging. Dit bredere probleem illustreert dat configuratie en automatische generatie van output een belangrijk onderdeel vormen binnen het platform. Het e-mailproject zelf valt echter buiten de scope van dit graduaatsproject.
 
 \section{\IfLanguageName{dutch}{Probleemstelling}{Problem statement}}%
 \label{sec:probleemstelling}
 
-%% Wat liep er mis, ontbrak er of kon er beter? Wees concreet en noem de
-%% mensen voor wie het een probleem is: het team, de klanten, de beheerders.
-%% "Bedrijven hebben nood aan..." is te vaag; "het supportteam verliest per
-%% dag ongeveer een uur aan..." is bruikbaar.
+Binnen het Vesalius-platform worden documenten en andere vormen van output gedeeltelijk automatisch gegenereerd op basis van geconfigureerde templates. De bestaande werking behandelt een template in bepaalde situaties op organisatieniveau. Hierdoor is het niet mogelijk om voor iedere template aan te geven dat deze uitsluitend relevant is voor één of meerdere specifieke artsen.
+In de praktijk kunnen bepaalde documenttemplates echter specifiek bedoeld zijn voor het werkproces van bepaalde artsen. Wanneer dergelijke templates als automatisch te genereren worden ingesteld, kan de huidige werking ertoe leiden dat ook andere artsen output ontvangen die voor hen niet relevant is. Dit veroorzaakt onnodige documenten en vermindert de relevantie van automatisch gegenereerde informatie.
+Daarnaast bestaat er voor consultatietemplates van Scribe een behoefte om aan te geven voor welke doelgroep de gegenereerde output bedoeld is. Een patiënt heeft doorgaans nood aan begrijpelijke mensentaal, terwijl een arts eerder medische terminologie verwacht. De gewenste doelgroep moet daarom onderdeel kunnen worden van de configuratie van een consultatietemplate.
+De twee problemen zijn vergelijkbaar doordat ze betrekking hebben op het beter afstemmen van automatisch gegenereerde output op de context waarin deze wordt gebruikt.
 
 \section{\IfLanguageName{dutch}{Doelstelling}{Objective}}%
 \label{sec:doelstelling}
 
-%% Wat bestaat er op het einde van dit project dat er nu niet is? Beschrijf
-%% het eindresultaat als iets waarvan iemand kan vaststellen dat het er is:
-%% een werkende toepassing, een dienst, een uitbreiding, een prototype.
-%%
-%% Noteer er ook bij hoe je zou weten dat het geslaagd is.
+Het doel van het graduaatsproject is om twee bestaande functionaliteiten binnen het Vesalius-platform uit te breiden, zodat automatisch gegenereerde output gerichter kan worden afgestemd op de gebruiker en de doelgroep.
+Voor documenttemplates wordt onderzocht en gerealiseerd hoe een template optioneel aan één of meerdere specifieke artsen kan worden gekoppeld. De automatische generatie moet vervolgens rekening houden met deze koppeling, zonder de algemene zichtbaarheid van de template te wijzigen. Manuele generatie blijft voor alle gebruikers mogelijk.
+Voor consultatemplates van Scribe wordt onderzocht en gerealiseerd hoe de gewenste doelgroep van de gegenereerde output kan worden ingesteld. Hierbij wordt onderscheid gemaakt tussen patiëntgerichte output in begrijpelijke taal en artsgerichte output met medische terminologie.
+Het einddoel is een oplossing die aansluit bij de bestaande architectuur en ontwikkelstandaarden van Vesalius.ai en die door het team verder onderhouden en uitgebreid kan worden.
 
 \section{\IfLanguageName{dutch}{Afbakening}{Scope}}%
 \label{sec:afbakening}
 
-%% DIT IS HET BELANGRIJKSTE ONDERDEEL VAN JE INLEIDING.
-%%
-%% Je stage en je graduaatsproject lopen bij hetzelfde bedrijf, maar het zijn
-%% twee verschillende dingen. De jury beoordeelt je graduaatsproject.
-%%
-%% Maak dus uitdrukkelijk duidelijk:
-%%   - wat je dagelijkse stagewerk is (het lopende werk in het team);
-%%   - wat je graduaatsproject is (het afgebakende geheel dat jij zelfstandig
-%%     analyseert, ontwerpt en oplevert, goed voor ongeveer tien werkdagen);
-%%   - welke keuzes JIJ gemaakt hebt, en welke het team of de mentor maakte;
-%%   - wat uitdrukkelijk buiten dit project valt, en waarom.
-%%
-%% Een lezer die dit hoofdstuk gelezen heeft, moet bij elke bladzijde die
-%% volgt weten of ze over jouw project gaat of over je stage.
+Het graduaatsproject is bewust beperkt tot twee bestaande JIRA-tickets die binnen de werking van het Vesalius.ai-team reeds op de backlog stonden.
+Het eerste onderdeel betreft het optioneel koppelen van documenttemplates aan één of meerdere artsen. De selectielijst moet daarbij uitsluitend gebruikers met de functie ``arts'' tonen. De koppeling beïnvloedt enkel het automatische gebruik van een template en niet de zichtbaarheid ervan. Wanneer geen arts gekoppeld is, blijft het bestaande gedrag behouden. Wanneer wel artsen gekoppeld zijn en automatische generatie is ingeschakeld, wordt de template enkel automatisch gegenereerd wanneer een gekoppelde arts is ingelogd. Manuele generatie blijft voor alle gebruikers mogelijk.
+Het tweede onderdeel betreft consultatemplates van Scribe. Hierbij wordt per template ingesteld of de gegenereerde output bedoeld is voor een patiënt of voor een arts. Bij patiëntgerichte output ligt de nadruk op begrijpelijke mensentaal; bij artsgerichte output wordt medische terminologie gebruikt.
+Scribe- of consultatietemplates worden in het eerste ticket uitdrukkelijk als aparte functionaliteit beschouwd en vallen daar buiten de scope. Voor het tweede ticket vormen de Scribe-consultatemplates net de specifieke scope.
+Ook het bredere idee rond een WYSIWYG-editor voor e-mails valt buiten dit graduaatsproject. Dit onderwerp bevindt zich op de bredere productbacklog en vormt geen onderdeel van de twee geselecteerde JIRA-tickets.
+De keuzes over de functionele scope en prioriteiten werden binnen het team bepaald op basis van de bestaande JIRA-tickets en de productbehoeften. Binnen deze afgesproken scope heb ik zelfstandig keuzes gemaakt over de technische uitwerking, de structuur van de oplossing, de implementatie en de manier waarop de functionaliteit werd getest.
 
-\section{\IfLanguageName{dutch}{Opbouw van dit rapport}{Structure of this report}}%
-\label{sec:opbouw}
+\section{\IfLanguageName{dutch}{Stagewerk en graduaatsproject}{Internship work and graduation project}}%
+\label{sec:stage-vs-project}
 
-In Hoofdstuk~\ref{ch:technologie} wordt de technologische context beschreven
-en wordt verantwoord waarom voor deze technologie gekozen is.
-Hoofdstuk~\ref{ch:ontwerp} bespreekt de analyse en het ontwerp.
-Hoofdstuk~\ref{ch:realisatie} beschrijft de realisatie.
-In Hoofdstuk~\ref{ch:resultaat} wordt getoond wat het resultaat is en hoe het
-gecontroleerd werd. Hoofdstuk~\ref{ch:reflectie}, tot slot, bevat de conclusie
-en een terugblik.
+Het graduaatsproject maakt deel uit van mijn stage bij Vesalius.ai, maar beide begrippen hebben niet exact dezelfde scope. Tijdens de stage werkte ik mee aan verschillende bestaande taken binnen het ontwikkelingsteam en maakte ik kennis met de ontwikkelomgeving, de codebase, de werkwijze en de bestaande technische infrastructuur van het bedrijf.
+Het graduaatsproject werd daarbinnen afgebakend als een zelfstandig technisch project. De functionele scope werd gebaseerd op bestaande JIRA-tickets die reeds langere tijd op de backlog stonden. Hierdoor kon ik werken aan een probleem dat rechtstreeks relevant is voor het bedrijf, terwijl ik tegelijk zelf verantwoordelijk was voor de analyse, ontwerpkeuzes, implementatie en validatie binnen de afgesproken grenzen.
+De bestaande bedrijfsarchitectuur, programmeertalen, frameworks, infrastructuur en ontwikkelafspraken waren grotendeels vastgelegd door het team. Mijn zelfstandigheid lag voornamelijk in de analyse van de tickets, het bepalen van de technische aanpak binnen deze omgeving, de concrete implementatie en het controleren van de oplossing.
 
-% Pas dit overzicht aan als je hoofdstukken toevoegt of anders noemt.
+\section{\IfLanguageName{dutch}{Leeswijzer}{Guide to the report}}%
+\label{sec:leeswijzer}
+
+Na deze inleiding wordt in hoofdstuk~\ref{ch:technologie} de technologische context van het project besproken. Daarbij wordt toegelicht welke technologieën reeds binnen Vesalius.ai gebruikt worden en waarom deze technologieën ook voor dit project werden behouden.
+Hoofdstuk~\ref{ch:ontwerp} behandelt de analyse en het ontwerp van de oplossing. Hierbij worden de functionele en niet-functionele vereisten, de architectuur, het gegevensmodel, privacy en veiligheid en de belangrijkste ontwerpkeuzes besproken.
+In hoofdstuk~\ref{ch:realisatie} wordt de effectieve realisatie beschreven. De codeopbouw, werkwijze, versiebeheer, belangrijkste technische onderdelen en problemen tijdens de ontwikkeling komen daar aan bod.
+Hoofdstuk~\ref{ch:resultaat} bespreekt het uiteindelijke resultaat en de manier waarop de functionaliteit werd gevalideerd. Tot slot bevat hoofdstuk~\ref{ch:reflectie} de conclusie, persoonlijke reflectie, geleerde lessen en mogelijke verdere ontwikkelingen.

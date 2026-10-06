@@ -1,80 +1,101 @@
 %%=============================================================================
-%% Verantwoording van het gebruik van AI - VERPLICHT
+%% Verantwoording van het gebruik van AI
 %%=============================================================================
 \chapter{\IfLanguageName{dutch}{Verantwoording van het gebruik van AI}{Use of AI}}%
 \label{ch:ai}
 %% wat/waarvoor/waarom gebruikt? kunnen uitleggen. 
-
-#TODO: Vervang deze alinea door een korte inleiding: heb je AI gebruikt tijdens dit
+TODO!: LEES ALLES HIERVAN NA 
 project, en zo ja, welke rol speelde ze in je werkwijze?
+Tijdens de realisatie van dit graduaatsproject werd gebruikgemaakt van generatieve AI als ondersteunend hulpmiddel. AI werd voornamelijk ingezet om technische problemen te analyseren, documentatie en foutmeldingen beter te begrijpen, mogelijke implementatiebenaderingen te vergelijken en teksten te verbeteren. Daarnaast werd AI gebruikt als hulpmiddel bij het structureren van ideeën en het controleren van bepaalde codefragmenten.
+AI werd hierbij niet beschouwd als vervanging van de eigen analyse of technische besluitvorming. De voorgestelde oplossingen werden steeds beoordeeld aan de hand van de bestaande codebase, de vereisten van het project, de officiële documentatie en het gedrag van de applicatie. De uiteindelijke technische keuzes, implementatie, testen en verantwoordelijkheid voor het opgeleverde werk blijven bij mij.
+
 
 \section{\IfLanguageName{dutch}{Waarvoor en hoe}{What and how}}%
 \label{sec:ai-waarvoor}
 
 %% Vul de tabel aan met je eigen gebruik. Eén regel per gebruik, niet per
 %% gesprek en niet per dag.
-%%
 %% De twee laatste kolommen zijn de belangrijkste:
 %%   - WAAR HET ZIT: wijs een plek aan in je werk - een bestand, een module, een
 %%     hoofdstuk, een dia. Zat het enkel in je denkwerk en niet rechtstreeks in
 %%     je resultaat, schrijf dan dat.
 %%   - WAT JIJ ERMEE DEED: overgenomen, aangepast, herschreven of verworpen, en
 %%     hoe je nagegaan bent dat het klopt.
-%%
 %% Houd dit bij TIJDENS je project, niet achteraf. In week 13 herinner je je
 %% niet meer wat je in week 4 gevraagd hebt, en dat is precies te zien.
-
+AI werd tijdens verschillende onderdelen van het project gebruikt als ondersteunend hulpmiddel. Onderstaande tabel geeft de belangrijkste vormen van gebruik weer. Het overzicht beschrijft het doel van het gebruik en niet elk afzonderlijk gesprek met een AI-hulpmiddel.
 \begin{table}[htbp]
-  \centering\small
-  \begin{tabular}{p{0.17\textwidth}p{0.13\textwidth}p{0.2\textwidth}p{0.34\textwidth}}
+  \centering
+  \small
+  \begin{tabular}{p{0.17\textwidth}p{0.13\textwidth}p{0.20\textwidth}p{0.34\textwidth}}
     \toprule
-    \textbf{Waarvoor} & \textbf{Hulpmiddel} & \textbf{Waar het in mijn werk zit} & \textbf{Wat ik ermee deed en controleerde} \\
+    \textbf{Waarvoor} &
+    \textbf{Hulpmiddel} &
+    \textbf{Waar het in mijn werk zit} &
+    \textbf{Wat ik ermee deed en controleerde} \\
     \midrule
-    Voorbeeld: opzet van de gegevenslaag
-      & naam en versie
-      & \texttt{src/data/} \newline (repository)
-      & Voorstel laten genereren, daarna zelf herschreven omdat de foutafhandeling ontbrak; met tests nagekeken. \\
-    Voorbeeld: uitleg over een foutmelding
-      & naam en versie
-      & nergens rechtstreeks; hielp me het probleem begrijpen
-      & Als uitleg gebruikt, de oplossing zelf geschreven na controle in de officiële documentatie. \\
-    Voorbeeld: nalezen van dit rapport
-      & naam en versie
-      & hoofdstuk 4
-      & Enkel op spelling en zinsbouw; de inhoud en de structuur zijn van mij. \\
+    Analyse van technische problemen en foutmeldingen
+    & ChatGPT
+    & Tijdens de ontwikkeling; voornamelijk in de ontwikkelomgeving en issueanalyse
+    & Foutmeldingen en technische problemen werden voorgelegd om mogelijke oorzaken en oplossingsrichtingen te verkrijgen. De voorgestelde oplossingen werden vervolgens zelf onderzocht en getest in de eigen ontwikkelomgeving. Niet-correcte of niet-passende voorstellen werden verworpen. \\
+    \midrule
+    Ondersteuning bij het begrijpen van bestaande code
+    & ChatGPT
+    & Bestaande backend- en frontendcode
+    & Codefragmenten werden gebruikt om complexe bestaande logica, relaties en programmeerconstructies beter te begrijpen. De werking werd vervolgens gecontroleerd aan de hand van de eigen codebase en de effectieve applicatiewerking. \\
+    \midrule
+    Vergelijken van technische oplossingsrichtingen
+    & ChatGPT
+    & Analyse en ontwerp van de oplossing
+    & AI werd gebruikt om mogelijke implementatiealternatieven te identificeren en hun voor- en nadelen te bespreken. De uiteindelijke keuze werd zelf gemaakt op basis van de bestaande architectuur, de projectvereisten en de conventies binnen het Vesalius.ai-team. \\
+    \midrule
+    Ondersteuning bij het schrijven en verbeteren van code
+    & ChatGPT
+    & Implementatie van frontend- en backendfunctionaliteit
+    & AI kon voorbeeldimplementaties of codefragmenten voorstellen. Deze werden niet zonder controle overgenomen. Code werd aangepast aan de bestaande architectuur en vervolgens zelf getest en gecontroleerd. \\
+    \midrule
+    Ondersteuning bij rapportering
+    & ChatGPT
+    & Hoofdstukken van dit graduaatsproject
+    & AI werd gebruikt om eigen inhoud te structureren, formuleren en taalkundig te verbeteren. De inhoudelijke keuzes, ervaringen, resultaten en conclusies werden zelf bepaald en gecontroleerd. \\
+    \midrule
+    Controle van formulering, spelling en structuur
+    & ChatGPT
+    & Volledig rapport
+    & Tekst werd nagelezen en waar nodig herschreven voor duidelijkheid, grammatica en professionele formulering. De inhoudelijke betekenis werd zelf gecontroleerd en aangepast waar de formulering niet overeenkwam met mijn eigen werk. \\
     \bottomrule
   \end{tabular}
-  \caption[Gebruik van AI in dit project]{\label{tab:ai}%
-    Overzicht van het gebruik van AI in dit project.}
+  \caption[Gebruik van AI in dit project]{Overzicht van de belangrijkste manieren waarop generatieve AI als ondersteunend hulpmiddel werd gebruikt tijdens het project.}
+  \label{tab:ai}
 \end{table}
 
 \section{\IfLanguageName{dutch}{Wat van mij is}{What is my own work}}%
 \label{sec:ai-eigenwerk}
 
 %% Twee regels die de opleiding hanteert, en die je hier bevestigt:
-%%
 %% 1. Code die je niet kan uitleggen, hoort niet in je oplevering. Je bent
 %%    verantwoordelijk voor alles wat in je repository staat, ook voor wat een
 %%    hulpmiddel geschreven heeft.
 %% 2. De analyse, de keuzes, de afbakening en de tekst van dit rapport zijn van
 %%    jou. AI mag je helpen formuleren; ze mag niet in jouw plaats denken.
-%%
 %% Geef hier ook aan hoe je in je repository zichtbaar maakt welke stukken met
 %% AI tot stand kwamen - bijvoorbeeld met een korte notitie in de commit of een
 %% opmerking bovenaan het bestand.
+De verantwoordelijkheid voor het project ligt bij mij. AI werd gebruikt als ondersteunend hulpmiddel, maar niet als zelfstandige uitvoerder van het project.
+De analyse van de probleemstelling, de afbakening van het project, de interpretatie van de JIRA-tickets en de uiteindelijke ontwerpkeuzes werden door mij gemaakt. Daarbij werd rekening gehouden met de bestaande architectuur, de functionele vereisten en de afspraken binnen het Vesalius.ai-team.
+Ook de uiteindelijke implementatie blijft mijn verantwoordelijkheid. Wanneer AI code of een mogelijke oplossing voorstelde, moest ik deze eerst begrijpen voordat ze in het project kon worden gebruikt. Code die ik niet kan uitleggen of waarvan de werking niet gecontroleerd is, wordt niet als onderdeel van mijn eigen oplossing beschouwd.
+AI-gegenereerde code werd waar nodig aangepast aan de bestaande codebase, programmeerstijl en architectuur. De werking werd gecontroleerd door de code zelf te analyseren, de officiële documentatie te raadplegen en de functionaliteit lokaal te testen.
+Ook de inhoud van dit rapport blijft mijn verantwoordelijkheid. AI werd gebruikt om eigen ervaringen en technische informatie te helpen structureren en formuleren, maar de beschreven keuzes, werkzaamheden, resultaten en reflecties moeten overeenkomen met wat daadwerkelijk tijdens het project werd uitgevoerd.
+Omdat AI-gebruik niet altijd rechtstreeks zichtbaar is in de uiteindelijke code, wordt het gebruik ervan in dit hoofdstuk transparant beschreven. Waar relevant wordt in de ontwikkelworkflow eveneens aangegeven wanneer AI een belangrijke bijdrage heeft geleverd aan een oplossing. De volledige verantwoordelijkheid voor de code in de repository blijft bij mij.
 
 \section{\IfLanguageName{dutch}{Zorgvuldigheid en regelgeving}{Diligence and regulation}}%
 \label{sec:ai-regelgeving}
-
-%% Beantwoord hier kort de drie vragen die er in de praktijk toe doen.
-%%
 %% 1. HEB JE BEDRIJFSGEGEVENS IN EEN AI-HULPMIDDEL GEPLAKT?
 %%    Broncode, klantgegevens, configuratie of persoonsgegevens ingeven in een
 %%    publieke dienst is een doorgifte aan een derde partij. Dat kan in strijd
 %%    zijn met je geheimhoudingsplicht en met de AVG (de Algemene Verordening
 %%    Gegevensbescherming, ook bekend als de GDPR). Vraag je mentor wat bij
 %%    jouw bedrijf toegelaten is, en noteer het antwoord hier.
-%%
 %% 2. ZIT ER AI IN WAT JE GEBOUWD HEBT?
 %%    Dan is de Europese AI-verordening (de AI Act, verordening 2024/1689) van
 %%    belang: haar verplichtingen zijn sinds augustus 2026 grotendeels van
@@ -84,12 +105,21 @@ project, en zo ja, welke rol speelde ze in je werkwijze?
 %%    gevallen moet de gebruiker dat weten.
 %%    Gebruik je AI enkel als hulpmiddel bij het programmeren, dan valt je
 %%    project daar meestal niet onder; schrijf dat dan gewoon zo op.
-%%
 %% 3. WAT MET AUTEURSRECHT EN LICENTIES?
 %%    Gegenereerde code kan sterk lijken op bestaande code met een licentie.
 %%    Vermeld hoe je daarmee omgegaan bent.
+Bij het gebruik van generatieve AI werd rekening gehouden met vertrouwelijke bedrijfsinformatie, persoonsgegevens, auteursrecht en de toepasselijke regelgeving.
+\subsection*{Bedrijfsgegevens en persoonsgegevens}
+Tijdens het gebruik van AI werd vermeden om onnodige vertrouwelijke bedrijfsinformatie, persoonsgegevens van patiënten of andere gevoelige gegevens in een publiek AI-hulpmiddel op te nemen. Wanneer technische ondersteuning nodig was, werd de informatie waar mogelijk geanonimiseerd, vereenvoudigd of beperkt tot het noodzakelijke technische probleem.
+Broncode of configuratiegegevens die vertrouwelijke informatie, wachtwoorden, API-sleutels, tokens of andere geheimen bevatten, mogen niet zonder toestemming in een extern AI-hulpmiddel worden ingevoerd. Geheimen worden daarom niet opgenomen in AI-prompts of in dit rapport.
+Voor het gebruik van AI binnen de bedrijfscontext werd rekening gehouden met de richtlijnen en afspraken van Vesalius.ai. Bij twijfel over het delen van bepaalde informatie heeft vertrouwelijkheid voorrang op het gebruik van AI.
 
-Vervang deze alinea door je antwoord op de drie vragen hierboven.
+\subsection*{AI binnen het ontwikkelde product}
+Het graduaatsproject gebruikt generatieve AI als ontwikkelhulp, maar introduceert geen zelfstandig AI-systeem als onderdeel van de gerealiseerde software. AI wordt dus niet door de eindgebruiker aangesproken als functionaliteit van de applicatie.
+De AI-verordening van de Europese Unie is daarom niet van toepassing op het project als gevolg van een door mij ingebouwd AI-systeem. Het gebruik van generatieve AI tijdens de ontwikkeling verandert niet dat de uiteindelijke toepassing zelf geen nieuwe AI-functionaliteit bevat.
+De functionaliteit rond patiënt- en artsgerichte output betreft een configuratie van de bestaande functionaliteit van het platform. Het doel ervan is om aan te geven voor welke doelgroep gegenereerde output bedoeld is; het graduaatsproject implementeert hiervoor zelf geen nieuw AI-model.
 
-%% Heb je geen AI gebruikt? Vervang dit hele hoofdstuk dan door één zin:
-%% "Bij de realisatie van dit project is geen gebruikgemaakt van generatieve AI."
+\subsection*{Auteursrecht en licenties}
+Bij het gebruik van AI-gegenereerde code werd ervan uitgegaan dat een gegenereerd antwoord niet automatisch betekent dat de voorgestelde code geschikt is om rechtstreeks over te nemen. Code werd daarom beoordeeld op technische correctheid, toepasbaarheid binnen de bestaande codebase en mogelijke licentie- of auteursrechtelijke aandachtspunten.
+Waar een oplossing gebaseerd moest worden op een bestaande bibliotheek, framework of externe implementatie, werd de officiële documentatie of de oorspronkelijke bron geraadpleegd. Afhankelijkheden van het project worden beheerd via de bestaande package- en dependencyconfiguratie van de applicatie.
+AI werd niet gebruikt als bronvermelding voor technische feiten in het rapport. Wanneer een externe technische bewering of implementatie gebaseerd is op documentatie, wordt verwezen naar de betreffende officiële documentatie of andere controleerbare bron. Het gebruik van AI als hulpmiddel wordt afzonderlijk in dit hoofdstuk verantwoord.

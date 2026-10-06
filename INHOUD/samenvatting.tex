@@ -24,13 +24,16 @@
 %% bladzijde waaraan een lezer merkt of je je eigen werk begrepen hebt.
 
 %%---------- Nederlandse samenvatting -----------------------------------------
-
+TODO!!!!
 \IfLanguageName{english}{\selectlanguage{dutch}}{}
 
 \chapter*{Samenvatting}
 \label{ch:samenvatting-nl}
 
-Vervang deze tekst door je Nederlandse samenvatting van ongeveer 200 woorden.
+Vesalius.ai ontwikkelt software die artsen ondersteunt bij hun dagelijkse werkzaamheden en administratieve processen vereenvoudigt. Tijdens mijn stage werkte ik mee binnen het ontwikkelingsteam. Mijn graduaatsproject werd afgebakend op basis van twee bestaande JIRA-tickets die al langere tijd op de backlog stonden. Het project richtte zich op het gerichter configureren van automatisch gegenereerde output binnen het Vesalius-platform.
+Voor documenttemplates werd een uitbreiding uitgewerkt waarmee een template optioneel aan één of meerdere specifieke artsen kan worden gekoppeld. Automatische generatie kan hierdoor worden beperkt tot de gekoppelde artsen, terwijl de zichtbaarheid van de template en manuele generatie ongewijzigd blijven. Daarnaast werd voor Scribe-consultatemplates een doelgroepinstelling voorzien waarmee onderscheid wordt gemaakt tussen patiëntgerichte output in begrijpelijke taal en artsgerichte output met medische terminologie.
+De functionaliteit werd geïntegreerd in de bestaande technologieomgeving van Vesalius.ai, met Laravel/PHP als backend, Angular/TypeScript als frontend en MySQL als database. Keycloak wordt gebruikt voor authenticatie en gebruikerscontext. De bestaande architectuur werd bewust behouden zodat de oplossing onderhoudbaar blijft en aansluit bij de werking van het team.
+De functionaliteit werd gecontroleerd aan de hand van de acceptatiecriteria en relevante testscenario's. Het resultaat vormt een gerichte uitbreiding van het bestaande platform en maakt automatisch gegenereerde output relevanter voor de gebruiker.
 
 \IfLanguageName{english}{\selectlanguage{english}}{}
 
@@ -41,7 +44,9 @@ Vervang deze tekst door je Nederlandse samenvatting van ongeveer 200 woorden.
 \chapter*{Abstract}
 \label{ch:samenvatting-en}
 
-Replace this text with the English version of your summary, about 200 words.
-It is a translation of the Dutch summary, not a different text.
+Vesalius.ai develops software that supports physicians in their daily work and helps reduce administrative tasks. During my internship, I worked as part of the development team. My graduation project was defined around two existing JIRA tickets that had been on the backlog for an extended period. The project focused on making automatically generated output within the Vesalius platform more configurable and relevant to its users.
+For document templates, functionality was developed to optionally associate a template with one or more specific physicians. Automatic generation can therefore be limited to the associated physicians, while template visibility and manual generation remain unchanged. In addition, a target audience setting was introduced for Scribe consultation templates, distinguishing between patient-oriented output written in accessible language and physician-oriented output using medical terminology.
+The functionality was integrated into Vesalius.ai's existing technology environment, using Laravel/PHP for the backend, Angular/TypeScript for the frontend and MySQL as the database. Keycloak is used for authentication and user context. The existing architecture was deliberately maintained to ensure that the solution remains maintainable and consistent with the development team's way of working.
+The functionality was validated using the acceptance criteria and relevant test scenarios. The resulting solution provides a targeted extension of the existing platform and makes automatically generated output more relevant to its intended user.
 
 \IfLanguageName{dutch}{\selectlanguage{dutch}}{}

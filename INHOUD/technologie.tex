@@ -21,42 +21,47 @@
 %% normen, of een boek. Vermeld ze omdat je lezer ze moet kunnen terugvinden,
 %% niet omdat een lijst nu eenmaal lang moet zijn. Zie de uitleg onderaan dit
 %% bestand en de voorbeelden in bronnen.bib.
-
-Vervang deze tekst door een korte inleiding op het hoofdstuk: welke
-technologische omgeving bestond er al bij het bedrijf, en welke ruimte had je
-om te kiezen?
+TODO!
+Het graduaatsproject werd uitgevoerd binnen een bestaande professionele softwareomgeving. Daardoor was de technologische vrijheid beperkter dan bij een volledig nieuw project. De belangrijkste technologieën en architecturale keuzes lagen reeds vast binnen Vesalius.ai. Dit was een bewuste keuze van het bedrijf: nieuwe functionaliteit moet aansluiten bij de bestaande applicatie, ontwikkelprocessen en infrastructuur.
+De technologiekeuze binnen dit project moet daarom vooral worden bekeken vanuit onderhoudbaarheid, integratie met de bestaande applicatie, kennis binnen het team en aansluiting bij de bestaande architectuur.
 
 \section{\IfLanguageName{dutch}{Bestaande omgeving}{Existing environment}}%
 \label{sec:bestaande-omgeving}
-
-%% Waar stap je in? Welke talen, frameworks, databanken, diensten en
-%% werkwijzen waren er al? Wat lag vast en wat mocht je zelf beslissen?
+TODO!
+De backend van het Vesalius-platform is opgebouwd met PHP en Laravel. Laravel voorziet onder andere de structuur voor de backendlogica, routing en interactie met de database. Voor het graduaatsproject werd deze bestaande backendtechnologie behouden, omdat de nieuwe functionaliteit geïntegreerd moest worden in de bestaande applicatie.
+De frontend is opgebouwd met Angular en TypeScript. HTML wordt gebruikt voor de structuur van de gebruikersinterface en SCSS voor de styling. Angular sluit aan bij de bestaande frontendarchitectuur en biedt een componentgebaseerde manier om nieuwe configuratiemogelijkheden en gebruikersinteracties toe te voegen.
+Voor persistente gegevens wordt MySQL gebruikt. De configuratie van templates en de bijkomende gegevens die nodig zijn om de nieuwe functionaliteit te ondersteunen, moeten daarom aansluiten bij het bestaande datamodel en de bestaande databaseconventies.
+Voor authenticatie en autorisatie wordt Keycloak gebruikt. Hierdoor hoeft het project geen eigen authenticatiesysteem te implementeren en kan de bestaande gebruikers- en toegangsstructuur worden gebruikt. Dit is vooral relevant voor functionaliteit die afhankelijk is van de ingelogde gebruiker, zoals het bepalen van de gekoppelde arts bij automatische generatie.
+Redis wordt binnen de bestaande omgeving gebruikt voor caching en gerelateerde tijdelijke gegevens. Docker wordt gebruikt om onderdelen van de ontwikkelomgeving reproduceerbaar te maken.
+De ontwikkeling gebeurt met Git en Bitbucket voor versiebeheer. Jira wordt gebruikt voor het opvolgen van tickets en werk. Tijdens de ontwikkeling werd gewerkt met Visual Studio Code en de bestaande ontwikkelomgeving, waaronder Ubuntu via WSL2 op Windows. De infrastructuur van het platform maakt daarnaast gebruik van Kubernetes, Terraform en CodeFresh voor respectievelijk containerorkestratie, infrastructuurbeheer en CI/CD.
 
 \section{\IfLanguageName{dutch}{Vergelijking van de mogelijkheden}{Comparison of the options}}%
 \label{sec:vergelijking}
+TODO! (2-4 mogelijkheden vgl op criteria die voor dit project belangrijk zijn: aansluiting bestaande omgeving/leercurve/ondersteuning/licentie/prestaties/onderhoudbaarheid/kostprijs)
+werk met tabel
 
-%% Vergelijk twee tot vier reële mogelijkheden op criteria die er voor dit
-%% project toe doen: aansluiting bij de bestaande omgeving, leercurve,
-%% ondersteuning, licentie, prestaties, onderhoudbaarheid, kostprijs.
-%%
-%% Een tabel werkt hier goed. Verzin geen criteria om een tabel te vullen:
-%% drie criteria die echt gewogen hebben, zijn beter dan acht die je verzon.
+Omdat het project binnen een bestaande professionele applicatie werd uitgevoerd, was een volledig nieuwe technologiekeuze niet aangewezen. Een nieuwe backendtechnologie of frontendframework zou de functionaliteit technisch wel kunnen realiseren, maar zou niet aansluiten bij de bestaande codebase.
+De belangrijkste alternatieven kunnen daarom als volgt worden bekeken:
 
 \begin{table}[htbp]
   \centering
   \begin{tabular}{lccc}
     \toprule
-    \textbf{Criterium} & \textbf{Optie A} & \textbf{Optie B} & \textbf{Optie C} \\
+    \textbf{Criterium} & \textbf{Bestaande stack} & \textbf{Nieuwe stack} & \textbf{Losstaande oplossing} \\
     \midrule
-    Aansluiting bij de bestaande omgeving & ++ & +  & -- \\
-    Leercurve binnen tien dagen           & +  & ++ & -- \\
-    Ondersteuning en documentatie         & ++ & +  & +  \\
+    Aansluiting bestaande applicatie & ++ & -- & -- \\
+    Onderhoudbaarheid door team & ++ & - & -- \\
+    Integratie met bestaande data & ++ & - & -- \\
+    Leercurve binnen projectperiode & ++ & - & + \\
+    Hergebruik bestaande infrastructuur & ++ & -- & - \\
     \bottomrule
   \end{tabular}
-  \caption[Vergelijking van de overwogen technologieën]{\label{tab:vergelijking}%
-    Vergelijking van de overwogen technologieën. Vervang de criteria en de
-    beoordeling door je eigen afweging, en licht ze in de tekst toe.}
+  \caption[Vergelijking van technologische mogelijkheden]{Vergelijking van de bestaande technologische stack met alternatieve benaderingen.}
+  \label{tab:vergelijking}
 \end{table}
+
+De bestaande stack scoort vooral beter omdat de functionaliteit rechtstreeks onderdeel wordt van het bestaande Vesalius-platform. Een aparte applicatie zou extra authenticatie, gegevensuitwisseling, deployment en onderhoud vereisen. Ook het gebruik van een nieuwe programmeertaal of framework zou weinig meerwaarde bieden voor een relatief beperkte uitbreiding van een bestaande applicatie.
+
 
 \section{\IfLanguageName{dutch}{Vergelijking met de opleiding}{Comparison with the programme}}%
 \label{sec:vergelijking-opleiding}
@@ -65,13 +70,22 @@ om te kiezen?
 %% hier gebruikte zich tot wat je in de opleiding gezien hebt? Wat was
 %% hetzelfde, wat was nieuw, en wat bleek in de praktijk anders te werken dan
 %% in de les?
+TODO+herschrijven! welke specifieke technieken? wat in praktijk anders (git versiecontrole via BitBucket/SourceTree bv en niet GitHub, planning gebeurt in JIRA (Atlassian) en bv niet in Github planning of Azure sprints, Google Chat voor te communiceren met elkaar ipv MsTeams, ...), wat nieuw (vanalles) en wat hetzelfde (git versiecontrole commands)? 
+Het project sluit goed aan bij de competenties uit de opleiding Graduaat in het Programmeren. Tijdens de opleiding werd gewerkt met programmeerconcepten, databases, webontwikkeling, versiebeheer, softwarearchitectuur en samenwerking binnen softwareprojecten.
+In de professionele omgeving werd dezelfde basiskennis toegepast binnen een bestaande en aanzienlijk grotere codebase. Het belangrijkste verschil met oefeningen en projecten binnen de opleiding is dat wijzigingen niet geïsoleerd bestaan. Elke aanpassing moet rekening houden met bestaande functionaliteit, gebruikers, gegevens, beveiliging, codeconventies en andere onderdelen van het platform.
+Ook het werken met bestaande infrastructuur en bedrijfsprocessen vormde een verschil. Technologieën zoals Keycloak, Kubernetes, Terraform en CI/CD handling via CodeFresh  zijn volledig nieuwe zaken voor mij en worden niet enkel als afzonderlijke technologieën gebruikt, maar maken deel uit van een groter geheel waarin verschillende componenten samenwerken.
+
 
 \section{\IfLanguageName{dutch}{Gemaakte keuze}{The choice made}}%
 \label{sec:keuze}
+TODO! 
+Voor het graduaatsproject werd bewust gekozen om de bestaande Vesalius.ai-stack volledig te behouden. De backendfunctionaliteit werd geïntegreerd in Laravel/PHP, de gebruikersinterface werd uitgebreid met Angular en TypeScript en de bestaande MySQL-database werd gebruikt voor persistente gegevens. Keycloak bleef verantwoordelijk voor authenticatie en autorisatie.
+Deze keuze vermijdt onnodige technische complexiteit en zorgt ervoor dat de functionaliteit aansluit bij de bestaande kennis van het team. Bovendien kan de oplossing gebruikmaken van bestaande infrastructuur, deploymentprocessen en ontwikkelafspraken.
+Het belangrijkste nadeel van deze keuze is dat er minder ruimte is om nieuwe technologieën te introduceren. Voor dit project weegt die beperking echter niet op tegen de voordelen van een consistente integratie in het bestaande platform.
 
+LEES GRONDIG: 
 %% Eén heldere paragraaf: dit is het geworden, en dit is de reden. Vermeld
 %% ook eerlijk wat je ervoor hebt moeten opgeven.
-%%
 %% Verwijs naar je bronnen met \autocite{sleutel} of \textcite{sleutel}. De
 %% sleutels staan in bronnen.bib. Zet de verwijzing binnen de zin, vlak bij de
 %% bewering waar ze bij hoort - niet achteraan de paragraaf. Hieronder een

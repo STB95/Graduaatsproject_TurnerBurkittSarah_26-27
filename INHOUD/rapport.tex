@@ -2,29 +2,30 @@
 % LaTeX-sjabloon voor het rapport van het graduaatsproject
 % Graduaat in het Programmeren - HOGENT
 %
-% Je hoeft in dit bestand normaal niets aan te passen: je gegevens staan in
-% ../projectgegevens.tex. Schrijf je tekst in de hoofdstukbestanden.
+% Hoofddocument van het graduaatsproject.
+% De persoonlijke gegevens en projectgegevens worden beheerd in
+% ../projectgegevens.tex. De inhoud van de verschillende hoofdstukken
+% staat in afzonderlijke .tex-bestanden.
 %===============================================================================
-
+TODO! LEES ALLES NA 
 \documentclass[dutch,dit,report]{hogentreport}
 
-% Schrijf je in het Engels? Vervang `dutch' door `english'. Let op: dat kan
-% enkel na uitdrukkelijke toestemming van je begeleider, en je Nederlandse
-% samenvatting blijft dan verplicht (zie samenvatting.tex).
-
+%===============================================================================
+% Algemene instellingen
+%===============================================================================
 %% Afbeeldingen komen in de map graphics/
 \graphicspath{{../graphics/}}
-
-%% Codefragmenten met kleuraccenten. Compileer met de -shell-escape vlag;
-%% de make_report-scripts doen dat al voor jou.
-%%
-%% Compileer je met een oudere LaTeX-installatie (TeX Live 2022 of ouder, met
-%% minted versie 2)? Vervang de regel hieronder dan door:
-%%     \usepackage[chapter,outputdir=../output]{minted}
-%% Vanaf minted 3 regelt het pakket dat zelf en geeft die optie een fout.
+%===============================================================================
+% Codefragmenten
+%===============================================================================
+% Codefragmenten worden weergegeven met minted.
+% Hiervoor is compilatie met -shell-escape vereist.
+%
+% Bij gebruik van een oudere TeX Live-installatie (TeX Live 2022 of ouder,
+% met minted versie 2) kan de configuratie moeten worden aangepast volgens
+% de instructies van het HOGENT-sjabloon.
 \usepackage[chapter]{minted}
 \usemintedstyle{solarized-light}
-
 \setminted{%
     autogobble,
     frame=lines,
@@ -32,7 +33,7 @@
     linenos,
     tabsize=4
 }
-
+% Nederlandse benamingen voor codefragmenten.
 \renewcommand\listoflistingscaption{%
     \IfLanguageName{dutch}{Lijst van codefragmenten}{List of listings}
 }
@@ -43,80 +44,112 @@
     \cleardoublepage\phantomsection\addcontentsline{toc}{chapter}{\listoflistingscaption}%
     \listof{listing}{\listoflistingscaption}%
 }
-
-%% Klikbare URL's, ook in de tekst
+%===============================================================================
+% URL's
+%===============================================================================
+% Zorgt ervoor dat lange URL's correct kunnen worden afgebroken.
 \usepackage{xurl}
 
-%%---------- Je gegevens -------------------------------------------------------
-%% Alles wat hieronder ingevuld wordt, komt uit ../projectgegevens.tex
+
+%===============================================================================
+% Projectgegevens
+%===============================================================================
+% Alle persoonlijke en projectgebonden gegevens worden centraal beheerd in
+% projectgegevens.tex.
 \input{../projectgegevens}
 
-\author{\studentnaam}
-\supervisor{\begeleidernaam}
-\cosupervisor{\mentornaam}
+\author{\VoornaamAchternaam}
+\supervisor{\begeleider}
+\cosupervisor{\mentor}
 \title[\projectondertitel]{\projecttitel}
 \academicyear{\academiejaarwaarde}
 \examperiod{1}          %% 1 = eerste examenperiode, 2 = tweede, 3 = derde
 \degreesought{\IfLanguageName{dutch}{\opleidingnaam}{Associate Degree in Programming}}
-\institution{\bedrijfsnaam}
+\institution{\stageplaats}
 
-%% Afbrekingen die LaTeX verkeerd doet, kan je hier opgeven
+
+%===============================================================================
+% LaTeX-afbrekingen
+%===============================================================================
+% Woorden waarvoor LaTeX standaard een minder goede afbreking kan kiezen.
 \hyphenation{back-slash}
 
-%% Bibliografie
-\addbibresource{bronnen.bib}              %% Bronnen van je rapport
-\addbibresource{../voorstel/voorstel.bib} %% Bronnen van je projectvoorstel
+%===============================================================================
+% Bibliografie
+%===============================================================================
+% Bronnen die specifiek voor het rapport werden gebruikt.
+\addbibresource{bronnen.bib}
+% Bronnen die reeds in het projectvoorstel werden gebruikt.
+\addbibresource{../voorstel/voorstel.bib}
+% Geen afzonderlijke titel voor de bibliografieheading.
 \defbibheading{bibempty}{}
 
-%% Geen lege bladzijden tussen hoofdstukken
-\renewcommand{\cleardoublepage}{\clearpage}
 
+%===============================================================================
+% Algemene opmaak
+%===============================================================================
+% Voorkomt lege pagina's tussen hoofdstukken.
+\renewcommand{\cleardoublepage}{\clearpage}
+% Iets meer verticale ruimte in tabellen voor een betere leesbaarheid.
 \renewcommand{\arraystretch}{1.2}
 
+%===============================================================================
+% Document
+%===============================================================================
 \begin{document}
 
-%---------- Voorwerk -----------------------------------------------------------
 
+%===============================================================================
+% Voorwerk
+%===============================================================================
 \frontmatter
-
+% Verberg paginaverwijzingen tijdens het titelblad.
 \hypersetup{pageanchor=false}
-%% Bij een Engelstalig rapport komt er ook een Nederlands titelblad
+% Wanneer het rapport in het Engels wordt geschreven, wordt eerst een
+% Nederlandstalig titelblad toegevoegd. Voor dit rapport wordt Nederlands
+% gebruikt, waardoor dit gedeelte niet wordt uitgevoerd.
 \IfLanguageName{english}{%
     \degreesought{\opleidingnaam}%
     \begin{otherlanguage}{dutch}%
-       \maketitle%
+        \maketitle%
     \end{otherlanguage}%
 }{}
-
+% Titelblad
 \maketitle
+% Vanaf hier worden paginaverwijzingen opnieuw geactiveerd.
 \hypersetup{pageanchor=true}
 
+%===============================================================================
+% Voorwoord en samenvattingen
+%===============================================================================
 \input{voorwoord}
 \input{samenvatting}
 
-%---------- Inhoud, lijsten ----------------------------------------------------
-
+%===============================================================================
+% Inhoudsopgave en lijsten
+%===============================================================================
 \tableofcontents
 
-% Geef elke figuur, tabel en codefragment een KORT bijschrift tussen vierkante
-% haken; enkel dat korte bijschrift komt in de lijsten terecht:
-%   \caption[korte omschrijving]{de volledige omschrijving}
-
+% Lijst van afbeeldingen
 \listoffigures
 
-% Heb je geen tabellen of codefragmenten? Zet de bijhorende regel dan in
-% commentaar; een lege lijst staat slordig.
+% Lijst van tabellen
+% Deze lijst blijft behouden omdat het rapport onder andere
+% vergelijkingstabellen en testtabellen kan bevatten.
 \listoftables
+
+% Lijst van codefragmenten
 \listoflistings
 
-%---------- Kern ---------------------------------------------------------------
-
+%===============================================================================
+% Kern van het rapport
+%===============================================================================
 \mainmatter{}
-
-% Richtwaarde voor het geheel: 10 tot 15 bladzijden kerntekst. Dat is weinig,
-% en dat is met opzet: je rapport is een technisch verslag van een project van
-% ongeveer tien werkdagen, geen scriptie. Schrap liever dan te vullen.
-
+% Richtwaarde voor de kerntekst: ongeveer 10 tot 15 pagina's.
+%
+% Het rapport is een technisch verslag van het graduaatsproject en geen
+% uitgebreide scriptie. De nadruk ligt daarom op de gemaakte analyse,
+% ontwerpkeuzes, technische realisatie, resultaten en reflectie.
 \input{inleiding}
 \input{technologie}
 \input{ontwerp}
@@ -124,43 +157,71 @@
 \input{resultaat}
 \input{reflectie}
 
-%---------- Bijlagen -----------------------------------------------------------
-
+%===============================================================================
+% Bijlagen
+%===============================================================================
 \appendix
 
+%-------------------------------------------------------------------------------
+% Projectvoorstel
+%-------------------------------------------------------------------------------
 \chapter{Projectvoorstel}
 
 Het onderwerp van dit graduaatsproject werd vooraf vastgelegd in een
-projectvoorstel, afgestemd met de mentor en goedgekeurd door de begeleider.
-Dat voorstel is hieronder opgenomen.
+projectvoorstel. Het voorstel werd afgestemd met de mentor binnen Vesalius.ai
+en goedgekeurd door de begeleider van HOGENT.
+
+Het oorspronkelijke projectvoorstel wordt hieronder als bijlage opgenomen.
 
 \input{../voorstel/voorstel-inhoud}
 
+%-------------------------------------------------------------------------------
+% Repository
+%-------------------------------------------------------------------------------
 \chapter{Repository}
 
-De volledige broncode, de opbouw van het project en de startinstructies staan
-in de repository:
+De broncode van het graduaatsproject wordt beheerd in een Git-repository.
+De repository bevat de projectstructuur en de broncode die nodig is om de
+implementatie te bekijken en, binnen de toegestane bedrijfsomgeving, te
+reproduceren.
 
 \begin{center}
-  \url{\repolink}
+    \url{\repolink}
 \end{center}
 
-% Is je repository niet publiek toegankelijk (bv. omwille van een NDA of omdat
-% de code eigendom blijft van het bedrijf)? Vermeld dat hier uitdrukkelijk, en
-% beschrijf wat je wel kan tonen: werking, architectuur, tests, of beperkte
-% fragmenten.
+De repository en de daarin opgenomen broncode blijven eigendom van Vesalius.ai.
+Indien bepaalde onderdelen omwille van vertrouwelijkheid, bedrijfsgevoelige
+informatie of toegangsbeperkingen niet publiek beschikbaar zijn, worden deze
+niet openbaar gemaakt. In het rapport worden in dat geval enkel relevante
+architectuur-, test- en codefragmenten opgenomen die binnen de afspraken met
+het bedrijf kunnen worden gedeeld.
 
+%-------------------------------------------------------------------------------
+% Verantwoording van AI-gebruik
+%-------------------------------------------------------------------------------
 \input{ai-verantwoording}
 
-%%---------- Andere bijlagen ---------------------------------------------------
-% Voeg hier eventuele andere bijlagen toe.
-%\input{...}
+%-------------------------------------------------------------------------------
+% Overige bijlagen
+%-------------------------------------------------------------------------------
+% Voeg hier indien nodig bijkomende bijlagen toe.
+%
+% Bijvoorbeeld:
+% \input{testresultaten}
+% \input{gebruikershandleiding}
+% \input{architectuur}
+%
+% Alleen toevoegen wanneer de bijlage daadwerkelijk relevant is.
 
-%%---------- Nawerk, bronnenlijst ----------------------------------------------
-
+%===============================================================================
+% Nawerk
+%===============================================================================
 \backmatter{}
 
+% Compactere ruimte tussen bibliografie-items.
 \setlength\bibitemsep{2pt}
+
+% Bibliografie opnemen in de inhoudsopgave.
 \printbibliography[heading=bibintoc]
 
 \end{document}

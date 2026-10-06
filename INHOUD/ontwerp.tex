@@ -5,53 +5,81 @@
 \chapter{\IfLanguageName{dutch}{Analyse en ontwerp}{Analysis and design}}%
 \label{ch:ontwerp}
 
-%% Richtlengte: 2 tot 3 bladzijden.
+%% Richtlengte in TOTALITEIT van deze rubriek: 2 tot 3 bladzijden.
 %%
 %% Hier toon je dat er nagedacht is voordat er getypt werd. Dit hoofdstuk
 %% weegt zwaar: het is waar het verschil zichtbaar wordt tussen een uitgevoerde
 %% taak en een zelfstandig project.
-
-Vervang deze tekst door een korte inleiding op het hoofdstuk.
+TODO: 
+Voor de implementatie werd eerst onderzocht welke bestaande functionaliteit door de twee JIRA-tickets wordt uitgebreid en welke gevolgen de nieuwe vereisten hebben voor de frontend, backend en database. Het ontwerp vertrekt daarom vanuit het bestaande gedrag en probeert de nieuwe functionaliteit zo beperkt mogelijk in te bouwen zonder bestaande workflows onnodig te wijzigen.
 
 \section{\IfLanguageName{dutch}{Vereisten}{Requirements}}%
 \label{sec:vereisten}
-
+TODO! (lees nog eens na)
 %% Wat moest het worden? Onderscheid wat noodzakelijk was van wat wenselijk
 %% was, en vermeld bij wie je die vereisten opgehaald hebt (je mentor, het
 %% team, de gebruikers).
 %%
 %% Vermeld ook de niet-functionele vereisten die er echt toe deden:
 %% snelheid, veiligheid, privacy, onderhoudbaarheid, beschikbaarheid.
+De functionele vereisten werden voornamelijk afgeleid uit de bestaande JIRA-tickets en afgestemd binnen het Vesalius.ai-team.
+Voor documenttemplates zijn de belangrijkste vereisten:
+
+\begin{itemize}
+    \item Een documenttemplate kan optioneel aan één of meerdere artsen worden gekoppeld.
+    \item Enkel gebruikers met de functie ``arts'' kunnen worden geselecteerd.
+    \item Een template zonder gekoppelde artsen behoudt het bestaande gedrag.
+    \item Een template met gekoppelde artsen wordt bij automatische generatie enkel gebruikt wanneer een gekoppelde arts is ingelogd.
+    \item Manuele generatie blijft mogelijk voor alle gebruikers.
+    \item De koppeling met artsen verandert de zichtbaarheid van de template niet.
+\end{itemize}
+
+Voor Scribe-consultatemplates zijn de belangrijkste vereisten:
+
+\begin{itemize}
+    \item Per consultatietemplate moet de doelgroep kunnen worden ingesteld.
+    \item De mogelijke doelgroepen zijn patiënt en arts.
+    \item Patiëntgerichte output moet begrijpelijk zijn voor een patiënt.
+    \item Artsgerichte output mag medische terminologie gebruiken.
+\end{itemize}
+
+Naast deze functionele vereisten zijn ook niet-functionele vereisten belangrijk. De uitbreiding moet onderhoudbaar blijven, aansluiten bij de bestaande architectuur en geen onnodige wijzigingen veroorzaken aan bestaande functionaliteit. Omdat het platform met medische informatie werkt, zijn privacy en toegangscontrole eveneens belangrijke aandachtspunten.
 
 \section{\IfLanguageName{dutch}{Architectuur}{Architecture}}%
 \label{sec:architectuur}
-
+TODO!
 %% Toon de opbouw van je oplossing met een figuur: welke onderdelen zijn er,
 %% wat doet elk onderdeel, en hoe praten ze met elkaar? Een goed getekend
 %% schema vervangt een bladzijde tekst.
 %%
 %% Plaats je afbeeldingen in de map graphics/.
 
+De oplossing wordt geïntegreerd in de bestaande architectuur van het Vesalius-platform. De Angular-frontend communiceert met de Laravel-backend. De backend verwerkt de bedrijfslogica en communiceert met MySQL voor persistente gegevens. Authenticatie en gebruikersinformatie worden beheerd via de bestaande Keycloak-integratie.
+Een vereenvoudigde voorstelling van de architectuur is:
+
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.8\textwidth]{voorbeeldafbeelding}
-  \caption[Architectuur van de oplossing]{\label{fig:architectuur}%
-    Vervang deze afbeelding door je eigen architectuurschema. Zorg voor een
-    bijschrift dat de figuur volledig beschrijft, zodat een lezer ze begrijpt
-    zonder in de tekst te moeten zoeken. Neem je een figuur over van iemand
-    anders, vermeld dan de bron.}
+  \includegraphics[width=0.8\textwidth]{architectuur}
+  \caption[Architectuur van de oplossing]{Architectuur van de uitbreiding binnen het Vesalius-platform. De Angular-frontend communiceert met de Laravel-backend, die de bedrijfslogica uitvoert en de benodigde gegevens uit MySQL haalt. Keycloak voorziet de bestaande authenticatie- en gebruikerscontext.}
+  \label{fig:architectuur}
 \end{figure}
+
+De belangrijkste ontwerpkeuze hierbij is dat de nieuwe functionaliteit geen afzonderlijke applicatie of service vormt. De functionaliteit behoort inhoudelijk tot het bestaande template- en generatieproces en wordt daarom in dezelfde applicatie geïntegreerd.
 
 \section{\IfLanguageName{dutch}{Gegevensmodel}{Data model}}%
 \label{sec:gegevensmodel}
-
+TODO!
 %% Werk je met gegevens, toon dan hoe ze gestructureerd zijn en waarom.
 %% Heeft je project geen noemenswaardig gegevensmodel, verwijder deze sectie
 %% dan gerust.
+Voor documenttemplates moet een relatie kunnen worden gelegd tussen een template en één of meerdere gebruikers met de functie ``arts''. Omdat één template aan meerdere artsen kan worden gekoppeld en één arts meerdere templates kan gebruiken, gaat het conceptueel om een many-to-many-relatie.
+Bij het ontwerpen van deze relatie moet rekening worden gehouden met het bestaande datamodel. De nieuwe koppeling mag de bestaande werking van templates zonder artsselectie niet breken. Daarom moet het ontbreken van gekoppelde artsen een geldige toestand blijven en moet dit geïnterpreteerd worden als het bestaande gedrag.
+Voor de Scribe-consultatemplates is een bijkomende configuratiewaarde nodig die de gewenste doelgroep van de output beschrijft. Deze waarde kan conceptueel worden voorgesteld als een beperkte keuze tussen patiëntgerichte en artsgerichte output. Een expliciete beperkte waarde voorkomt dat verschillende vrije tekstwaarden voor hetzelfde concept ontstaan.
+
 
 \section{\IfLanguageName{dutch}{Privacy, veiligheid en regelgeving}{Privacy, security and regulation}}%
 \label{sec:privacy}
-
+TODO (goed nalezen!)
 %% Verwijder deze sectie NIET zonder na te denken: bij de meeste projecten is
 %% ze van toepassing, en deontologisch werken met oog voor veiligheid en
 %% privacy is een leerresultaat van dit opleidingsonderdeel.
@@ -82,12 +110,23 @@ Vervang deze tekst door een korte inleiding op het hoofdstuk.
 %% Wachtwoorden, sleutels en verbindingsgegevens horen niet in je repository,
 %% en niet in de schermafbeeldingen in dit rapport. Beschrijf kort hoe je
 %% toegang en geheimen geregeld hebt.
+Het Vesalius-platform verwerkt medische en andere persoonsgegevens. Daarom moet de uitbreiding rekening houden met de principes van gegevensbescherming en toegangscontrole. De nieuwe functionaliteit moet uitsluitend gebruikmaken van de gebruikersgegevens die noodzakelijk zijn om de templateconfiguratie en automatische generatie correct uit te voeren.
+Voor de artsselectie is het bijvoorbeeld niet nodig om bijkomende persoonsgegevens op te slaan wanneer de bestaande gebruikersidentiteit reeds beschikbaar is. De koppeling kan gebruikmaken van de bestaande gebruikersidentificatie binnen het platform.
+Authenticatie wordt niet opnieuw geïmplementeerd binnen dit project. Keycloak blijft verantwoordelijk voor de bestaande authenticatie- en identiteitscontext. De applicatie moet vervolgens de bestaande autorisatie- en gebruikersgegevens correct gebruiken.
+Tijdens ontwikkeling en testen moet bovendien vermeden worden dat echte medische patiëntgegevens onnodig worden gebruikt. Testscenario's kunnen uitgevoerd worden met test- of geanonimiseerde gegevens.
+Het project bevat geen nieuwe autonome AI-functionaliteit. De configuratie van patiënt- of artsgerichte output bepaalt wel hoe bestaande gegenereerde inhoud moet worden afgestemd, maar het graduaatsproject introduceert geen afzonderlijk AI-model.
+Geheimen, wachtwoorden, tokens en andere gevoelige configuratiegegevens worden niet opgenomen in de broncode of screenshots van het rapport.
 
 \section{\IfLanguageName{dutch}{Ontwerpkeuzes}{Design decisions}}%
 \label{sec:ontwerpkeuzes}
-
+TODO!+rewrite 
 %% Noteer drie tot vijf keuzes die je bewust gemaakt hebt, telkens in deze
 %% vorm: de keuze, de alternatieven, de reden, en het gevolg.
 %%
 %% Dit is de sectie waaruit een jurylid zijn vragen haalt. Een keuze waarvan
 %% je het alternatief niet kan benoemen, was geen keuze.
+1) om de artskoppeling optioneel te maken. Een alternatief zou zijn om voor elke template verplicht één of meerdere artsen te selecteren. Dat zou echter het bestaande gedrag wijzigen voor templates die vandaag organisatiebreed worden gebruikt. Door de koppeling optioneel te maken, blijft backwards compatibility behouden.
+2) om de artskoppeling enkel invloed te laten hebben op automatische generatie en niet op zichtbaarheid. Een alternatief zou zijn om templates die aan bepaalde artsen gekoppeld zijn ook voor andere gebruikers te verbergen. Dat zou echter twee verschillende concepten door elkaar halen: wie een template mag zien en voor wie een template automatisch wordt gebruikt. Door deze verantwoordelijkheden gescheiden te houden, blijft het gedrag duidelijker.
+3) om enkel gebruikers met de functie ``arts'' te tonen in de selectie. Een vrije gebruikersselectie zou technisch eenvoudiger kunnen lijken, maar zou functioneel incorrecte configuraties mogelijk maken. De selectie wordt daarom beperkt op basis van de bestaande gebruikersfunctie.
+4) om voor Scribe een expliciete doelgroepinstelling te gebruiken in plaats van vrije tekst. De alternatieve aanpak waarbij een gebruiker zelf instructies of een doelgroep beschrijft, zou meer flexibiliteit bieden maar ook meer variatie en onvoorspelbaarheid veroorzaken. Een beperkte keuze tussen patiënt en arts maakt de configuratie duidelijker en eenvoudiger te valideren.
+5) om de nieuwe functionaliteit binnen de bestaande Laravel- en Angulararchitectuur te implementeren in plaats van een afzonderlijke service te bouwen. Hierdoor blijven gegevens, authenticatie, deployment en onderhoud binnen dezelfde technische context.
