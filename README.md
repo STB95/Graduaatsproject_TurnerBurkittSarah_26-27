@@ -126,7 +126,7 @@ De repository kan daarom beperkte of niet-publieke toegang hebben. Raadpleeg de 
 
 **Sarah Turner**  
 Graduaat in het Programmeren — HOGENT  
-Academiejaar 2026–2027
+Academiejaar 2026–2027 (1e semester)
 
 ## Bedrijf
 
