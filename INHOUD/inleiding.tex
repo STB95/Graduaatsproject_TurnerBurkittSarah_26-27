@@ -1,52 +1,154 @@
-TODO!: INLEIDING VOLLEDIG NALEZEN
 %%=============================================================================
 %% Inleiding
 %%=============================================================================
-
 \chapter{\IfLanguageName{dutch}{Inleiding}{Introduction}}%
 \label{ch:inleiding}
+Vesalius.ai ontwikkelt software die het dagelijkse werk van artsen en andere
+zorgverleners moet vereenvoudigen. Het platform ondersteunt verschillende
+processen binnen de medische praktijk, waaronder de communicatie met patiënten
+en de administratieve verwerking van consultaties. Door deze processen te
+digitaliseren en te automatiseren, wil Vesalius.ai de administratieve werklast
+van zorgverleners verminderen en hen meer tijd laten besteden aan hun kerntaken.
+Binnen deze omgeving wordt voortdurend gezocht naar mogelijkheden om de
+functionaliteit, configureerbaarheid en gebruiksvriendelijkheid van het
+platform verder te verbeteren.
 
-Vesalius.ai ontwikkelt software die het dagelijkse werk van artsen en andere zorgverleners moet vereenvoudigen. Het platform ondersteunt verschillende processen binnen de medische praktijk en heeft als doel om administratieve handelingen te beperken, zodat zorgverleners zich meer kunnen richten op hun kerntaak. Binnen deze omgeving wordt voortdurend gezocht naar verbeteringen die de configuratie, automatisering en gebruiksvriendelijkheid van het platform verhogen.
-Tijdens mijn stage werkte ik mee binnen het ontwikkelingsteam van Vesalius.ai. Mijn stagewerk bestond uit verschillende taken binnen de bestaande applicatie en ontwikkelomgeving. Het graduaatsproject werd daarbinnen afgebakend als een zelfstandig project op basis van bestaande en al langere tijd openstaande JIRA-tickets. Op die manier sluit het graduaatsproject rechtstreeks aan bij een concrete behoefte van het bedrijf, terwijl het tegelijk voldoende ruimte biedt om zelfstandig analyse-, ontwerp-, ontwikkel- en testwerk uit te voeren.
-Een bredere aanleiding voor verschillende verbeteringen binnen het platform is de nood aan flexibele en correct gegenereerde communicatie en documenten. Zo staat binnen het team ook al langere tijd het idee op de backlog om e-mails die door het platform worden verstuurd via een WYSIWYG-editor te kunnen beheren. Daarbij vormt de compatibiliteit van gegenereerde HTML met verschillende e-mailclients een belangrijke technische uitdaging. Dit bredere probleem illustreert dat configuratie en automatische generatie van output een belangrijk onderdeel vormen binnen het platform. Het e-mailproject zelf valt echter buiten de scope van dit graduaatsproject.
+Tijdens mijn stage werkte ik mee binnen het ontwikkelingsteam van Vesalius.ai.
+Mijn dagelijkse stagewerk omvatte onder meer het analyseren en oplossen van
+bugs en het uitvoeren van andere ontwikkeltaken binnen de bestaande applicatie.
+Binnen deze stage werd het graduaatsproject afzonderlijk afgebakend als een
+zelfstandig technisch project dat inspeelt op een concrete behoefte van het
+bedrijf. De aanleiding voor het project is een bestaand backlog-item rond het
+flexibeler beheren van automatisch verstuurde e-mails. Dit onderwerp biedt de
+mogelijkheid om zelfstandig een oplossing te analyseren, ontwerpen,
+implementeren en testen, zonder dat hiervoor rechtstreeks in de
+productieomgeving moet worden gewerkt.
 
 \section{\IfLanguageName{dutch}{Probleemstelling}{Problem statement}}%
 \label{sec:probleemstelling}
+Binnen het Vesalius-platform worden op vooraf bepaalde momenten automatisch
+e-mails verstuurd, bijvoorbeeld bij afspraakbevestigingen, herinneringen en
+annulaties. De inhoud van deze e-mails wordt grotendeels door het bedrijf
+bepaald. Artsen en organisaties kunnen bepaalde elementen van de huisstijl,
+zoals het logo en de kleuren, aanpassen, maar hebben bij de meeste e-mailtypes
+onvoldoende mogelijkheden om de tekst en opmaak zelf te wijzigen. Voor
+bepaalde conversatiemails bestaat reeds een beperkte vorm van aanpassing via
+eigen tekst en placeholders binnen een vaste structuur, maar deze
+mogelijkheid is niet beschikbaar voor alle e-mailtypes.
 
-Binnen het Vesalius-platform worden documenten en andere vormen van output gedeeltelijk automatisch gegenereerd op basis van geconfigureerde templates. De bestaande werking behandelt een template in bepaalde situaties op organisatieniveau. Hierdoor is het niet mogelijk om voor iedere template aan te geven dat deze uitsluitend relevant is voor één of meerdere specifieke artsen.
-In de praktijk kunnen bepaalde documenttemplates echter specifiek bedoeld zijn voor het werkproces van bepaalde artsen. Wanneer dergelijke templates als automatisch te genereren worden ingesteld, kan de huidige werking ertoe leiden dat ook andere artsen output ontvangen die voor hen niet relevant is. Dit veroorzaakt onnodige documenten en vermindert de relevantie van automatisch gegenereerde informatie.
-Daarnaast bestaat er voor consultatietemplates van Scribe een behoefte om aan te geven voor welke doelgroep de gegenereerde output bedoeld is. Een patiënt heeft doorgaans nood aan begrijpelijke mensentaal, terwijl een arts eerder medische terminologie verwacht. De gewenste doelgroep moet daarom onderdeel kunnen worden van de configuratie van een consultatietemplate.
-De twee problemen zijn vergelijkbaar doordat ze betrekking hebben op het beter afstemmen van automatisch gegenereerde output op de context waarin deze wordt gebruikt.
+Hierdoor kunnen artsen en organisaties de automatische communicatie niet
+volledig afstemmen op hun specifieke behoeften. Een visuele editor kan hiervoor
+een oplossing bieden door gebruikers toe te laten de inhoud en opmaak van
+e-mails aan te passen zonder dat zij rechtstreeks HTML-code moeten wijzigen.
+Een dergelijke oplossing brengt echter ook technische uitdagingen met zich
+mee. De gegenereerde HTML moet veilig worden verwerkt, dynamische placeholders
+moeten correct worden vervangen en de uiteindelijke e-mails moeten zo
+consistent mogelijk worden weergegeven in verschillende e-mailclients, zoals
+Gmail, Outlook en Apple Mail.
 
 \section{\IfLanguageName{dutch}{Doelstelling}{Objective}}%
 \label{sec:doelstelling}
+Het doel van dit graduaatsproject is het ontwikkelen en evalueren van een
+zelfstandige proof of concept (PoC) van een WYSIWYG-e-maileditor voor het
+aanpassen van automatisch gegenereerde e-mails binnen de context van
+Vesalius.ai. De editor moet gebruikers toelaten om de tekst en opmaak van
+e-mailtemplates visueel te bewerken, de templates op te slaan en opnieuw te
+laden, een voorbeeldweergave te raadplegen en testmails te versturen.
 
-Het doel van het graduaatsproject is om twee bestaande functionaliteiten binnen het Vesalius-platform uit te breiden, zodat automatisch gegenereerde output gerichter kan worden afgestemd op de gebruiker en de doelgroep.
-Voor documenttemplates wordt onderzocht en gerealiseerd hoe een template optioneel aan één of meerdere specifieke artsen kan worden gekoppeld. De automatische generatie moet vervolgens rekening houden met deze koppeling, zonder de algemene zichtbaarheid van de template te wijzigen. Manuele generatie blijft voor alle gebruikers mogelijk.
-Voor consultatemplates van Scribe wordt onderzocht en gerealiseerd hoe de gewenste doelgroep van de gegenereerde output kan worden ingesteld. Hierbij wordt onderscheid gemaakt tussen patiëntgerichte output in begrijpelijke taal en artsgerichte output met medische terminologie.
-Het einddoel is een oplossing die aansluit bij de bestaande architectuur en ontwikkelstandaarden van Vesalius.ai en die door het team verder onderhouden en uitgebreid kan worden.
+De PoC ondersteunt drie voorbeeld-e-mailtypes: afspraakbevestigingen,
+herinneringen en annulaties. Daarbij wordt gebruikgemaakt van fictieve
+gegevens en een vaste e-mailschil, waarin onder meer het logo, de kleuren en
+de footer behouden blijven. De oplossing wordt gevalideerd aan de hand van
+geautomatiseerde tests en controles in gangbare e-mailclients. Het project
+is geslaagd wanneer de belangrijkste functionaliteiten aantoonbaar werken,
+de HTML-verwerking aan de vooropgestelde veiligheidsvereisten voldoet en de
+resultaten van de compatibiliteitstests gedocumenteerd zijn.
+
+Het uiteindelijke resultaat bestaat uit een werkende demonstratie, een
+reproduceerbare testopstelling, technische documentatie en een onderbouwd
+integratievoorstel. Hiermee krijgt Vesalius.ai inzicht in de technische
+haalbaarheid en mogelijke meerwaarde van een visuele e-maileditor als basis
+voor een toekomstige uitbreiding van het bestaande platform.
 
 \section{\IfLanguageName{dutch}{Afbakening}{Scope}}%
 \label{sec:afbakening}
+Het graduaatsproject richt zich uitsluitend op de analyse, het ontwerp, de
+realisatie en de validatie van een zelfstandige PoC. De functionele scope
+omvat één visuele editor, het aanpassen en opslaan van e-mailtemplates,
+ondersteuning voor placeholders, een vaste e-mailschil, HTML-rendering, een
+voorbeeldweergave en het versturen van testmails. De implementatie wordt
+gedemonstreerd aan de hand van drie voorbeeld-e-mailtypes:
+afspraakbevestigingen, herinneringen en annulaties.
 
-Het graduaatsproject is bewust beperkt tot twee bestaande JIRA-tickets die binnen de werking van het Vesalius.ai-team reeds op de backlog stonden.
-Het eerste onderdeel betreft het optioneel koppelen van documenttemplates aan één of meerdere artsen. De selectielijst moet daarbij uitsluitend gebruikers met de functie ``arts'' tonen. De koppeling beïnvloedt enkel het automatische gebruik van een template en niet de zichtbaarheid ervan. Wanneer geen arts gekoppeld is, blijft het bestaande gedrag behouden. Wanneer wel artsen gekoppeld zijn en automatische generatie is ingeschakeld, wordt de template enkel automatisch gegenereerd wanneer een gekoppelde arts is ingelogd. Manuele generatie blijft voor alle gebruikers mogelijk.
-Het tweede onderdeel betreft consultatemplates van Scribe. Hierbij wordt per template ingesteld of de gegenereerde output bedoeld is voor een patiënt of voor een arts. Bij patiëntgerichte output ligt de nadruk op begrijpelijke mensentaal; bij artsgerichte output wordt medische terminologie gebruikt.
-Scribe- of consultatietemplates worden in het eerste ticket uitdrukkelijk als aparte functionaliteit beschouwd en vallen daar buiten de scope. Voor het tweede ticket vormen de Scribe-consultatemplates net de specifieke scope.
-Ook het bredere idee rond een WYSIWYG-editor voor e-mails valt buiten dit graduaatsproject. Dit onderwerp bevindt zich op de bredere productbacklog en vormt geen onderdeel van de twee geselecteerde JIRA-tickets.
-De keuzes over de functionele scope en prioriteiten werden binnen het team bepaald op basis van de bestaande JIRA-tickets en de productbehoeften. Binnen deze afgesproken scope heb ik zelfstandig keuzes gemaakt over de technische uitwerking, de structuur van de oplossing, de implementatie en de manier waarop de functionaliteit werd getest.
+De PoC wordt ontwikkeld met fictieve gegevens en een tijdelijke testopstelling.
+De frontend en mock-API worden afzonderlijk opgezet, zodat de functionaliteit
+kan worden onderzocht zonder afhankelijk te zijn van de productieomgeving.
+De opslagoplossing wordt gekozen op basis van de behoeften van de testopstelling
+en wordt niet vooraf vastgelegd op basis van de productiedatabase. Bij de
+ontwikkeling gaat bijzondere aandacht naar veilige HTML-opschoning,
+placeholderverwerking, CSS-inlining en de correcte generatie van zowel een
+HTML- als een tekstuele e-mailversie.
+
+De integratie in het bestaande Vesalius-platform valt uitdrukkelijk buiten
+de scope. Ook productiegebruik, de effectieve planning en verzending van
+e-mails in de productieomgeving, Keycloak-e-mails en een volledig
+configureerbare layout-builder worden niet gerealiseerd. De e-mailschil blijft
+binnen de PoC grotendeels vast, zodat de focus ligt op het aanpassen van de
+inhoud en opmaak van de e-mailbody. De compatibiliteit met verschillende
+e-mailclients wordt onderzocht en gedocumenteerd, maar een identieke weergave
+in alle clients kan niet op voorhand worden gegarandeerd.
+
+De functionele behoefte komt voort uit de bestaande productcontext en de
+besprekingen met het bedrijf. Binnen deze afbakening worden de technische
+aanpak, de opbouw van de testopstelling, de implementatie en de validatie
+uitgewerkt. De resultaten worden vervolgens gebruikt om aanbevelingen te
+formuleren voor een eventuele latere integratie.
 
 \section{\IfLanguageName{dutch}{Stagewerk en graduaatsproject}{Internship work and graduation project}}%
 \label{sec:stage-vs-project}
+Het graduaatsproject maakt deel uit van mijn stage bij Vesalius.ai, maar beide
+hebben een verschillende scope. Tijdens de stage werk ik mee aan uiteenlopende
+taken binnen het bestaande ontwikkelingsteam. Deze taken omvatten onder meer
+het onderzoeken en oplossen van bugs, het aanpassen van bestaande
+functionaliteiten en het leren werken met de codebase, ontwikkelomgeving en
+technische werkwijze van het bedrijf.
 
-Het graduaatsproject maakt deel uit van mijn stage bij Vesalius.ai, maar beide begrippen hebben niet exact dezelfde scope. Tijdens de stage werkte ik mee aan verschillende bestaande taken binnen het ontwikkelingsteam en maakte ik kennis met de ontwikkelomgeving, de codebase, de werkwijze en de bestaande technische infrastructuur van het bedrijf.
-Het graduaatsproject werd daarbinnen afgebakend als een zelfstandig technisch project. De functionele scope werd gebaseerd op bestaande JIRA-tickets die reeds langere tijd op de backlog stonden. Hierdoor kon ik werken aan een probleem dat rechtstreeks relevant is voor het bedrijf, terwijl ik tegelijk zelf verantwoordelijk was voor de analyse, ontwerpkeuzes, implementatie en validatie binnen de afgesproken grenzen.
-De bestaande bedrijfsarchitectuur, programmeertalen, frameworks, infrastructuur en ontwikkelafspraken waren grotendeels vastgelegd door het team. Mijn zelfstandigheid lag voornamelijk in de analyse van de tickets, het bepalen van de technische aanpak binnen deze omgeving, de concrete implementatie en het controleren van de oplossing.
+Het graduaatsproject is hiervan onderscheiden als een zelfstandig afgebakend
+project rond een visuele e-maileditor. Waar het dagelijkse stagewerk zich richt
+op de noden en prioriteiten van de bestaande applicatie, ligt de nadruk van
+het graduaatsproject op het systematisch onderzoeken en realiseren van een
+afzonderlijke PoC. Hiervoor worden de vereisten geanalyseerd, technische
+keuzes onderbouwd, een oplossing ontworpen en de gerealiseerde functionaliteit
+getest en gedocumenteerd.
+
+De oplossing wordt bewust los van de productieomgeving ontwikkeld. Hierdoor
+kan de haalbaarheid van de editor, de templateverwerking en de e-mailrendering
+worden onderzocht zonder dat de bestaande e-mailinfrastructuur moet worden
+aangepast. De zelfstandigheid binnen het graduaatsproject ligt voornamelijk
+in de technische uitwerking, de keuze en inrichting van de testopstelling,
+de implementatie van de verschillende onderdelen en de systematische
+validatie van het eindresultaat. De voortgang en belangrijke ontwerpkeuzes
+worden afgestemd met de bedrijfsmentor.
 
 \section{\IfLanguageName{dutch}{Leeswijzer}{Guide to the report}}%
 \label{sec:leeswijzer}
+Na deze inleiding wordt in hoofdstuk~\ref{ch:technologie} de technologische
+context van het project besproken. Daarbij worden de gekozen technologieën,
+hun rol binnen de PoC en de belangrijkste technische overwegingen toegelicht.
 
-Na deze inleiding wordt in hoofdstuk~\ref{ch:technologie} de technologische context van het project besproken. Daarbij wordt toegelicht welke technologieën reeds binnen Vesalius.ai gebruikt worden en waarom deze technologieën ook voor dit project werden behouden.
-Hoofdstuk~\ref{ch:ontwerp} behandelt de analyse en het ontwerp van de oplossing. Hierbij worden de functionele en niet-functionele vereisten, de architectuur, het gegevensmodel, privacy en veiligheid en de belangrijkste ontwerpkeuzes besproken.
-In hoofdstuk~\ref{ch:realisatie} wordt de effectieve realisatie beschreven. De codeopbouw, werkwijze, versiebeheer, belangrijkste technische onderdelen en problemen tijdens de ontwikkeling komen daar aan bod.
-Hoofdstuk~\ref{ch:resultaat} bespreekt het uiteindelijke resultaat en de manier waarop de functionaliteit werd gevalideerd. Tot slot bevat hoofdstuk~\ref{ch:reflectie} de conclusie, persoonlijke reflectie, geleerde lessen en mogelijke verdere ontwikkelingen.
+Hoofdstuk~\ref{ch:ontwerp} behandelt de analyse en het ontwerp van de
+oplossing. De functionele en niet-functionele vereisten, de architectuur,
+de verwerking van templates en placeholders, de beveiligingsmaatregelen en
+de belangrijkste ontwerpkeuzes komen hier aan bod.
+
+In hoofdstuk~\ref{ch:realisatie} wordt de implementatie van de PoC beschreven.
+Daarbij wordt ingegaan op de opbouw van de frontend en mock-API, de editor,
+de templateverwerking, de renderingpipeline en de inrichting van de
+testomgeving.
+
+Hoofdstuk~\ref{ch:resultaat} bespreekt de gerealiseerde functionaliteiten
+en de validatie ervan. De testaanpak, de resultaten van geautomatiseerde
+tests en de vastgestelde verschillen tussen e-mailclients worden hier
+toegelicht. Tot slot bevat hoofdstuk~\ref{ch:reflectie} de conclusie,
+de persoonlijke reflectie, de belangrijkste leerervaringen en mogelijke
+verdere ontwikkelingen van de oplossing.
