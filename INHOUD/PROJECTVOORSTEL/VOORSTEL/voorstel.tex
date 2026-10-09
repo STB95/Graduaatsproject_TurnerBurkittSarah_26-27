@@ -1,0 +1,45 @@
+%==============================================================================
+% Sjabloon projectvoorstel graduaatsproject
+%==============================================================================
+\documentclass{hogent-article}
+\addbibresource{voorstel.bib}
+\input{../projectgegevens}
+
+%% Opleiding, vak en soort opdracht
+\studyprogramme{Graduaat Programmeren}
+\course{Graduaatsproject}
+\assignmenttype{Projectvoorstel}
+
+\academicyear{2026-2027 1e semester}
+
+\title{WYSIWYG-editor voor e-mails (loose-coupled PoC)}
+
+\author{Sarah Turner Burkitt}
+\email{turnerb_sarah@hotmail.com}
+
+%% Je mentor op de werkvloer
+\supervisor[Mentor]{Bart D'Hoore (Endare, Bart.D'Hoore@endare.com)}
+
+%% De link naar je repository
+\projectrepo{https://github.com/STB95/Graduaatsproject_TurnerBurkittSarah_26-27}
+
+\keywords{Angular, e-mailcompatibility, HTML-rendering, e-mailtemplates, WYSIWYG-editor}
+
+\begin{document}
+
+\begin{abstract}
+  Binnen het ontwikkelingsteam van Vesalius.ai richt dit graduaatsproject zich op het verbeteren van de aanpasbaarheid van automatisch verstuurde e-mails binnen een digitaal platform voor artsen in ziekenhuizen. 
+  Momenteel kunnen artsen en organisaties de inhoud en opmaak van de meeste e-mailtypes, zoals afspraakbevestigingen, herinneringen en annulaties, slechts beperkt aanpassen. 
+  Om hieraan tegemoet te komen, wordt een zelfstandige proof of concept (PoC) ontwikkeld van een WYSIWYG-editor waarmee gebruikers e-mailtemplates visueel kunnen bewerken, opslaan, vooraf bekijken en als testmail versturen. 
+  De oplossing wordt gebouwd met Angular en TypeScript, aangevuld met een mock-API op basis van Node.js en Express voor de opslag en verwerking van templates.
+  Er wordt bijzondere aandacht besteed aan veilige HTML-verwerking, dynamische placeholders en de correcte weergave van e-mails in gangbare e-mailclients, waaronder Gmail, Outlook en Apple Mail.
+  De PoC wordt gevalideerd aan de hand van fictieve gegevens, geautomatiseerde tests en praktijktests in verschillende e-mailclients. 
+  Het eindresultaat omvat een werkende demonstratie, technische documentatie, testresultaten en een onderbouwd integratievoorstel.
+  Hierdoor krijgt Vesalius.ai inzicht in de technische haalbaarheid en mogelijke meerwaarde van een visuele e-maileditor als basis voor een toekomstige integratie in het bestaande platform.
+\end{abstract}
+
+\input{voorstel-inhoud}
+
+\printbibliography[heading=bibintoc]
+
+\end{document}
