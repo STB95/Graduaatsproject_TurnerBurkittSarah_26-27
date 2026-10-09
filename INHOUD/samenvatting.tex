@@ -1,52 +1,47 @@
 %%=============================================================================
 %% Samenvatting - VERPLICHT IN TWEE TALEN
 %%=============================================================================
-%%
-%% Je rapport begint met twee samenvattingen, elk op een eigen bladzijde:
-%%
-%%   bladzijde 1: de Nederlandse samenvatting
-%%   bladzijde 2: dezelfde samenvatting in het Engels
-%%
-%% Beide zijn verplicht, ook als je je rapport volledig in het Nederlands
-%% schrijft. Ze staan bovenaan omdat ze in de praktijk het enige zijn dat een
-%% druk jurylid met zekerheid leest.
-%%
-%% Richtlengte: 200 tot 250 woorden per taal, doorlopende tekst, geen lijstjes.
-%%
-%% Een goede samenvatting beantwoordt in die volgorde:
-%%   1. Voor welk bedrijf en welk probleem?
-%%   2. Wat heb je gemaakt?
-%%   3. Met welke technologie, en waarom die?
-%%   4. Wat is het resultaat - werkt het, en hoe weet je dat?
-%%   5. Wat heeft het bedrijf eraan?
-%%
-%% Schrijf ze op het einde, niet in het begin. En schrijf ze zelf: dit is de
-%% bladzijde waaraan een lezer merkt of je je eigen werk begrepen hebt.
 
 %%---------- Nederlandse samenvatting -----------------------------------------
-TODO!!!!
 \IfLanguageName{english}{\selectlanguage{dutch}}{}
-
 \chapter*{Samenvatting}
 \label{ch:samenvatting-nl}
+Vesalius.ai ontwikkelt software die ziekenhuizen en artsen ondersteunt bij hun dagelijkse werkzaamheden en de administratieve belasting helpt verminderen. 
+Binnen het platform worden automatisch e-mails verstuurd, bijvoorbeeld voor afspraakbevestigingen, herinneringen en annuleringen. 
+De inhoud en opmaak van deze e-mails zijn grotendeels vooraf bepaald, waardoor gebruikers beperkte mogelijkheden hebben om ze zelfstandig aan te passen. 
+Dit graduaatsproject onderzoekt hoe een visuele e-maileditor deze beperking kan helpen oplossen.
+Het doel is een zelfstandige proof of concept (PoC) te ontwikkelen waarmee gebruikers e-mailtemplates visueel kunnen bewerken, opslaan, vooraf bekijken en testen. 
+De focus ligt op drie piloottypes: afspraakbevestigingen, afspraakherinneringen en afspraakannuleringen. 
+De bestaande e-mailschil, waaronder het logo, de merkkleuren en de footer, blijft grotendeels behouden. 
+Daarnaast wordt onderzocht hoe HTML veilig kan worden verwerkt, hoe toegestane placeholders worden ingevuld en hoe de gegenereerde e-mails geschikt kunnen worden gemaakt voor verschillende e-mailclients.
+De beoogde technologieomgeving bestaat uit Angular en TypeScript voor de frontend en Node.js, TypeScript en Express voor de mock-API. 
+Voor de editor wordt Quill 2 als kandidaat onderzocht. 
+De renderingpipeline omvat HTML-sanitatie en, indien nodig, het inline plaatsen van CSS. Een lokale testomgeving met Mailpit en geautomatiseerde tests ondersteunen de validatie.
 
-Vesalius.ai ontwikkelt software die artsen ondersteunt bij hun dagelijkse werkzaamheden en administratieve processen vereenvoudigt. Tijdens mijn stage werkte ik mee binnen het ontwikkelingsteam. Mijn graduaatsproject werd afgebakend op basis van twee bestaande JIRA-tickets die al langere tijd op de backlog stonden. Het project richtte zich op het gerichter configureren van automatisch gegenereerde output binnen het Vesalius-platform.
-Voor documenttemplates werd een uitbreiding uitgewerkt waarmee een template optioneel aan één of meerdere specifieke artsen kan worden gekoppeld. Automatische generatie kan hierdoor worden beperkt tot de gekoppelde artsen, terwijl de zichtbaarheid van de template en manuele generatie ongewijzigd blijven. Daarnaast werd voor Scribe-consultatemplates een doelgroepinstelling voorzien waarmee onderscheid wordt gemaakt tussen patiëntgerichte output in begrijpelijke taal en artsgerichte output met medische terminologie.
-De functionaliteit werd geïntegreerd in de bestaande technologieomgeving van Vesalius.ai, met Laravel/PHP als backend, Angular/TypeScript als frontend en MySQL als database. Keycloak wordt gebruikt voor authenticatie en gebruikerscontext. De bestaande architectuur werd bewust behouden zodat de oplossing onderhoudbaar blijft en aansluit bij de werking van het team.
-De functionaliteit werd gecontroleerd aan de hand van de acceptatiecriteria en relevante testscenario's. Het resultaat vormt een gerichte uitbreiding van het bestaande platform en maakt automatisch gegenereerde output relevanter voor de gebruiker.
-
-\IfLanguageName{english}{\selectlanguage{english}}{}
+Het resultaat moet aantonen dat de belangrijkste stappen van templatebewerking tot gerenderde testmail betrouwbaar kunnen samenwerken. 
+De werking wordt beoordeeld aan de hand van functionele tests, veiligheidstests en compatibiliteitscontroles. 
+De PoC vormt zo een technische basis voor een mogelijke latere integratie in Vesalius.ai, zonder zelf een productieoplossing te zijn.
 
 %%---------- Engelse samenvatting ---------------------------------------------
-
 \IfLanguageName{dutch}{\selectlanguage{english}}{}
-
 \chapter*{Abstract}
 \label{ch:samenvatting-en}
+Vesalius.ai develops software that supports hospitals and physicians in their daily work and helps reduce administrative workloads. 
+The platform automatically sends emails for processes such as appointment confirmations, reminders and cancellations. 
+The content and formatting of these emails are largely predefined, limiting users' ability to customise them independently. 
+This graduation project investigates how a visual email editor could help address this limitation.
+The objective is to develop a standalone proof of concept (PoC) that allows users to edit, save, preview and test email templates visually. 
+The project focuses on three pilot email types: appointment confirmations, appointment reminders and appointment cancellations. 
+The existing email shell, including the logo, brand colours and footer, will largely remain unchanged. 
+The project also investigates how HTML can be processed safely, how approved placeholders can be populated, and how generated emails can be prepared for use in different email clients.
+The proposed technology stack consists of Angular and TypeScript for the frontend and Node.js, TypeScript and Express for the mock API. 
+Quill 2 is being evaluated as a candidate for the visual editor. 
+The rendering pipeline includes HTML sanitisation and, where necessary, CSS inlining. 
+A local testing environment using Mailpit and automated tests will support validation.
 
-Vesalius.ai develops software that supports physicians in their daily work and helps reduce administrative tasks. During my internship, I worked as part of the development team. My graduation project was defined around two existing JIRA tickets that had been on the backlog for an extended period. The project focused on making automatically generated output within the Vesalius platform more configurable and relevant to its users.
-For document templates, functionality was developed to optionally associate a template with one or more specific physicians. Automatic generation can therefore be limited to the associated physicians, while template visibility and manual generation remain unchanged. In addition, a target audience setting was introduced for Scribe consultation templates, distinguishing between patient-oriented output written in accessible language and physician-oriented output using medical terminology.
-The functionality was integrated into Vesalius.ai's existing technology environment, using Laravel/PHP for the backend, Angular/TypeScript for the frontend and MySQL as the database. Keycloak is used for authentication and user context. The existing architecture was deliberately maintained to ensure that the solution remains maintainable and consistent with the development team's way of working.
-The functionality was validated using the acceptance criteria and relevant test scenarios. The resulting solution provides a targeted extension of the existing platform and makes automatically generated output more relevant to its intended user.
+The intended result is to demonstrate that the main steps, from editing a template to generating a rendered test email, can work together reliably. 
+The solution will be evaluated through functional tests, security tests and compatibility checks. 
+The PoC will provide a technical basis for a possible future integration into Vesalius.ai, without itself constituting a production-ready solution.
 
 \IfLanguageName{dutch}{\selectlanguage{dutch}}{}
+\IfLanguageName{english}{\selectlanguage{english}}{}
