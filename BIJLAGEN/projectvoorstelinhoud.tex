@@ -1,0 +1,137 @@
+\chapter{Projectvoorstel}
+\label{app:projectvoorstel}
+
+\section{Projectcontext}
+Vesalius.ai ontwikkelt software die ziekenhuizen en artsen ondersteunt bij
+administratieve processen en patiëntcommunicatie. Binnen het platform worden
+automatisch e-mails verstuurd op vooraf bepaalde momenten, bijvoorbeeld bij
+het bevestigen, herinneren of annuleren van een afspraak.
+
+De inhoud en opmaak van deze e-mails zijn grotendeels vooraf bepaald.
+Organisaties kunnen bepaalde visuele elementen, zoals het logo en de
+merkkleuren, configureren, maar hebben niet voor elk e-mailtype de mogelijkheid
+om de inhoud en opmaak zelfstandig aan te passen.
+
+Dit project onderzoekt hoe een visuele e-maileditor deze beperking kan helpen
+oplossen.
+
+\section{Probleemstelling}
+Gebruikers hebben onvoldoende vrijheid om de inhoud en opmaak van bepaalde
+automatisch gegenereerde e-mails aan te passen. Wanneer wijzigingen aan de
+e-mailinhoud nodig zijn, is hiervoor mogelijk technische tussenkomst vereist.
+
+Daarnaast moet de gegenereerde HTML correct worden verwerkt en weergegeven
+in verschillende e-mailclients. Een visueel correcte weergave in de editor
+garandeert immers niet automatisch dat de e-mail er in elke e-mailclient
+hetzelfde uitziet.
+
+De centrale onderzoeksvraag luidt:
+
+\begin{quote}
+Hoe kan een veilige en gebruiksvriendelijke WYSIWYG-e-maileditor worden
+ontwikkeld waarmee gebruikers e-mailtemplates visueel kunnen aanpassen en
+waarvan de gegenereerde e-mails betrouwbaar kunnen worden getest in gangbare
+e-mailclients?
+\end{quote}
+
+\section{Doelstelling}
+Het doel is een zelfstandige proof of concept te ontwikkelen waarmee
+gebruikers de inhoud en basisopmaak van vooraf bepaalde e-mailtemplates
+visueel kunnen aanpassen, opslaan, vooraf bekijken en testen.
+
+De PoC moet aantonen dat de editor kan worden gecombineerd met een
+renderingproces dat HTML verwerkt, toegestane placeholders invult en de
+e-mail voorbereidt voor verzending en weergave in verschillende
+e-mailclients.
+
+De PoC vormt een technische basis voor een mogelijke latere integratie in
+het Vesalius.ai-platform. Een dergelijke integratie valt buiten de scope
+van dit project.
+
+\section{Functionele vereisten}
+De PoC moet de volgende functionaliteiten ondersteunen:
+
+\begin{enumerate}
+    \item Een bestaande e-mailtemplate selecteren en laden.
+    \item De inhoud van een template visueel bewerken met een WYSIWYG-editor.
+    \item Ondersteunde tekstopmaak toepassen.
+    \item Wijzigingen opslaan en opnieuw laden.
+    \item Een voorbeeld van de gegenereerde e-mail bekijken.
+    \item Toegestane placeholders met fictieve gegevens invullen.
+    \item De gegenereerde HTML veilig verwerken.
+    \item Een testmail versturen naar een lokale testomgeving.
+    \item De werking en uitvoer controleren met geautomatiseerde tests.
+\end{enumerate}
+
+\section{Afbakening}
+
+\subsection{Binnen de scope}
+
+\begin{itemize}
+    \item Een zelfstandige frontend met een visuele e-maileditor.
+    \item Een mock-API voor het laden en opslaan van templates.
+    \item Een renderingpipeline voor HTML, placeholders en opmaak.
+    \item Een previewfunctie en een lokale testmailomgeving.
+    \item Drie piloottemplates: afspraakbevestiging, afspraakherinnering en
+    afspraakannulering.
+    \item Geautomatiseerde tests en compatibiliteitscontroles.
+    \item Documentatie van de technische keuzes, beperkingen en resultaten.
+\end{itemize}
+
+\subsection{Buiten de scope}
+
+\begin{itemize}
+    \item Integratie in de productieomgeving van Vesalius.ai.
+    \item Het effectief versturen of plannen van productie-e-mails.
+    \item Het aanpassen van Keycloak-e-mails.
+    \item Een volledige editor voor vrij opgebouwde e-maillay-outs.
+    \item Het verwerken van echte patiëntgegevens.
+    \item Het ontwikkelen van een afzonderlijke AI-functionaliteit.
+\end{itemize}
+
+\section{Technologische aanpak}
+De beoogde architectuur bestaat uit een Angular-frontend en een afzonderlijke
+mock-API op basis van Node.js, TypeScript en Express.
+
+Voor de editor wordt Quill 2 als kandidaat onderzocht. De uiteindelijke keuze
+wordt onderbouwd met een technische proef. Voor de renderingpipeline worden
+onder meer HTML-sanitatie, een gecontroleerde placeholderlijst en het inline
+plaatsen van CSS onderzocht.
+
+De testomgeving kan gebruikmaken van Docker en Mailpit. Voor unit- en
+integratietests wordt Vitest overwogen en voor browsergebaseerde tests
+Playwright. De uiteindelijke technologiekeuzes en versies worden vastgelegd
+in het hoofdstuk over technologie.
+
+\section{Verwachte resultaten}
+Aan het einde van het project worden de volgende resultaten nagestreefd:
+
+\begin{itemize}
+    \item Een werkende, zelfstandige PoC van de visuele e-maileditor.
+    \item Een werkende laad-, opslag- en renderingflow voor templates.
+    \item Een preview- en testmailfunctionaliteit.
+    \item Een testset met fictieve gegevens en geautomatiseerde controles.
+    \item Een evaluatie van de weergave in beschikbare e-mailclients.
+    \item Technische documentatie en een voorstel voor mogelijke latere
+    integratie.
+\end{itemize}
+
+Dit zijn beoogde resultaten. De uiteindelijke realisatie en eventuele
+beperkingen worden beschreven in het hoofdstuk over de resultaten.
+
+\section{Privacy en veiligheid}
+Tijdens de ontwikkeling worden uitsluitend fictieve gegevens gebruikt.
+HTML-inhoud wordt volgens een expliciet toegestane lijst verwerkt en
+placeholders worden gecontroleerd voordat ze worden ingevuld.
+
+Productiegegevens, productiegeheimen en echte patiëntinformatie maken geen
+deel uit van de PoC. De oplossing wordt niet beschouwd als een productieklare
+e-mailinfrastructuur.
+
+\section{Opvolging en evaluatie}
+De voortgang wordt opgevolgd aan de hand van de sprintplanning en de
+bijbehorende taken. Per sprint worden de uitgevoerde werkzaamheden,
+opgeleverde resultaten, eventuele problemen en volgende stappen geregistreerd.
+
+De uiteindelijke evaluatie gebeurt aan de hand van de functionele vereisten,
+de testresultaten, de renderingkwaliteit en de vastgestelde beperkingen.
