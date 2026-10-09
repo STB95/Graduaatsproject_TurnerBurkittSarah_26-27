@@ -161,12 +161,12 @@ Aan het einde van het graduaatsproject worden de volgende resultaten voorzien:
 
 ## Auteur
 
-**Sarah Turner**
+**Sarah Turner Burkitt**
 Graduaat in het Programmeren — HOGENT
-Academiejaar 2026–2027
+Academiejaar 2026–2027 1e semester
 
 ## Bedrijf
 
-**Vesalius.ai**
+**Vesalius.ai (dochterbedrijf van Endare)**
 
 Het graduaatsproject wordt uitgevoerd in het kader van een professionele stage binnen het ontwikkelingsteam van Vesalius.ai.
