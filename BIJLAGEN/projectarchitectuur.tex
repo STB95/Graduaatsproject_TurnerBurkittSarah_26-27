@@ -1,0 +1,231 @@
+\chapter{Projectarchitectuur}
+\label{app:projectarchitectuur}
+
+\section{Overzicht}
+De proof of concept wordt opgevat als een zelfstandige toepassing die
+de belangrijkste onderdelen van het aanpassen en verwerken van e-mailtemplates
+demonstreert. De frontend, mock-API, templateopslag en renderingpipeline
+worden logisch van elkaar gescheiden.
+
+Deze scheiding maakt het mogelijk om de werking van de editor en de
+e-mailverwerking te onderzoeken zonder afhankelijk te zijn van de
+productieomgeving van Vesalius.ai.
+
+\section{Architectuuroverzicht}
+
+Figuur~\ref{fig:architectuur-overzicht} geeft de beoogde gegevensstroom
+schematisch weer.
+TODO!!!: nog verdere aanpassingen maken hiervan:
+\begin{figure}[htbp]
+    \centering
+    \begin{verbatim}
++--------------------------------------+
+|           Angular-frontend           |
+|                                      |
+|  Templatekeuze | WYSIWYG-editor      |
+|  Preview       | Opslaginterface     |
++------------------+-------------------+
+                   |
+                   | HTTP/API
+                   v
++--------------------------------------+
+|       Node.js / Express mock-API     |
+|                                      |
+|  Validatie | Templatebeheer          |
+|  Ophalen   | Opslaan                 |
++------------------+-------------------+
+                   |
+                   v
++--------------------------------------+
+|           Templateopslag             |
+|                                      |
+|  Templategegevens | Fictieve data    |
+|  Tijdelijke opslag of fixtures       |
++------------------+-------------------+
+                   |
+                   v
++--------------------------------------+
+|          Renderingpipeline           |
+|                                      |
+|  HTML-sanitatie                      |
+|  Placeholderverwerking               |
+|  Vaste e-mailschil                   |
+|  CSS-inlining                        |
+|  Eventuele tekstversie               |
++------------------+-------------------+
+                   |
+                   v
++--------------------------------------+
+|          E-mailtestomgeving           |
+|                                      |
+|              Mailpit                 |
++--------------------------------------+
+    \end{verbatim}
+    \caption{Beoogde architectuur van de zelfstandige e-maileditor-PoC}
+    \label{fig:architectuur-overzicht}
+\end{figure}
+
+\noindent
+Het schema toont de logische onderdelen en hun onderlinge samenhang. Het is
+geen weergave van reeds geverifieerde implementatiedetails.
+
+\section{Frontend}
+De frontend vormt de gebruikersinterface(UI) van de toepassing en wordt beoogd
+te worden ontwikkeld met Angular en TypeScript.
+
+De frontend is verantwoordelijk voor:
+\begin{itemize}
+    \item het selecteren en laden van een e-mailtemplate;
+    \item het visueel aanpassen van de e-mailinhoud;
+    \item het aanroepen van de API om wijzigingen op te slaan;
+    \item het opvragen en weergeven van een preview;
+    \item het starten van een testmailactie, indien geïmplementeerd.
+\end{itemize}
+
+Voor de WYSIWYG-functionaliteit wordt Quill 2 als kandidaat onderzocht.
+De definitieve keuze hangt af van een technische proef en de ondersteuning
+van de vereiste bewerkingsmogelijkheden.
+
+\section{Mock-API}
+De mock-API vormt de verbinding tussen de frontend en de logica voor
+templatebeheer. Hiervoor wordt Node.js met TypeScript en Express overwogen.
+
+De API biedt, afhankelijk van de uiteindelijke implementatie, functies voor:
+\begin{itemize}
+    \item het ophalen van beschikbare templates;
+    \item het ophalen van een individuele template;
+    \item het valideren en opslaan van wijzigingen;
+    \item het aanvragen van een gerenderde preview;
+    \item het initiëren van een testmail.
+\end{itemize}
+
+De API gebruikt geen productiegegevens of productiegeheimen. Ze dient om
+de belangrijkste interacties van de PoC te demonstreren.
+
+\section{Templateopslag en gegevensmodel}
+De opslagmethode wordt gekozen op basis van de behoeften van de PoC.
+Een tijdelijke opslagmethode, zoals JSON-fixtures of een verwisselbare
+opslagimplementatie, kan volstaan zolang de vereiste functionaliteiten
+aantoonbaar blijven.
+
+De architectuur moet vermijden dat de volledige toepassingslogica afhankelijk
+wordt van één specifieke opslagtechnologie. Daardoor kan een mogelijke
+latere integratie een andere opslaglaag gebruiken zonder de volledige
+rendering- en editorlogica te moeten herschrijven.
+
+Een conceptueel template bevat de volgende gegevens:
+
+\begin{table}[htbp]
+    \centering
+    \caption{Conceptuele templatevelden}
+    \label{tab:templatevelden}
+    \begin{tabular}{|p{3.5cm}|p{9cm}|}
+        \hline
+        \textbf{Veld} & \textbf{Beschrijving} \\
+        \hline
+        Identificatie & Unieke identificatie van de template. \\
+        \hline
+        E-mailtype & Type e-mail, bijvoorbeeld bevestiging of herinnering. \\
+        \hline
+        Taal & Taal van de e-mailinhoud, indien ondersteund. \\
+        \hline
+        Inhoud & Bewerkbare inhoud van de template. \\
+        \hline
+        Placeholders & Verwijzingen naar toegestane dynamische gegevens. \\
+        \hline
+        Configuratie & Eventuele configuratie die nodig is om de template
+        correct te renderen. \\
+        \hline
+        Status & Eventuele status of versie-informatie, indien voorzien. \\
+        \hline
+    \end{tabular}
+\end{table}
+
+Dit overzicht is een conceptueel model. De uiteindelijke velden, types en
+validatieregels moeten overeenstemmen met het geïmplementeerde gegevensmodel.
+
+\section{Renderingpipeline}
+De renderingpipeline zet de bewerkbare template om in een e-mail die geschikt
+is voor de testomgeving. De precieze volgorde en implementatie worden
+vastgelegd op basis van de gerealiseerde oplossing.
+
+De belangrijkste verwerkingsstappen zijn:
+
+\begin{enumerate}
+    \item \textbf{Validatie:} controleer of de ontvangen template en de
+    aangeleverde gegevens aan de afgesproken voorwaarden voldoen.
+    \item \textbf{HTML-sanitatie:} verwijder of weiger niet-toegestane
+    HTML-elementen en attributen volgens een expliciete allowlist.
+    \item \textbf{Placeholderverwerking:} vervang alleen toegestane
+    placeholders door de bijbehorende fictieve waarden.
+    \item \textbf{Samenstellen van de e-mail:} combineer de inhoud met de
+    vaste e-mailschil, indien die deel uitmaakt van de implementatie.
+    \item \textbf{CSS-verwerking:} plaats ondersteunde CSS-regels inline
+    waar dat nodig is voor compatibiliteit met e-mailclients.
+    \item \textbf{Tekstversie:} genereer indien voorzien een alternatieve
+    tekstversie van de e-mail.
+    \item \textbf{Uitvoer:} geef de gerenderde inhoud terug voor de preview
+    of bied ze aan de lokale testmailservice aan.
+\end{enumerate}
+
+De verwerking moet rekening houden met de context waarin placeholders
+worden gebruikt. HTML-escaping, toegestane waarden en veilige verwerking
+van invoer blijven noodzakelijk, ook wanneer de template zelf wordt
+gesanitiseerd.
+
+\section{E-mailschil en piloottemplates}
+De PoC richt zich op drie e-mailtypes:
+\begin{itemize}
+    \item afspraakbevestiging;
+    \item afspraakherinnering;
+    \item afspraakannulering.
+\end{itemize}
+
+De vaste e-mailschil kan onder meer het logo, de merkkleuren en de footer
+bevatten. De nadruk ligt op het visueel aanpassen van de e-mailinhoud en
+niet op een volledige editor voor de gehele e-maillay-out.
+
+\section{Testinfrastructuur}
+Voor de lokale testinfrastructuur worden Docker en Mailpit overwogen.
+Mailpit kan dienen om testmails lokaal op te vangen en te inspecteren zonder
+dat daarvoor echte ontvangers nodig zijn.
+
+Geautomatiseerde tests kunnen worden uitgevoerd met Vitest en Playwright,
+afhankelijk van de uiteindelijke teststrategie.
+
+De tests richten zich op:
+\begin{itemize}
+    \item templatevalidatie en opslag;
+    \item placeholderverwerking;
+    \item HTML-sanitatie;
+    \item rendering en preview;
+    \item de belangrijkste gebruikersflows;
+    \item het versturen en controleren van testmails.
+\end{itemize}
+
+\section{Privacy en beveiliging}
+De PoC gebruikt uitsluitend fictieve gegevens. Er worden geen echte
+patiëntgegevens verwerkt en er worden geen productiecredentials in de
+broncode of testbestanden opgenomen.
+
+De belangrijkste beveiligingsmaatregelen zijn:
+\begin{itemize}
+    \item een expliciete allowlist voor toegestane HTML-inhoud;
+    \item validatie en veilige verwerking van placeholders;
+    \item gescheiden configuratie van test- en productieomgevingen;
+    \item het vermijden van echte persoonsgegevens en geheimen;
+    \item het lokaal opvangen van testmails.
+\end{itemize}
+
+Deze maatregelen verminderen bepaalde risico's, maar maken de PoC niet
+automatisch geschikt voor productiegebruik.
+
+\section{Mogelijke latere integratie}
+Een mogelijke integratie in Vesalius.ai valt buiten de scope van dit project.
+De PoC kan wel informatie opleveren over de benodigde API-contracten, de
+opslaginterface, de renderingpipeline, de veiligheidsvereisten en de
+compatibiliteit met e-mailclients.
+
+Een integratievoorstel moet daarom rekening houden met de bestaande
+architectuur van Vesalius.ai, de interne ontwikkelrichtlijnen en de
+relevante privacy- en beveiligingsvereisten.

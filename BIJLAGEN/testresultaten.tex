@@ -1,0 +1,237 @@
+\chapter{Testresultaten}
+\label{app:testresultaten}
+
+\section{Doel van de tests}
+De tests evalueren of de proof of concept voldoet aan de functionele en
+technische vereisten. De nadruk ligt op de werking van de editor, het
+opslaan en laden van templates, de verwerking van HTML, het invullen van
+placeholders en de weergave van gegenereerde e-mails.
+
+Daarnaast wordt nagegaan of de oplossing ongewenste HTML-inhoud voldoende
+afschermt en of de e-mailuitvoer bruikbaar is in gangbare e-mailclients.
+
+\section{Testomgeving}
+TODO!!!: Vul deze tabel aan met de werkelijk gebruikte configuratie.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Configuratie van de testomgeving}
+    \label{tab:testomgeving}
+    \begin{tabular}{|p{4cm}|p{9cm}|}
+        \hline
+        \textbf{Onderdeel} & \textbf{Configuratie} \\
+        \hline
+        Besturingssysteem & [In te vullen] \\
+        \hline
+        Frontend & Angular [versie invullen] \\
+        \hline
+        Backend & Node.js, TypeScript en Express [versies invullen] \\
+        \hline
+        Editor & [Geselecteerde editor en versie] \\
+        \hline
+        Testframework & [Bijvoorbeeld Vitest en Playwright, indien gebruikt] \\
+        \hline
+        E-mailtestomgeving & [Bijvoorbeeld Mailpit, indien gebruikt] \\
+        \hline
+        Testgegevens & Uitsluitend fictieve gegevens \\
+        \hline
+        Testdatum & [Datum invullen] \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\section{Teststrategie}
+De tests worden opgedeeld in verschillende categorieën. Niet elke categorie
+is noodzakelijk al geïmplementeerd; de onderstaande indeling dient als
+testplan en registratiesjabloon.
+
+\begin{itemize}
+    \item \textbf{Functionele tests:} controleren of de editor, preview,
+    opslag en het laden van templates correct werken.
+    \item \textbf{Renderingtests:} controleren of placeholders worden
+    ingevuld en of de uiteindelijke HTML de verwachte structuur bevat.
+    \item \textbf{Veiligheidstests:} controleren of niet-toegestane HTML,
+    attributen en scripts worden verwijderd of geweigerd.
+    \item \textbf{Geautomatiseerde tests:} controleren de werking van
+    afzonderlijke functies en belangrijke gebruikersflows.
+    \item \textbf{Compatibiliteitstests:} controleren hoe de gegenereerde
+    e-mails worden weergegeven in beschikbare e-mailclients.
+\end{itemize}
+
+\section{Functionele testgevallen}
+
+TODO!!!:Registreer elk testgeval met de werkelijk verkregen uitkomst.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Functionele testgevallen}
+    \label{tab:functionele-tests}
+    \small
+    \begin{tabular}{|p{1.2cm}|p{3cm}|p{4.2cm}|p{3cm}|p{1.5cm}|}
+        \hline
+        \textbf{ID} & \textbf{Test} & \textbf{Verwachte uitkomst} &
+        \textbf{Werkelijke uitkomst} & \textbf{Status} \\
+        \hline
+        F-01 & Template laden &
+        De geselecteerde template wordt correct weergegeven. &
+        [Invullen] & [Open/Geslaagd/Mislukt] \\
+        \hline
+        F-02 & Tekst bewerken &
+        De gebruiker kan de inhoud wijzigen. &
+        [Invullen] & [Invullen] \\
+        \hline
+        F-03 & Opmaak aanpassen &
+        Ondersteunde tekstopmaak wordt toegepast. &
+        [Invullen] & [Invullen] \\
+        \hline
+        F-04 & Template opslaan &
+        De aangepaste template kan worden opgeslagen. &
+        [Invullen] & [Invullen] \\
+        \hline
+        F-05 & Template opnieuw laden &
+        De opgeslagen wijzigingen blijven behouden. &
+        [Invullen] & [Invullen] \\
+        \hline
+        F-06 & Preview openen &
+        De preview toont de gerenderde e-mail. &
+        [Invullen] & [Invullen] \\
+        \hline
+        F-07 & Testmail versturen &
+        De e-mail verschijnt in de lokale testomgeving. &
+        [Invullen] & [Invullen] \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\section{Rendering- en veiligheidstests}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Testgevallen voor rendering en veiligheid}
+    \label{tab:veiligheidstests}
+    \small
+    \begin{tabular}{|p{1.2cm}|p{3cm}|p{4.2cm}|p{3cm}|p{1.5cm}|}
+        \hline
+        \textbf{ID} & \textbf{Test} & \textbf{Verwachte uitkomst} &
+        \textbf{Werkelijke uitkomst} & \textbf{Status} \\
+        \hline
+        R-01 & Geldige placeholder &
+        Een toegestane placeholder wordt correct ingevuld. &
+        [Invullen] & [Invullen] \\
+        \hline
+        R-02 & Onbekende placeholder &
+        Een onbekende placeholder wordt veilig afgehandeld. &
+        [Invullen] & [Invullen] \\
+        \hline
+        R-03 & HTML-sanitatie &
+        Niet-toegestane HTML wordt verwijderd of geweigerd. &
+        [Invullen] & [Invullen] \\
+        \hline
+        R-04 & Schadelijke attributen &
+        Niet-toegestane attributen, zoals event-handlers, worden niet uitgevoerd. &
+        [Invullen] & [Invullen] \\
+        \hline
+        R-05 & Ontbrekende gegevens &
+        Ontbrekende gegevens veroorzaken geen onveilige of misleidende uitvoer. &
+        [Invullen] & [Invullen] \\
+        \hline
+        R-06 & CSS-inlining &
+        Ondersteunde stijlen worden in de HTML-uitvoer verwerkt. &
+        [Invullen] & [Invullen] \\
+        \hline
+        R-07 & Tekstversie &
+        Indien voorzien, wordt een bruikbare tekstversie gegenereerd. &
+        [Invullen] & [Invullen] \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\section{Compatibiliteit met e-mailclients}
+E-mailclients kunnen HTML en CSS verschillend weergeven. De compatibiliteit
+wordt daarom gecontroleerd aan de hand van dezelfde testtemplates en
+fictieve gegevens.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Compatibiliteitstest per e-mailclient}
+    \label{tab:compatibiliteit}
+    \small
+    \begin{tabular}{|p{3cm}|p{2.5cm}|p{2.5cm}|p{3.5cm}|p{2cm}|}
+        \hline
+        \textbf{E-mailclient} & \textbf{Testdatum} &
+        \textbf{Uitvoering} & \textbf{Vastgestelde afwijkingen} &
+        \textbf{Status} \\
+        \hline
+        Gmail & [Datum] & [Versie/platform] & [Invullen] & [Invullen] \\
+        \hline
+        Outlook.com / Outlook & [Datum] & [Versie/platform] &
+        [Invullen] & [Invullen] \\
+        \hline
+        Apple Mail & [Datum] & [Mac/iPhone, versie] &
+        [Invullen] & [Invullen] \\
+        \hline
+    \end{tabular}
+\end{table}
+
+TODO!!!:Voer de tests uit in de werkelijk beschikbare clients. Indien een client niet
+beschikbaar is, vermeld dan dat de compatibiliteit voor die client niet werd
+geverifieerd.
+
+\section{Automatische testresultaten}
+
+TODO!!!:Vul deze tabel in met de uitvoer van de gebruikte testtools.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Samenvatting van de automatische tests}
+    \label{tab:automatische-tests}
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|p{2.5cm}|}
+        \hline
+        \textbf{Testcategorie} & \textbf{Uitgevoerd} &
+        \textbf{Geslaagd} & \textbf{Mislukt} & \textbf{Opmerkingen} \\
+        \hline
+        Unit tests & [Aantal] & [Aantal] & [Aantal] & [Invullen] \\
+        \hline
+        Integratietests & [Aantal] & [Aantal] & [Aantal] & [Invullen] \\
+        \hline
+        Browsertests & [Aantal] & [Aantal] & [Aantal] & [Invullen] \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\section{Vastgestelde problemen en oplossingen}
+
+TODO!!!:Beschrijf hier de belangrijkste problemen die tijdens het testen werden
+vastgesteld. Noteer per probleem de oorzaak, de genomen maatregel en het
+resultaat van een eventuele hertest.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Overzicht van testproblemen}
+    \label{tab:testproblemen}
+    \begin{tabular}{|p{1.5cm}|p{3cm}|p{3cm}|p{3cm}|p{2cm}|}
+        \hline
+        \textbf{ID} & \textbf{Probleem} & \textbf{Oorzaak} &
+        \text{Oplossing} & \textbf{Hertest} \\
+        \hline
+        P-01 & [Invullen] & [Invullen] & [Invullen] & [Invullen] \\
+        \hline
+        P-02 & [Invullen] & [Invullen] & [Invullen] & [Invullen] \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\section{Conclusie}
+
+TODO!!!:Op basis van de uitgevoerde tests wordt beoordeeld in welke mate de PoC
+voldoet aan de vooropgestelde vereisten.
+
+De belangrijkste positieve resultaten zijn: [invullen].
+De resterende beperkingen zijn: [invullen].
+De volgende vereisten zijn volledig aangetoond: [invullen].
+De volgende vereisten konden niet of slechts gedeeltelijk worden aangetoond:
+[invullen].
+
+Deze conclusies zijn gebaseerd op de geregistreerde testresultaten en gelden
+voor de onderzochte PoC en testomgeving. Ze vormen geen garantie voor de
+werking van een toekomstige productie-integratie.
