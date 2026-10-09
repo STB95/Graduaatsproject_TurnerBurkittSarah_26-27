@@ -1,67 +1,152 @@
-% Encoding: UTF-8
-%
-% De bronnen van je rapport. Voeg hier je eigen bronnen toe en verwijder de
-% voorbeelden die je niet gebruikt: een bronnenlijst met werken die nergens
-% aangehaald worden, valt op.
-%
-% Tip: beheer dit bestand met JabRef (biblatex-modus, UTF-8) of laat je editor
-% de sleutels aanvullen. Elke bron heeft een sleutel (het eerste woord na de
-% accolade); daarmee verwijs je in je tekst: \autocite{Martin2008}.
+% Tip: JabRef (biblatex-modus, UTF-8) 
+% Elke bron heeft een sleutel (1e woord na accolade)(verwijzing naar tekst: \autocite{Martin2008})
 
 TODO: ZIE BRONNEN IN TUSSENTIJDSE STAGEVERSLAG
-%---------- Een boek ----------------------------------------------------------
-@book{Martin2008,
-  author    = {Martin, Robert C.},
-  title     = {Clean Code: A Handbook of Agile Software Craftsmanship},
-  year      = {2008},
-  publisher = {Prentice Hall},
-  address   = {Upper Saddle River, NJ}
+
+%---------- Websources: Frontend en rich-texteditor ---------------------------------------
+@online{AngularDocs,
+  author  = {{Google}},
+  title   = {Angular Documentation},
+  url     = {https://angular.dev/},
+  urldate = {2026-10-09}
 }
 
-@book{Fowler2018,
-  author    = {Fowler, Martin},
-  title     = {Refactoring: Improving the Design of Existing Code},
-  edition   = {2},
-  year      = {2018},
-  publisher = {Addison-Wesley},
-  address   = {Boston, MA}
+@online{QuillDocs,
+  author  = {{Slab}},
+  title   = {Quill Documentation},
+  url     = {https://quilljs.com/docs/},
+  urldate = {2026-10-09}
 }
 
-%---------- Een webbron: documentatie, blog, handleiding ----------------------
-% Dit is het type dat je het vaakst nodig hebt. Vermeld ALTIJD urldate: de
-% datum waarop jij de pagina geraadpleegd hebt.
-@online{DockerDocs2026,
+@online{QuillFormats,
+  author  = {{Slab}},
+  title   = {Quill Formats},
+  url     = {https://v2.quilljs.com/docs/formats},
+  urldate = {2026-10-09}
+}
+
+%---------- Backend en templateverwerking -------------------------------------
+@online{NodeDocs,
+  author  = {{OpenJS Foundation}},
+  title   = {Node.js Documentation},
+  url     = {https://nodejs.org/docs/latest/api/},
+  urldate = {2026-10-09}
+}
+
+@online{ExpressDocs,
+  author  = {{OpenJS Foundation}},
+  title   = {Express Documentation},
+  url     = {https://expressjs.com/},
+  urldate = {2026-10-09}
+}
+
+@online{HandlebarsDocs,
+  author  = {{Handlebars}},
+  title   = {Handlebars Documentation},
+  url     = {https://handlebarsjs.com/},
+  urldate = {2026-10-09}
+}
+
+@online{SanitizeHtmlDocs,
+  author  = {Einar Lielmanis},
+  title   = {sanitize-html: HTML Sanitization Library},
+  url     = {https://github.com/apostrophecms/sanitize-html},
+  urldate = {2026-10-09}
+}
+
+@online{JuiceDocs,
+  author  = {{Automattic}},
+  title   = {Juice: CSS Inlining for HTML Emails},
+  url     = {https://github.com/Automattic/juice},
+  urldate = {2026-10-09}
+}
+
+@online{HtmlToTextDocs,
+  author  = {{HTML-to-text Contributors}},
+  title   = {html-to-text Documentation},
+  url     = {https://github.com/html-to-text/node-html-to-text},
+  urldate = {2026-10-09}
+}
+
+
+%---------- E-mailstandaarden en beveiliging ----------------------------------
+@online{OWASPXSS,
+  author  = {{OWASP Foundation}},
+  title   = {Cross Site Scripting Prevention Cheat Sheet},
+  url     = {https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html},
+  urldate = {2026-10-09}
+}
+
+@online{MDNEmail,
+  author  = {{Mozilla}},
+  title   = {HTML: HyperText Markup Language},
+  url     = {https://developer.mozilla.org/en-US/docs/Web/HTML},
+  urldate = {2026-10-09},
+  note    = {Algemene referentie voor HTML; gebruik daarnaast
+             specifieke bronnen over HTML-e-mailcompatibiliteit}
+}
+
+@online{CanIEmail,
+  author  = {{Can I email}},
+  title   = {Can I Email: Email Client Feature Support},
+  url     = {https://www.caniemail.com/},
+  urldate = {2026-10-09}
+}
+
+@online{GDPR,
+  author  = {{Europees Parlement en de Raad van de Europese Unie}},
+  title   = {Verordening (EU) 2016/679 betreffende de bescherming
+             van natuurlijke personen in verband met de verwerking
+             van persoonsgegevens},
+  year    = {2016},
+  url     = {https://eur-lex.europa.eu/eli/reg/2016/679/oj},
+  urldate = {2026-10-09}
+}
+
+%---------- Testen en lokale testomgeving -------------------------------------
+@online{DockerDocs,
   author  = {{Docker Inc.}},
   title   = {Docker Documentation},
-  year    = {2026},
   url     = {https://docs.docker.com/},
-  urldate = {2026-09-15}
+  urldate = {2026-10-09}
 }
 
-%---------- Een artikel in een tijdschrift ------------------------------------
-@article{Kim2016,
-  author  = {Kim, Gene and Humble, Jez and Debois, Patrick and Willis, John},
-  title   = {The {DevOps} Handbook},
-  journal = {IT Revolution Press},
-  year    = {2016}
+@online{MailpitDocs,
+  author  = {{Mailpit Contributors}},
+  title   = {Mailpit Documentation},
+  url     = {https://mailpit.axllent.org/},
+  urldate = {2026-10-09}
 }
 
-%---------- Een norm of standaard ---------------------------------------------
-@techreport{ISO25010,
-  author      = {{International Organization for Standardization}},
-  title       = {{ISO/IEC} 25010: Systems and software engineering --- Systems
-                 and software Quality Requirements and Evaluation ({SQuaRE})},
-  institution = {ISO},
-  year        = {2011}
+@online{VitestDocs,
+  author  = {{Vitest Contributors}},
+  title   = {Vitest Documentation},
+  url     = {https://vitest.dev/},
+  urldate = {2026-10-09}
 }
 
-%---------- Over schrijven zelf -----------------------------------------------
-@book{Pollefliet2011,
-  author    = {Pollefliet, Leen},
-  title     = {Schrijven van verslag tot eindwerk: do's en don'ts},
-  year      = {2011},
-  publisher = {Academia Press},
-  address   = {Gent}
+@online{PlaywrightDocs,
+  author  = {{Microsoft}},
+  title   = {Playwright Documentation},
+  url     = {https://playwright.dev/docs/intro},
+  urldate = {2026-10-09}
 }
 
+% @online{BitbucketImplementation,
+%   author  = {{Vesalius.ai}},
+%   title   = {Beschrijving van de relevante implementatie},
+%   url     = {VUL_HIER_DE_ECHTE_BITBUCKET_URL_IN},
+%   urldate = {2026-10-09},
+%   note    = {Interne technische bron}
+% }
+
+% @online{GoogleChatFeedback,
+%   author  = {{Vesalius.ai}},
+%   title   = {Projectafspraken en feedback over de e-maileditor-PoC},
+%   year    = {2026},
+%   note    = {Interne communicatie via Google Chat; geraadpleegd op
+%              2026-10-09. Gebruik een toegankelijke verwijzing indien beschikbaar}
+% }
+
+%---------- JabRef ------------------------------------------------------------
 @Comment{jabref-meta: databaseType:biblatex;}
