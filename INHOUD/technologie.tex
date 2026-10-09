@@ -1,117 +1,335 @@
 %%=============================================================================
 %% Technologische context en keuze
 %%=============================================================================
-
 \chapter{\IfLanguageName{dutch}{Technologie en verantwoording}{Technology and rationale}}%
 \label{ch:technologie}
+Het graduaatsproject richt zich op de ontwikkeling van een zelfstandige
+proof of concept (PoC) van een visuele e-maileditor voor Vesalius.ai.
+In tegenstelling tot een uitbreiding van de bestaande productieapplicatie
+wordt deze oplossing afzonderlijk ontwikkeld en getest. Hierdoor kunnen de
+editor, de verwerking van e-mailtemplates en de gegenereerde uitvoer worden
+onderzocht zonder wijzigingen aan te brengen in de productieomgeving.
 
-%% Richtlengte: 2 tot 3 bladzijden.
-%%
-%% LET OP: DIT IS GEEN LITERATUURSTUDIE.
-%% Je hoeft geen overzicht te schrijven van wat er in het vakgebied bestaat,
-%% en je hoeft geen wetenschappelijke bronnen te verzamelen. De vraag hier is
-%% praktisch: welke technologie heb je gebruikt, welke alternatieven waren er,
-%% en waarom is het deze geworden?
-%%
-%% Dit is ook wat de jury je tijdens je verdediging zal vragen. Wie het hier
-%% opschrijft, staat daar sterker.
-%%
-%% WEL: vermeld de bronnen die je echt gebruikt hebt. Voor een project zijn dat
-%% meestal officiële documentatie, handleidingen, blogberichten van makers,
-%% normen, of een boek. Vermeld ze omdat je lezer ze moet kunnen terugvinden,
-%% niet omdat een lijst nu eenmaal lang moet zijn. Zie de uitleg onderaan dit
-%% bestand en de voorbeelden in bronnen.bib.
-TODO!
-Het graduaatsproject werd uitgevoerd binnen een bestaande professionele softwareomgeving. Daardoor was de technologische vrijheid beperkter dan bij een volledig nieuw project. De belangrijkste technologieën en architecturale keuzes lagen reeds vast binnen Vesalius.ai. Dit was een bewuste keuze van het bedrijf: nieuwe functionaliteit moet aansluiten bij de bestaande applicatie, ontwikkelprocessen en infrastructuur.
-De technologiekeuze binnen dit project moet daarom vooral worden bekeken vanuit onderhoudbaarheid, integratie met de bestaande applicatie, kennis binnen het team en aansluiting bij de bestaande architectuur.
+De technologiekeuze wordt bepaald door verschillende criteria. De oplossing
+moet voldoende mogelijkheden bieden om e-mailinhoud visueel te bewerken,
+maar moet ook toelaten om de gegenereerde HTML veilig te verwerken en de
+weergave in verschillende e-mailclients te onderzoeken. Daarnaast zijn
+onderhoudbaarheid, testbaarheid, ontwikkeltijd en de mogelijkheid om
+onderdelen afzonderlijk te vervangen belangrijk.
 
-\section{\IfLanguageName{dutch}{Bestaande omgeving}{Existing environment}}%
+De gekozen architectuur scheidt daarom de frontend, de mock-API, de
+templateopslag en de renderingpipeline logisch van elkaar. De onderstaande
+technologieën vormen het uitgangspunt voor de PoC. Waar een technologie
+nog wordt onderzocht, wordt de definitieve keuze gebaseerd op de resultaten
+van een technische proef en de uitgevoerde tests.
+
+\section{\IfLanguageName{dutch}{Technologische context}{Technology context}}%
 \label{sec:bestaande-omgeving}
-TODO!
-De backend van het Vesalius-platform is opgebouwd met PHP en Laravel. Laravel voorziet onder andere de structuur voor de backendlogica, routing en interactie met de database. Voor het graduaatsproject werd deze bestaande backendtechnologie behouden, omdat de nieuwe functionaliteit geïntegreerd moest worden in de bestaande applicatie.
-De frontend is opgebouwd met Angular en TypeScript. HTML wordt gebruikt voor de structuur van de gebruikersinterface en SCSS voor de styling. Angular sluit aan bij de bestaande frontendarchitectuur en biedt een componentgebaseerde manier om nieuwe configuratiemogelijkheden en gebruikersinteracties toe te voegen.
-Voor persistente gegevens wordt MySQL gebruikt. De configuratie van templates en de bijkomende gegevens die nodig zijn om de nieuwe functionaliteit te ondersteunen, moeten daarom aansluiten bij het bestaande datamodel en de bestaande databaseconventies.
-Voor authenticatie en autorisatie wordt Keycloak gebruikt. Hierdoor hoeft het project geen eigen authenticatiesysteem te implementeren en kan de bestaande gebruikers- en toegangsstructuur worden gebruikt. Dit is vooral relevant voor functionaliteit die afhankelijk is van de ingelogde gebruiker, zoals het bepalen van de gekoppelde arts bij automatische generatie.
-Redis wordt binnen de bestaande omgeving gebruikt voor caching en gerelateerde tijdelijke gegevens. Docker wordt gebruikt om onderdelen van de ontwikkelomgeving reproduceerbaar te maken.
-De ontwikkeling gebeurt met Git en Bitbucket voor versiebeheer. Jira wordt gebruikt voor het opvolgen van tickets en werk. Tijdens de ontwikkeling werd gewerkt met Visual Studio Code en de bestaande ontwikkelomgeving, waaronder Ubuntu via WSL2 op Windows. De infrastructuur van het platform maakt daarnaast gebruik van Kubernetes, Terraform en CodeFresh voor respectievelijk containerorkestratie, infrastructuurbeheer en CI/CD.
+De PoC wordt ontwikkeld als een afzonderlijke toepassing naast het bestaande
+Vesalius-platform. De oplossing hoeft daardoor niet rechtstreeks aan te
+sluiten op de bestaande backend, database of authenticatie-infrastructuur.
+Dit beperkt de afhankelijkheden en maakt het mogelijk om de functionaliteit
+in een gecontroleerde testomgeving te evalueren.
+
+Voor de frontend wordt Angular in combinatie met TypeScript voorzien.
+Angular biedt een componentgebaseerde structuur voor de gebruikersinterface.
+TypeScript maakt het mogelijk om gegevensstructuren, componenten en
+communicatie met de API op een gestructureerde manier te implementeren.
+De editor, de templatekeuze en de preview kunnen hierdoor als afzonderlijke
+onderdelen worden uitgewerkt.
+
+Voor de backend wordt Node.js met TypeScript en Express voorzien.
+Deze combinatie maakt het mogelijk om een beperkte mock-API op te zetten
+voor het laden en opslaan van templates en het aanvragen van gerenderde
+e-mails. Omdat de PoC niet rechtstreeks in productie wordt geïntegreerd,
+is een volledige implementatie van de bestaande backend niet noodzakelijk.
+
+Voor de visuele editor wordt Quill 2 als kandidaat onderzocht. De editor
+moet gebruikers toelaten om de inhoud en ondersteunde opmaak van een
+e-mailtemplate aan te passen zonder rechtstreeks HTML te bewerken.
+De geschiktheid van Quill wordt beoordeeld aan de hand van de vereiste
+bewerkingsmogelijkheden en de HTML-uitvoer die de editor genereert.
+
+De verwerking van e-mailtemplates vormt een afzonderlijk onderdeel.
+Voor HTML-sanitatie wordt \texttt{sanitize-html} overwogen. Deze stap moet
+niet-toegestane elementen en attributen verwijderen of weigeren. Voor het
+samenstellen van de vaste e-mailschil en het verwerken van toegestane
+placeholders wordt Handlebars overwogen. Voor het inline plaatsen van CSS
+kan Juice worden gebruikt. Indien een afzonderlijke tekstversie nodig is,
+kan \texttt{html-to-text} daarvoor worden ingezet.
+
+Voor de lokale testomgeving wordt Mailpit overwogen om testmails op te
+vangen en te inspecteren zonder echte ontvangers te gebruiken. Docker kan
+worden ingezet om de benodigde services reproduceerbaar op te starten.
+Voor geautomatiseerde tests worden Vitest en Playwright als kandidaten
+voorzien.
+
+De broncode wordt beheerd in de interne Bitbucket-omgeving van Vesalius.ai.
+Jira wordt gebruikt voor de opvolging van werkzaamheden en taken. De
+ontwikkeling gebeurt met Visual Studio Code op Windows 11, met Ubuntu
+via WSL2 waar nodig. De precieze versies en installatie-instructies worden
+vastgelegd in de projectdocumentatie.
 
 \section{\IfLanguageName{dutch}{Vergelijking van de mogelijkheden}{Comparison of the options}}%
 \label{sec:vergelijking}
-TODO! (2-4 mogelijkheden vgl op criteria die voor dit project belangrijk zijn: aansluiting bestaande omgeving/leercurve/ondersteuning/licentie/prestaties/onderhoudbaarheid/kostprijs)
-werk met tabel
+Bij de keuze van de technologieën werd rekening gehouden met de beperkte
+scope van het project. Het doel is niet om een volledig productieplatform
+te ontwikkelen, maar om de technische haalbaarheid van visueel aanpasbare
+e-mailtemplates aan te tonen. Daarom worden technologieën gekozen die de
+belangrijkste functionaliteiten ondersteunen zonder onnodige complexiteit
+te introduceren.
 
-Omdat het project binnen een bestaande professionele applicatie werd uitgevoerd, was een volledig nieuwe technologiekeuze niet aangewezen. Een nieuwe backendtechnologie of frontendframework zou de functionaliteit technisch wel kunnen realiseren, maar zou niet aansluiten bij de bestaande codebase.
-De belangrijkste alternatieven kunnen daarom als volgt worden bekeken:
+\subsection{Frontend en editor}
+Voor de frontend zijn verschillende benaderingen mogelijk. Een eerste optie
+is Angular met TypeScript, een tweede optie is React met TypeScript en een
+derde optie is een eenvoudige frontend met beperkte afhankelijkheden.
+Voor de editor kan een bestaande WYSIWYG-bibliotheek worden gebruikt of
+kan een eigen editor worden ontwikkeld.
 
 \begin{table}[htbp]
-  \centering
-  \begin{tabular}{lccc}
-    \toprule
-    \textbf{Criterium} & \textbf{Bestaande stack} & \textbf{Nieuwe stack} & \textbf{Losstaande oplossing} \\
-    \midrule
-    Aansluiting bestaande applicatie & ++ & -- & -- \\
-    Onderhoudbaarheid door team & ++ & - & -- \\
-    Integratie met bestaande data & ++ & - & -- \\
-    Leercurve binnen projectperiode & ++ & - & + \\
-    Hergebruik bestaande infrastructuur & ++ & -- & - \\
-    \bottomrule
-  \end{tabular}
-  \caption[Vergelijking van technologische mogelijkheden]{Vergelijking van de bestaande technologische stack met alternatieve benaderingen.}
-  \label{tab:vergelijking}
+    \centering
+    \caption{Vergelijking van frontendmogelijkheden}
+    \label{tab:frontend-vergelijking}
+    \small
+    \begin{tabular}{p{3.2cm}p{3.5cm}p{3.5cm}p{3.5cm}}
+        \toprule
+        \textbf{Criterium} &
+        \textbf{Angular + TypeScript} &
+        \textbf{React + TypeScript} &
+        \textbf{Eigen eenvoudige frontend} \\
+        \midrule
+        Componentstructuur &
+        Uitgebreid framework met vaste structuur &
+        Componentgebaseerd, met flexibele keuzes &
+        Afhankelijk van eigen implementatie \\
+        \addlinespace
+        Geschiktheid voor de PoC &
+        Geschikt voor een gestructureerde toepassing &
+        Eveneens geschikt voor een gestructureerde toepassing &
+        Geschikt voor een zeer beperkte interface \\
+        \addlinespace
+        Leercurve &
+        Afhankelijk van bestaande kennis &
+        Afhankelijk van bestaande kennis &
+        Aanvankelijk beperkt, maar complexer bij uitbreiding \\
+        \addlinespace
+        Onderhoudbaarheid &
+        Duidelijke conventies en structuur &
+        Afhankelijk van gekozen bibliotheken en afspraken &
+        Vereist eigen afspraken en structuur \\
+        \addlinespace
+        Integratie editor &
+        Via een geschikte editorbibliotheek &
+        Via een geschikte editorbibliotheek &
+        Mogelijk, maar meer eigen werk \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
-De bestaande stack scoort vooral beter omdat de functionaliteit rechtstreeks onderdeel wordt van het bestaande Vesalius-platform. Een aparte applicatie zou extra authenticatie, gegevensuitwisseling, deployment en onderhoud vereisen. Ook het gebruik van een nieuwe programmeertaal of framework zou weinig meerwaarde bieden voor een relatief beperkte uitbreiding van een bestaande applicatie.
+Angular met TypeScript wordt als uitgangspunt genomen omdat het een
+gestructureerde basis biedt voor de editor, de templatekeuze en de
+communicatie met de API. React zou technisch eveneens geschikt zijn, maar
+het gebruik van een ander framework levert binnen deze afgebakende PoC
+niet noodzakelijk voldoende meerwaarde op. Een eigen frontend zonder
+uitgebreid framework kan eenvoudiger starten, maar biedt minder structuur
+wanneer de functionaliteit verder wordt uitgebreid.
 
+Voor de WYSIWYG-editor wordt een bestaande bibliotheek onderzocht in plaats
+van een volledige editor vanaf nul te ontwikkelen. Een eigen editor zou
+meer controle bieden, maar vraagt ook meer ontwikkeltijd en bijkomend
+onderhoud. De definitieve keuze voor Quill 2 hangt af van de resultaten van
+de technische proef, met bijzondere aandacht voor de gegenereerde HTML en
+de benodigde opmaakmogelijkheden.
+
+\subsection{Backend en templateopslag}
+Voor de backend zijn onder meer Node.js met Express, een uitgebreider
+backendframework en een rechtstreekse koppeling met de bestaande
+Vesalius-backend mogelijk.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Vergelijking van backendmogelijkheden}
+    \label{tab:backend-vergelijking}
+    \small
+    \begin{tabular}{p{3.2cm}p{3.5cm}p{3.5cm}p{3.5cm}}
+        \toprule
+        \textbf{Criterium} &
+        \textbf{Node.js + Express} &
+        \textbf{Uitgebreid backendframework} &
+        \textbf{Bestaande Vesalius-backend} \\
+        \midrule
+        Complexiteit &
+        Beperkt voor een kleine mock-API &
+        Meer ingebouwde functionaliteit &
+        Afhankelijk van bestaande architectuur \\
+        \addlinespace
+        Geschiktheid voor PoC &
+        Geschikt voor beperkte API-functionaliteit &
+        Mogelijk, maar kan uitgebreider zijn dan nodig &
+        Technisch mogelijk, maar vereist koppeling aan het platform \\
+        \addlinespace
+        Onafhankelijk testen &
+        Goed mogelijk &
+        Goed mogelijk &
+        Meer afhankelijkheden \\
+        \addlinespace
+        Productie-integratie &
+        Vereist later bijkomende integratie &
+        Vereist later bijkomende integratie &
+        Sluit rechtstreeks aan op het bestaande platform \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Node.js met Express wordt als uitgangspunt genomen omdat de PoC slechts een
+beperkte API nodig heeft. De mock-API kan templates laden en opslaan en de
+renderingfunctionaliteit aanroepen zonder de bestaande productiebackend
+te wijzigen.
+
+Voor de opslag wordt geen specifieke databasetechnologie vooraf vastgelegd.
+De opslag moet in de eerste plaats voldoen aan de behoeften van de PoC.
+JSON-fixtures of tijdelijke opslag kunnen volstaan wanneer de functionaliteit
+beperkt blijft. De opslag wordt zo veel mogelijk losgekoppeld van de
+applicatielogica, zodat een eventuele latere integratie een andere
+opslagtechnologie kan gebruiken.
+
+\subsection{Rendering en veiligheid}
+De gegenereerde HTML vormt een belangrijk technisch risico. Een visuele
+editor produceert HTML die niet zonder bijkomende controle mag worden
+gebruikt. Daarom worden verschillende onderdelen voorzien voor de veilige
+verwerking van de template.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Vergelijking van benaderingen voor HTML-verwerking}
+    \label{tab:html-vergelijking}
+    \small
+    \begin{tabular}{p{3.4cm}p{4.1cm}p{6cm}}
+        \toprule
+        \textbf{Benadering} &
+        \textbf{Voordeel} &
+        \textbf{Aandachtspunt} \\
+        \midrule
+        HTML rechtstreeks gebruiken &
+        Eenvoudige verwerking &
+        Onveilige of ongewenste inhoud kan worden doorgelaten \\
+        \addlinespace
+        HTML-sanitatie met allowlist &
+        Toegestane elementen en attributen kunnen worden afgebakend &
+        De allowlist moet afgestemd worden op de gewenste e-mailopmaak \\
+        \addlinespace
+        Handmatige verwerking met eigen regels &
+        Veel controle over de verwerking &
+        Grotere implementatie- en onderhoudslast \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+HTML-sanitatie met een expliciete allowlist wordt als voorkeursbenadering
+genomen. Hierbij worden uitsluitend toegestane elementen en attributen
+behouden. Daarnaast worden placeholders beperkt tot een vooraf bepaalde
+lijst en worden dynamische waarden veilig verwerkt.
+
+Voor het samenstellen van de e-mailschil wordt een template-engine zoals
+Handlebars overwogen. CSS kan vervolgens inline worden geplaatst wanneer
+dat nodig is voor de ondersteuning van e-mailclients. Deze verwerking
+moet als één samenhangende pipeline worden getest, omdat de volgorde van
+sanitatie, placeholderverwerking en rendering invloed kan hebben op de
+uiteindelijke uitvoer.
+
+\subsection{Testomgeving}
+De validatie vereist meer dan het controleren van de interface in een
+browser. Ook de gegenereerde HTML, de placeholderverwerking en de
+weergave van de uiteindelijke e-mail moeten worden onderzocht.
+
+Voor unit- en integratietests wordt Vitest overwogen. Voor het testen van
+gebruikersinteracties in de browser kan Playwright worden ingezet. Mailpit
+kan worden gebruikt om testmails lokaal op te vangen en te inspecteren.
+Docker ondersteunt het reproduceerbaar opstarten van de benodigde services.
+
+De definitieve testaanpak wordt afgestemd op de werkelijk gerealiseerde
+functionaliteiten. Niet-beschikbare e-mailclients worden als beperking
+geregistreerd in plaats van als succesvol getest beschouwd.
 
 \section{\IfLanguageName{dutch}{Vergelijking met de opleiding}{Comparison with the programme}}%
 \label{sec:vergelijking-opleiding}
+Het project sluit aan bij verschillende competenties uit de opleiding
+Graduaat in het Programmeren, waaronder webontwikkeling, programmeren,
+gegevensverwerking, softwarearchitectuur, versiebeheer en het testen van
+software.
 
-%% Verwacht onderdeel van je verdediging: hoe verhoudt de technologie die je
-%% hier gebruikte zich tot wat je in de opleiding gezien hebt? Wat was
-%% hetzelfde, wat was nieuw, en wat bleek in de praktijk anders te werken dan
-%% in de les?
-TODO+herschrijven! welke specifieke technieken? wat in praktijk anders (git versiecontrole via BitBucket/SourceTree bv en niet GitHub, planning gebeurt in JIRA (Atlassian) en bv niet in Github planning of Azure sprints, Google Chat voor te communiceren met elkaar ipv MsTeams, ...), wat nieuw (vanalles) en wat hetzelfde (git versiecontrole commands)? 
-Het project sluit goed aan bij de competenties uit de opleiding Graduaat in het Programmeren. Tijdens de opleiding werd gewerkt met programmeerconcepten, databases, webontwikkeling, versiebeheer, softwarearchitectuur en samenwerking binnen softwareprojecten.
-In de professionele omgeving werd dezelfde basiskennis toegepast binnen een bestaande en aanzienlijk grotere codebase. Het belangrijkste verschil met oefeningen en projecten binnen de opleiding is dat wijzigingen niet geïsoleerd bestaan. Elke aanpassing moet rekening houden met bestaande functionaliteit, gebruikers, gegevens, beveiliging, codeconventies en andere onderdelen van het platform.
-Ook het werken met bestaande infrastructuur en bedrijfsprocessen vormde een verschil. Technologieën zoals Keycloak, Kubernetes, Terraform en CI/CD handling via CodeFresh  zijn volledig nieuwe zaken voor mij en worden niet enkel als afzonderlijke technologieën gebruikt, maar maken deel uit van een groter geheel waarin verschillende componenten samenwerken.
+Tijdens de opleiding werden programmeerconcepten en webtechnologieën
+voornamelijk toegepast in afgebakende oefeningen en projecten. In dit
+graduaatsproject worden deze vaardigheden gebruikt om een toepassing op te
+bouwen waarin meerdere onderdelen samenwerken. De editor, de API, de
+templateopslag en de renderingpipeline moeten gezamenlijk het gewenste
+resultaat opleveren.
 
+Ook het veilig verwerken van HTML en dynamische gegevens vormt een belangrijk
+aandachtspunt. De werking van de interface volstaat niet als bewijs dat
+de gegenereerde e-mail correct is. Daarom moeten ook de uitvoer en de
+weergave in verschillende e-mailclients worden gecontroleerd.
+
+De professionele ontwikkelomgeving verschilt daarnaast van de omgeving
+die tijdens de opleiding werd gebruikt. Git en Bitbucket worden ingezet
+voor versiebeheer, Jira voor de opvolging van taken en Google Chat voor
+de communicatie binnen het team. Tijdens de ontwikkeling wordt gewerkt
+met Visual Studio Code en Ubuntu via WSL2 op Windows 11. Docker kan worden
+gebruikt voor de lokale testomgeving.
+
+De samenwerking binnen een professioneel team vraagt bovendien aandacht
+voor documentatie, traceerbaarheid en vertrouwelijkheid. De broncode bevindt
+zich in de interne Bitbucket-omgeving van Vesalius.ai en kan daarom niet
+zonder toestemming als publieke code worden gedeeld.
+
+Het project biedt zo de mogelijkheid om de kennis uit de opleiding toe
+te passen in een praktijksituatie waarin technische keuzes niet alleen
+worden beoordeeld op hun werking, maar ook op hun onderhoudbaarheid,
+veiligheid en geschiktheid voor verdere ontwikkeling.
 
 \section{\IfLanguageName{dutch}{Gemaakte keuze}{The choice made}}%
 \label{sec:keuze}
-TODO! 
-Voor het graduaatsproject werd bewust gekozen om de bestaande Vesalius.ai-stack volledig te behouden. De backendfunctionaliteit werd geïntegreerd in Laravel/PHP, de gebruikersinterface werd uitgebreid met Angular en TypeScript en de bestaande MySQL-database werd gebruikt voor persistente gegevens. Keycloak bleef verantwoordelijk voor authenticatie en autorisatie.
-Deze keuze vermijdt onnodige technische complexiteit en zorgt ervoor dat de functionaliteit aansluit bij de bestaande kennis van het team. Bovendien kan de oplossing gebruikmaken van bestaande infrastructuur, deploymentprocessen en ontwikkelafspraken.
-Het belangrijkste nadeel van deze keuze is dat er minder ruimte is om nieuwe technologieën te introduceren. Voor dit project weegt die beperking echter niet op tegen de voordelen van een consistente integratie in het bestaande platform.
+Voor de PoC wordt gekozen voor een gescheiden architectuur met Angular en
+TypeScript voor de frontend en Node.js, TypeScript en Express voor de
+mock-API. Deze combinatie biedt een gestructureerde basis voor de
+gebruikersinterface en de beperkte API-functionaliteit die nodig is om
+templates te laden, op te slaan en te verwerken.
 
-LEES GRONDIG: 
-%% Eén heldere paragraaf: dit is het geworden, en dit is de reden. Vermeld
-%% ook eerlijk wat je ervoor hebt moeten opgeven.
+Voor de visuele editor wordt Quill 2 als kandidaat onderzocht. De keuze
+wordt pas definitief wanneer de technische proef aantoont dat de editor
+de gewenste bewerkingsmogelijkheden biedt en bruikbare HTML genereert.
+De renderingpipeline wordt afzonderlijk opgebouwd, zodat de verwerking
+van HTML, placeholders, de vaste e-mailschil en CSS niet volledig afhankelijk
+is van de editor.
+
+Voor de opslag wordt de eenvoudigste aanpak gekozen die aan de vereisten
+van de PoC voldoet. Hiermee wordt vermeden dat er onnodig tijd wordt besteed
+aan een uitgebreide databaseoplossing die voor de demonstratie niet nodig
+is. Tegelijk blijft de opslaglaag voldoende gescheiden om later vervangen
+te kunnen worden.
+
+De testomgeving wordt opgezet met het oog op reproduceerbaarheid en
+veiligheid. Geautomatiseerde tests controleren de belangrijkste onderdelen
+en Mailpit kan worden gebruikt om testmails lokaal te inspecteren.
+Compatibiliteitscontroles vullen deze tests aan, omdat de uiteindelijke
+weergave van e-mails afhankelijk is van de gebruikte e-mailclient.
+
+Het belangrijkste nadeel van deze keuze is dat de PoC niet rechtstreeks
+gebruikmaakt van de bestaande productiebackend en daarom niet zonder
+bijkomende werkzaamheden in het Vesalius-platform kan worden geïntegreerd.
+Dit is een bewuste afweging: de doelstelling is eerst de technische
+haalbaarheid van de visuele e-maileditor aan te tonen. Een eventuele
+productie-integratie en de definitieve keuze van de opslagtechnologie
+vallen buiten de scope van dit graduaatsproject.
+
+TODO!!! BRONVERWIJZING (ALLE BRONNEN MOETEN GE AUTOCITE WORDEN)
 %% Verwijs naar je bronnen met \autocite{sleutel} of \textcite{sleutel}. De
 %% sleutels staan in bronnen.bib. Zet de verwijzing binnen de zin, vlak bij de
 %% bewering waar ze bij hoort - niet achteraan de paragraaf. Hieronder een
 %% voorbeeld van beide vormen; vervang ze door je eigen bronnen.
-
 Bij het beoordelen van leesbaarheid en onderhoudbaarheid van de code werd
 uitgegaan van de gangbare vuistregels uit het vakgebied~\autocite{Martin2008}.
 De officiële documentatie van het gekozen framework~\autocite{DockerDocs2026}
 diende als voornaamste naslagwerk. \textcite{Fowler2018} gebruik je wanneer de
 naam van de auteur zelf een rol speelt in je zin.
 
-%%---------- Bronnen vermelden in een projectrapport ---------------------------
-%%
-%% Welke bronnen horen in je bronnenlijst?
-%%   - officiële documentatie van de talen, frameworks en diensten die je gebruikt
-%%   - handleidingen, blogberichten of video's waarop je je aanpak gebaseerd hebt
-%%   - normen en standaarden waaraan je je gehouden hebt
-%%   - een boek of artikel, als je er een gebruikt hebt
-%%   - interne documenten van je bedrijf: vermeld ze, maar neem geen
-%%     vertrouwelijke inhoud over zonder toestemming van je mentor
-%%
-%% Wat er NIET in hoort:
-%%   - een gesprek met een AI-hulpmiddel. Dat is geen bron die iemand kan
-%%     nagaan; het hoort thuis in de bijlage over je AI-gebruik.
-%%   - bronnen die je niet gelezen hebt. Een lange lijst maakt geen indruk;
-%%     een lijst met werken die nergens aangehaald worden, wel - de verkeerde.
-%%
-%% Vermeld bij een webbron ALTIJD de datum waarop je ze geraadpleegd hebt
-%% (het veld urldate in bronnen.bib): documentatie verandert.
