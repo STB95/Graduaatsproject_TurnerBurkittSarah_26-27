@@ -1,135 +1,172 @@
+
 # Graduaatsproject — Vesalius.ai
 
-Uitbreiding van het Vesalius-platform voor een gerichtere configuratie van automatisch gegenereerde output.
+**WYSIWYG-e-maileditor — Proof of Concept**
 
 ## Projectbeschrijving
 
-Dit project werd uitgevoerd binnen het ontwikkelingsteam van [Vesalius.ai](https://vesalius.ai) als onderdeel van het graduaatsproject **Graduaat in het Programmeren** aan HOGENT.
+Dit project wordt uitgevoerd binnen het ontwikkelingsteam van [Vesalius.ai](https://vesalius.ai) als onderdeel van het graduaatsproject **Graduaat in het Programmeren** aan HOGENT.
 
-Het project is gebaseerd op bestaande JIRA-tickets die betrekking hebben op het verfijnen van automatisch gegenereerde output binnen het Vesalius-platform.
+Binnen het Vesalius-platform worden op vaste momenten automatisch e-mails verstuurd, bijvoorbeeld bij afspraakbevestigingen, herinneringen en annulaties. Momenteel is de aanpasbaarheid van deze e-mails beperkt: artsen en organisaties kunnen bepaalde huisstijlelementen configureren, maar hebben onvoldoende controle over de inhoud en opmaak van de meeste e-mailtypes.
 
-De belangrijkste functionaliteiten zijn:
+Het doel van dit project is een zelfstandige proof of concept (PoC) te ontwikkelen van een visuele e-maileditor waarmee gebruikers de inhoud en opmaak van e-mails kunnen aanpassen, opslaan, vooraf bekijken en als testmail versturen.
 
-- **Artsgebonden documenttemplates**
-  - Een documenttemplate kan aan één of meerdere specifieke artsen worden gekoppeld.
-  - Enkel gebruikers met de functie `arts` kunnen geselecteerd worden.
-  - Automatische generatie kan hierdoor worden beperkt tot de gekoppelde arts(en).
-  - Templates zonder artskoppeling behouden het bestaande gedrag.
-  - Manuele generatie blijft beschikbaar voor alle gebruikers.
-  - De zichtbaarheid van een template wordt niet gewijzigd.
+## Functionaliteiten
 
-- **Doelgroep voor Scribe-consultatemplates**
-  - Een consultatietemplate kan worden ingesteld voor `patiënt` of `arts`.
-  - Patiëntgerichte output is gericht op begrijpelijke mensentaal.
-  - Artsgerichte output kan medische terminologie gebruiken.
+De PoC omvat de volgende functionaliteiten:
+
+- **Visuele e-maileditor**
+
+  - E-mailinhoud aanpassen via een WYSIWYG-editor.
+  - Tekstopmaak, titels, lijsten en hyperlinks ondersteunen.
+  - Placeholders invoegen voor dynamische gegevens.
+  - Opmaak uit externe bronnen, zoals Word, veilig verwerken.
+- **E-mailtemplates beheren**
+
+  - Templates opslaan en opnieuw laden per e-mailtype, taal en configuratie.
+  - Terugvallen op een standaardtemplate wanneer geen aangepaste versie beschikbaar is.
+  - Drie voorbeeld-e-mailtypes ondersteunen: afspraakbevestiging, herinnering en annulatie.
+- **Rendering en beveiliging**
+
+  - HTML-inhoud opschonen en onveilige elementen verwijderen.
+  - Placeholders veilig vervangen door voorbeeldgegevens.
+  - Een vaste e-mailschil toepassen met onder meer logo, kleuren en footer.
+  - CSS inline verwerken en een tekstuele versie van de e-mail genereren.
+- **Voorbeeldweergave en testverzending**
+
+  - De gerenderde e-mail vooraf bekijken.
+  - Testmails versturen naar een lokale testmailserver.
+  - De weergave en compatibiliteit controleren in gangbare e-mailclients.
 
 ## Scope
 
-Het graduaatsproject richt zich uitsluitend op de twee bovenstaande functionaliteiten.
+Het graduaatsproject richt zich uitsluitend op de ontwikkeling en validatie van een zelfstandige PoC. De focus ligt op één visuele editor, drie voorbeeld-e-mailtypes, templateopslag, veilige rendering, voorbeeldweergave en testverzending.
 
-Het bredere backlog-item rond een **WYSIWYG-editor voor e-mails** valt buiten de scope van dit project. Ook andere templatecategorieën worden niet automatisch uitgebreid wanneer hun werking afwijkt van de onderzochte document- en Scribe-templates.
+De e-mailschil blijft binnen de PoC grotendeels vast, zodat de nadruk ligt op het aanpassen van de inhoud en opmaak van de e-mailbody.
+
+De volgende onderdelen vallen buiten de scope:
+
+- Integratie in het bestaande Vesalius-platform.
+- Productieverzending en productieplanning van e-mails.
+- Keycloak-e-mails.
+- Verwerking van echte patiëntgegevens.
+- Een volledig configureerbare layout-builder.
+- Een volledige vervanging van de bestaande e-mailinfrastructuur.
+
+De PoC moet een onderbouwde basis bieden voor een mogelijke latere integratie, zonder deze integratie zelf te realiseren.
 
 ## Technologische stack
 
-| Onderdeel | Technologie |
-|---|---|
-| Backend | PHP / Laravel |
-| Frontend | Angular / TypeScript |
-| Styling | HTML / SCSS |
-| Database | MySQL |
-| Authenticatie | Keycloak |
-| Caching / tijdelijke gegevens | Redis |
-| Containerisatie | Docker |
-| Infrastructuur | Kubernetes / Terraform |
-| CI/CD | CodeFresh |
-| Versiebeheer | Git / Bitbucket |
-| Projectbeheer | Jira |
-| Ontwikkelomgeving | Visual Studio Code / WSL2 |
+| Onderdeel                    | Technologie                              |
+| ---------------------------- | ---------------------------------------- |
+| Frontend                     | Angular 21 / TypeScript                  |
+| Visuele editor               | Quill 2                                  |
+| Mock-API                     | Node.js / TypeScript / Express           |
+| HTML-opschoning              | `sanitize-html`                        |
+| Templates en placeholders    | Handlebars / eigen placeholderverwerking |
+| CSS-inlining                 | `juice`                                |
+| Tekstuele e-mailversie       | `html-to-text`                         |
+| Templateopslag               | Tijdelijke opslagoplossing voor de PoC   |
+| Mockgegevens                 | JSON-fixtures / Faker.js                 |
+| Testverzending               | Nodemailer / Mailpit                     |
+| Containerisatie testomgeving | Docker / Docker Compose                  |
+| Geautomatiseerde tests       | Vitest / Playwright                      |
+| Versiebeheer                 | Git / Bitbucket                          |
+| Projectbeheer                | Jira                                     |
+| Ontwikkelomgeving            | Visual Studio Code / WSL2 / Ubuntu       |
 
-De bestaande technologieën van Vesalius.ai worden behouden zodat de nieuwe functionaliteit aansluit bij de bestaande architectuur, ontwikkelstandaarden en infrastructuur.
+De gekozen technologieën ondersteunen een zelfstandige testopstelling die aansluit bij de bestaande frontendtechnologie van Vesalius.ai. De mock-API maakt het mogelijk om de editor en rendering afzonderlijk te ontwikkelen en te testen, zonder afhankelijk te zijn van de productieomgeving.
 
-## Projectstructuur
+De definitieve keuze voor de editor en tijdelijke opslag wordt tijdens de ontwikkeling gevalideerd. De opslagtechnologie wordt niet vooraf vastgelegd op basis van de bestaande productiedatabase.
 
-De functionaliteit wordt geïntegreerd in de bestaande Vesalius.ai-codebase.
+## Architectuur en projectstructuur
 
-De belangrijkste onderdelen zijn:
+De PoC wordt als een afzonderlijke applicatie ontwikkeld en staat los van de bestaande Vesalius-codebase.
+
+De beoogde projectstructuur is:
 
 ```text
-Frontend
-└── Angular / TypeScript
-    └── Templateconfiguratie en gebruikersinterface
-
-Backend
-└── Laravel / PHP
-    └── Businesslogica en API-functionaliteit
-
-Database
-└── MySQL
-    └── Template- en configuratiegegevens
-
-Authentication
-└── Keycloak
-    └── Gebruikersidentiteit en toegangscontext
+email-editor-poc/
+├── apps/
+│   ├── web/                 # Angular-editor, preview en testinterface
+│   └── mock-api/             # API, templatebeheer en rendering
+├── fixtures/                 # Fictieve gegevens en voorbeeldtemplates
+├── docs/
+│   ├── proposition.md        # Projectvoorstel
+│   ├── decisions.md          # Technische beslissingen
+│   ├── test-matrix.md        # Testscenario's en resultaten
+│   ├── worklog.md            # Voortgang per sprint
+│   └── integration-notes.md  # Voorstel voor latere integratie
+├── docker-compose.yml        # Lokale testomgeving met Mailpit
+└── README.md
 ```
 
-De exacte structuur kan verschillen afhankelijk van de bestaande Vesalius.ai-codebase en wordt daarom niet los van de oorspronkelijke applicatiestructuur gereorganiseerd.
+De frontend biedt de editor, voorbeeldweergave en testinterface aan. De mock-API verzorgt het opslaan en laden van templates, het verwerken van placeholders, de HTML-rendering en het versturen van testmails.
 
 ## Ontwikkeling
 
-Het project wordt ontwikkeld binnen de bestaande ontwikkelomgeving van Vesalius.ai.
+De ontwikkeling gebeurt iteratief in wekelijkse sprints, met een afgebakend resultaat per sprint. De voortgang, technische keuzes en eventuele problemen worden bijgehouden en regelmatig besproken met de bedrijfsmentor.
 
-Voor lokale ontwikkeling wordt onder andere gebruikgemaakt van:
+De belangrijkste ontwikkelactiviteiten zijn:
 
-- Windows 11
-- WSL2 / Ubuntu
-- Docker
-- Visual Studio Code
-- Git
-- Bitbucket
+- Opzetten van de ontwikkel- en testomgeving.
+- Analyseren van de vereisten en ontwerpen van de oplossing.
+- Ontwikkelen van de editor en templateverwerking.
+- Implementeren van veilige HTML-rendering en testverzending.
+- Valideren van de uitvoer in verschillende e-mailclients.
+- Documenteren van de resultaten en formuleren van een integratievoorstel.
 
-Functionele vereisten en voortgang worden opgevolgd via Jira. Wijzigingen worden versiebeheerd met Git.
+## Testen en validatie
 
-## Testen
+De oplossing wordt getest met fictieve gegevens en een combinatie van geautomatiseerde en handmatige controles.
 
-De functionaliteit wordt gevalideerd aan de hand van de acceptatiecriteria uit de betreffende JIRA-tickets.
+De belangrijkste testscenario's omvatten:
 
-Belangrijke testscenario's zijn onder andere:
+- Aanpassen, opslaan en opnieuw laden van e-mailtemplates.
+- Correcte vervanging en veilige verwerking van placeholders.
+- Opschonen van HTML en voorkomen van ongewenste scriptuitvoering.
+- Correcte verwerking van ontbrekende, ongeldige of speciale invoer.
+- Correcte generatie van HTML- en tekstuele e-mailversies.
+- Weergave van de drie voorbeeld-e-mailtypes in verschillende talen en configuraties.
+- Controle van de e-mails in Gmail, Outlook.com en Apple Mail, waar beschikbaar.
+- Controle van de rendering op verschillende schermformaten en van bekende compatibiliteitsproblemen.
 
-- templates zonder artskoppeling;
-- templates met één of meerdere gekoppelde artsen;
-- filtering van gebruikers op functie `arts`;
-- automatische versus manuele generatie;
-- behoud van bestaande functionaliteit;
-- patiëntgerichte en artsgerichte Scribe-output.
+De resultaten worden bijgehouden in een testmatrix met eventuele afwijkingen, screenshots en voorgestelde verbeteringen. Automatische tests worden gebruikt om regressies te detecteren en de belangrijkste beveiligings- en renderingvereisten te bewaken.
 
 ## AI-gebruik
 
-Tijdens de ontwikkeling kan generatieve AI als ondersteunend hulpmiddel worden gebruikt voor onder andere:
+Generatieve AI maakt geen deel uit van de functionaliteit van de PoC. Het project richt zich op voorspelbare tekstbewerking, templateverwerking en e-mailrendering.
 
-- analyse van foutmeldingen;
-- uitleg van bestaande code;
-- vergelijking van technische oplossingsrichtingen;
-- ondersteuning bij codeontwikkeling;
-- structurering en taalcontrole van documentatie.
-
-AI vervangt de eigen analyse of technische besluitvorming niet. Voorgestelde oplossingen worden gecontroleerd, aangepast en getest voordat ze worden gebruikt.
-
-Een volledige verantwoording van het AI-gebruik is opgenomen in het graduaatsprojectrapport.
+AI kan eventueel als ondersteunend hulpmiddel worden gebruikt tijdens de ontwikkeling, bijvoorbeeld voor het analyseren van foutmeldingen, het vergelijken van technische oplossingsrichtingen en het structureren van documentatie. Voorgestelde oplossingen worden steeds kritisch beoordeeld en getest.
 
 ## Privacy en vertrouwelijkheid
 
-Het project maakt deel uit van een professioneel medisch softwareplatform. Vertrouwelijke bedrijfsinformatie, persoonsgegevens, medische gegevens, wachtwoorden, API-sleutels en andere gevoelige gegevens worden niet publiek beschikbaar gesteld.
+Omdat Vesalius.ai actief is binnen een medische context, wordt bij de ontwikkeling rekening gehouden met de vertrouwelijkheid van bedrijfsinformatie en persoonsgegevens.
 
-De repository kan daarom beperkte of niet-publieke toegang hebben. Raadpleeg de projectdocumentatie en de afspraken met Vesalius.ai voor de toegestane ontwikkel- en testomgeving.
+De PoC gebruikt uitsluitend fictieve patiëntgegevens en voorbeeldtemplates. Er worden geen echte patiëntgegevens, productiecredentials, API-sleutels of andere vertrouwelijke gegevens in de repository opgenomen.
+
+De verwerking van HTML en dynamische placeholders wordt beveiligd tegen onveilige invoer. De uiteindelijke oplossing en het eventuele integratievoorstel houden rekening met de relevante principes van de Algemene Verordening Gegevensbescherming (AVG/GDPR).
+
+## Verwachte opleveringen
+
+Aan het einde van het graduaatsproject worden de volgende resultaten voorzien:
+
+- Een werkende PoC van de visuele e-maileditor.
+- Een lokale testomgeving met mock-API en testmailserver.
+- Voorbeeldtemplates en reproduceerbare fictieve testgegevens.
+- Geautomatiseerde tests en gedocumenteerde testresultaten.
+- Een overzicht van de compatibiliteit met gangbare e-mailclients.
+- Technische documentatie en een onderbouwd voorstel voor mogelijke integratie in Vesalius.ai.
+- Een demonstratie van de gerealiseerde functionaliteiten.
 
 ## Auteur
 
-**Sarah Turner**  
-Graduaat in het Programmeren — HOGENT  
-Academiejaar 2026–2027 (1e semester)
+**Sarah Turner**
+Graduaat in het Programmeren — HOGENT
+Academiejaar 2026–2027
 
 ## Bedrijf
 
 **Vesalius.ai**
 
-Het project werd uitgevoerd binnen het developmentteam van Vesalius.ai als onderdeel van een professionele stage en het graduaatsproject.
+Het graduaatsproject wordt uitgevoerd in het kader van een professionele stage binnen het ontwikkelingsteam van Vesalius.ai.
