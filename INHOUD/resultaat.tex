@@ -2,76 +2,192 @@
 %% Resultaat en validatie
 %%=============================================================================
 
+%%TODO: toevoegen screenshots/testresults/conclusie result
+
 \chapter{\IfLanguageName{dutch}{Resultaat en validatie}{Result and validation}}%
 \label{ch:resultaat}
-TODO!
-%% Richtlengte: 1 tot 2 bladzijden.
-%%
-%% Hier toon je dat het werkt, en hoe je dat weet. Een project dat niemand
-%% getest heeft, is een project waarvan niemand weet of het werkt.
+Dit hoofdstuk beschrijft het beoogde resultaat van het graduaatsproject en
+de manier waarop de gerealiseerde proof of concept (PoC) wordt gevalideerd.
+Het project richt zich op de ontwikkeling van een zelfstandige visuele
+e-maileditor waarmee gebruikers de inhoud van bepaalde automatisch
+gegenereerde e-mails kunnen aanpassen, opslaan, vooraf bekijken en testen.
 
-Het resultaat van het graduaatsproject is een uitbreiding van de bestaande templatefunctionaliteit van het Vesalius-platform. 
-De oplossing werd ontworpen om de bestaande werking te behouden wanneer geen specifieke configuratie wordt gebruikt en om bijkomende controle te bieden wanneer een template wel specifiek wordt geconfigureerd.
+Het beoogde resultaat is een werkende demonstratie waarin de verschillende
+onderdelen van dit proces samenkomen. De gebruiker moet een bestaande
+e-mailtemplate kunnen selecteren, de inhoud visueel kunnen aanpassen en
+het resultaat kunnen beoordelen voordat een testmail wordt verstuurd.
+Daarnaast moet de oplossing aantonen dat de gegenereerde HTML gecontroleerd
+wordt verwerkt en geschikt kan worden gemaakt voor weergave in gangbare
+e-mailclients.
+
+De validatie richt zich zowel op de functionele werking als op de technische
+betrouwbaarheid van de oplossing. Hierbij worden de vooraf bepaalde vereisten
+vergeleken met de werkelijk gerealiseerde functionaliteiten en de resultaten
+van de uitgevoerde tests.
 
 \section{\IfLanguageName{dutch}{Wat er opgeleverd is}{What was delivered}}%
 \label{sec:opgeleverd}
-TODO!
-%% Beschrijf het eindresultaat zoals een gebruiker het ziet. Voeg een of twee
-%% schermafbeeldingen toe: dat is het bewijsstuk waar de lezer het snelst iets
-%% aan heeft.
-Voor documenttemplates werd functionaliteit voorzien om één of meerdere artsen aan een template te koppelen. De selectie is beperkt tot gebruikers die als arts geregistreerd zijn. Een template zonder gekoppelde artsen behoudt het bestaande gedrag.
-Wanneer een template wel aan specifieke artsen gekoppeld is en automatische generatie actief is, wordt de automatische generatie afgestemd op de gekoppelde arts. De koppeling heeft geen invloed op de zichtbaarheid van de template en manuele generatie blijft beschikbaar.
-Voor Scribe-consultatemplates werd een configuratiemogelijkheid voorzien waarmee de gewenste doelgroep van de output kan worden vastgelegd. Hierbij wordt onderscheid gemaakt tussen patiëntgerichte en artsgerichte output.
-In het definitieve rapport worden hier bij voorkeur één of twee screenshots opgenomen die respectievelijk de configuratie van de artskoppeling en de doelgroepinstelling tonen.
+Het beoogde eindresultaat is een zelfstandige proof of concept van een
+WYSIWYG-e-maileditor. De toepassing wordt ontwikkeld buiten de
+productieomgeving van Vesalius.ai en dient om de technische haalbaarheid
+van visueel aanpasbare e-mailtemplates te onderzoeken.
+
+De PoC richt zich op drie piloottypes: afspraakbevestigingen,
+afspraakherinneringen en afspraakannuleringen. Voor deze e-mails moet de
+gebruiker de beschikbare inhoud en ondersteunde opmaak kunnen aanpassen
+zonder rechtstreeks HTML-code te hoeven bewerken.
+
+Naast de editor omvat het beoogde resultaat een mechanisme om templates
+te laden en op te slaan. De wijzigingen moeten opnieuw beschikbaar zijn
+wanneer de gebruiker een opgeslagen template opnieuw opent, binnen de
+beperkingen van de gekozen opslagmethode.
+
+Een tweede onderdeel is de renderingpipeline. Deze verwerkt de bewerkte
+inhoud, controleert de HTML en verwerkt toegestane placeholders met
+fictieve gegevens. Vervolgens wordt de inhoud gecombineerd met de vaste
+e-mailschil, waarin onder meer het logo, de merkkleuren en de footer kunnen
+zijn opgenomen. Indien nodig wordt CSS inline geplaatst om de weergave in
+e-mailclients te ondersteunen.
+
+De PoC moet daarnaast een previewfunctie aanbieden waarmee de gebruiker de
+gerenderde e-mail kan controleren. Voor verdere validatie wordt een lokale
+testmailomgeving voorzien, zodat de gegenereerde e-mails kunnen worden
+verstuurd en geïnspecteerd zonder echte ontvangers of patiëntgegevens te
+gebruiken.
+
+Het beoogde eindresultaat bestaat bijgevolg uit de volgende onderdelen:
+
+\begin{itemize}
+    \item een visuele editor voor de inhoud en ondersteunde opmaak van
+    e-mailtemplates;
+    \item functionaliteit om templates te laden, aan te passen en op te slaan;
+    \item een renderingpipeline voor HTML, placeholders en de vaste e-mailschil;
+    \item een previewfunctie voor de gegenereerde e-mail;
+    \item een lokale testmailomgeving voor het controleren van de uitvoer;
+    \item geautomatiseerde tests en een evaluatie van de compatibiliteit
+    met beschikbare e-mailclients;
+    \item technische documentatie over de architectuur, de gemaakte keuzes
+    en de beperkingen van de PoC.
+\end{itemize}
+
+In de definitieve versie van dit hoofdstuk worden screenshots opgenomen
+die de werkelijk gerealiseerde functionaliteiten aantonen. Bij voorkeur
+wordt de editor samen met een aangepaste template getoond, gevolgd door
+een voorbeeld van de gerenderde e-mail. Indien beschikbaar kan ook een
+screenshot van de ontvangen testmail in de lokale testomgeving worden
+toegevoegd.
 
 \section{\IfLanguageName{dutch}{Testen}{Testing}}%
 \label{sec:testen}
-TODO!
-%% Hoe heb je gecontroleerd dat het doet wat het moet doen? Geautomatiseerde
-%% tests, handmatige scenario's, een proefdraai bij het team? Wat werd er
-%% getest, en wat bewust niet?
-De functionaliteit werd gecontroleerd aan de hand van de acceptatiecriteria uit de JIRA-tickets. Hierbij moeten zowel de nieuwe scenario's als de bestaande standaardscenario's worden gecontroleerd.
-Voor documenttemplates zijn minstens de volgende scenario's relevant:
+De validatie moet aantonen in welke mate de PoC voldoet aan de vooraf
+bepaalde functionele en technische vereisten. Hiervoor worden concrete
+testscenario's opgesteld die aansluiten bij de belangrijkste gebruikersflows
+en onderdelen van de renderingpipeline.
+
+De functionele tests controleren of de gebruiker een template kan selecteren,
+de inhoud kan aanpassen, wijzigingen kan opslaan en het resultaat opnieuw
+kan laden. Daarnaast wordt nagegaan of de preview de verwachte inhoud
+weergeeft en of de testmailfunctionaliteit correct samenwerkt met de lokale
+testomgeving.
+
+Voor de templateverwerking zijn onder meer de volgende scenario's relevant:
 
 \begin{itemize}
-    \item Een template zonder gekoppelde artsen gedraagt zich zoals vóór de wijziging.
-    \item Een template kan aan één arts worden gekoppeld.
-    \item Een template kan aan meerdere artsen worden gekoppeld.
-    \item Niet-artsen verschijnen niet in de artsselectie.
-    \item Automatische generatie met gekoppelde artsen gebeurt enkel voor een gekoppelde arts.
-    \item Manuele generatie blijft mogelijk voor gebruikers die niet aan de template gekoppeld zijn.
-    \item De zichtbaarheid van de template verandert niet door de artskoppeling.
+    \item Een beschikbare e-mailtemplate kan worden geselecteerd en geladen.
+    \item De gebruiker kan de inhoud en ondersteunde opmaak aanpassen.
+    \item Wijzigingen kunnen worden opgeslagen en opnieuw worden geladen.
+    \item De preview toont de verwachte gerenderde inhoud.
+    \item Geldige placeholders worden vervangen door de overeenkomstige
+    fictieve waarden.
+    \item Onbekende of ontbrekende placeholders worden veilig afgehandeld.
+    \item De vaste e-mailschil wordt correct gecombineerd met de bewerkbare
+    inhoud.
+    \item Een testmail kan via de lokale testomgeving worden gecontroleerd.
 \end{itemize}
 
-Voor Scribe zijn minstens de volgende scenario's relevant:
+Naast de functionele werking wordt de veiligheid van de HTML-verwerking
+gecontroleerd. Hierbij wordt nagegaan of niet-toegestane HTML-elementen
+en attributen worden verwijderd of geweigerd en of dynamische waarden
+veilig worden verwerkt. Ook wordt onderzocht of de renderingpipeline
+onverwachte of onvolledige invoer correct afhandelt.
 
-\begin{itemize}
-    \item Een consultatietemplate kan als patiëntgericht worden ingesteld.
-    \item Een consultatietemplate kan als artsgericht worden ingesteld.
-    \item De gekozen doelgroep wordt correct opgeslagen.
-    \item De gekozen doelgroep wordt gebruikt bij de generatie van de output.
-\end{itemize}
+De compatibiliteitstests richten zich op de weergave van de gegenereerde
+e-mails in Gmail, Outlook en Apple Mail, voor zover deze clients beschikbaar
+zijn in de testomgeving. Hierbij worden onder meer de inhoud, de opmaak,
+de vaste e-mailschil en eventuele afwijkingen gecontroleerd. Wanneer een
+client niet beschikbaar is, wordt de compatibiliteit voor die client als
+niet-gevalideerd vermeld.
 
-Naast de functionele scenario's is het belangrijk om regressies te controleren. Bestaande templates zonder nieuwe configuratie mogen bijvoorbeeld niet plots een andere generatieflow krijgen.
-In de definitieve versie van het rapport kunnen de concrete testresultaten worden aangevuld met een tabel waarin per acceptatiecriterium wordt vermeld of het scenario geslaagd is.
+Waar mogelijk worden de tests geautomatiseerd. Unit- en integratietests
+kunnen worden gebruikt om afzonderlijke onderdelen van de verwerking te
+controleren. Browsertests kunnen daarnaast de belangrijkste gebruikersflows
+evalueren.
+
+De concrete testresultaten worden geregistreerd in een afzonderlijke
+testtabel. Per scenario worden de verwachte uitkomst, de werkelijke
+uitkomst en de status vermeld. Hierdoor kan worden aangetoond welke
+vereisten zijn geslaagd, welke problemen werden vastgesteld en welke
+onderdelen bijkomende aanpassingen vereisen. De gedetailleerde resultaten
+worden opgenomen in Bijlage~\ref{app:testresultaten}.
 
 \section{\IfLanguageName{dutch}{Terugkoppeling van het bedrijf}{Feedback from the company}}%
 \label{sec:terugkoppeling}
-TODO!
-%% Wat vond je mentor of je team ervan? Wordt het gebruikt, of wordt het
-%% gebruikt na verdere afwerking? Wat zou er nodig zijn om het echt in
-%% productie te nemen?
-De terugkoppeling van het Vesalius.ai-team vormt een belangrijk onderdeel van de validatie, omdat de functionaliteit uiteindelijk binnen de bestaande bedrijfsomgeving gebruikt moet kunnen worden.
-Tijdens het project werd de oplossing afgestemd met de betrokken teamleden en werd rekening gehouden met de bestaande architectuur en ontwikkelafspraken. De concrete feedback van de mentor en het team kan in de definitieve versie van dit hoofdstuk worden aangevuld met de belangrijkste opmerkingen, eventuele gevraagde wijzigingen en de beslissing over verdere ingebruikname.
-Hierbij is het relevant om niet enkel te vermelden of de oplossing technisch werkt, maar ook of ze aansluit bij de verwachte gebruikersflow en onderhoudbaar is voor het ontwikkelingsteam.
+De terugkoppeling van Vesalius.ai is relevant om te beoordelen of de
+oplossing aansluit bij de behoeften van het bedrijf en of de gekozen
+technische aanpak bruikbaar is als basis voor verdere ontwikkeling.
 
+Tijdens de evaluatie kan worden nagegaan of de editor voldoende
+bewerkingsmogelijkheden aanbiedt, of de afbakening tussen de bewerkbare
+inhoud en de vaste e-mailschil duidelijk is en of de gegenereerde e-mails
+voldoen aan de verwachte functionele vereisten.
+
+Ook de onderhoudbaarheid van de oplossing is van belang. De scheiding tussen
+de frontend, de mock-API, de opslag en de renderingpipeline moet het mogelijk
+maken om de afzonderlijke onderdelen te begrijpen en verder te ontwikkelen.
+Daarnaast moet worden beoordeeld of de gemaakte keuzes aansluiten bij de
+bestaande technische context van Vesalius.ai.
+
+De concrete feedback van de bedrijfsmentor en de betrokken teamleden wordt
+in de definitieve versie van dit hoofdstuk opgenomen zodra deze beschikbaar
+is. Daarbij worden de belangrijkste opmerkingen, eventuele voorgestelde
+aanpassingen en de mogelijke vervolgstappen beschreven.
+
+De PoC is in de eerste plaats bedoeld als technische demonstratie. Een
+positieve evaluatie betekent daarom niet automatisch dat de oplossing
+klaar is voor productiegebruik. Daarvoor is een afzonderlijke beoordeling
+van de integratie, beveiliging, opslag, het beheer en de operationele
+vereisten noodzakelijk.
 
 \section{\IfLanguageName{dutch}{Beperkingen}{Limitations}}%
 \label{sec:beperkingen}
-TODO!
-%% Wat werkt nog niet, of enkel onder bepaalde voorwaarden? Eerlijk zijn over
-%% de grenzen van je oplossing wordt gewaardeerd; ze verzwijgen valt op tijdens
-%% de vragenronde.
-De belangrijkste beperking van het project is de afgebakende scope. Het graduaatsproject behandelt twee specifieke bestaande JIRA-tickets en probeert niet het volledige systeem voor templatebeheer of outputgeneratie te herontwerpen.
-Het bredere idee van een WYSIWYG-editor voor e-mails valt buiten scope. Een dergelijke functionaliteit zou bijkomende analyse vereisen rond HTML-generatie, rendering en compatibiliteit tussen verschillende e-mailclients. Dit vormt op zichzelf een omvangrijk technisch probleem en was daarom niet nodig om de doelstellingen van dit graduaatsproject te behalen.
-Ook andere types templates die een afzonderlijke werking hebben, zijn niet automatisch meegenomen in de nieuwe documenttemplatefunctionaliteit. Een uitbreiding naar andere templatecategorieën zou eerst afzonderlijk moeten worden geanalyseerd.
+De belangrijkste beperking van het project is de afgebakende scope. De PoC
+richt zich op drie specifieke e-mailtypes en op het aanpassen van de
+e-mailinhoud. Het volledig vrij ontwerpen van e-maillay-outs valt buiten
+de doelstelling. De vaste e-mailschil blijft grotendeels behouden.
+
+Daarnaast wordt de toepassing niet geïntegreerd in de productieomgeving
+van Vesalius.ai. De mock-API en de gekozen opslagmethode dienen om de
+functionaliteiten in een gecontroleerde testomgeving te demonstreren.
+Ze vormen niet noodzakelijk een geschikte oplossing voor productiegebruik.
+
+Ook de testgegevens zijn bewust beperkt tot fictieve informatie. Hierdoor
+kunnen de belangrijkste verwerkingsstappen worden onderzocht zonder echte
+patiëntgegevens te gebruiken. De PoC toont daarmee niet automatisch aan
+dat alle vereisten voor een productieomgeving zijn ingevuld.
+
+Een verdere beperking betreft de compatibiliteit met e-mailclients.
+HTML en CSS kunnen verschillend worden geïnterpreteerd door Gmail, Outlook
+en Apple Mail. Zelfs wanneer de preview en de uitgevoerde tests correct
+verlopen, kan niet zonder bijkomende validatie worden gegarandeerd dat
+iedere e-mailclient de inhoud identiek weergeeft.
+
+Ten slotte hangt de geldigheid van de conclusies af van de werkelijk
+uitgevoerde tests en de beschikbare testomgeving. Niet-uitgevoerde
+scenario's en niet-beschikbare e-mailclients worden daarom expliciet als
+beperkingen vermeld.
+
+De resultaten moeten bijgevolg worden geïnterpreteerd als een evaluatie van
+de gerealiseerde PoC binnen de onderzochte context. Ze vormen een basis
+om te bepalen welke onderdelen voldoende zijn aangetoond en welke verdere
+ontwikkeling of validatie nodig hebben voordat een mogelijke integratie
+in Vesalius.ai kan worden overwogen.
