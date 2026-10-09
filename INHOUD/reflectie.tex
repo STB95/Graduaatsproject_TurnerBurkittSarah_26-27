@@ -4,50 +4,133 @@
 
 \chapter{\IfLanguageName{dutch}{Conclusie en reflectie}{Conclusion and reflection}}%
 \label{ch:reflectie}
-TODO!
-%% Richtlengte: 1 tot 2 bladzijden.
-Het graduaatsproject vormde een concrete uitbreiding van het Vesalius-platform op basis van twee bestaande JIRA-tickets. Het project combineerde analyse van een bestaande codebase met het ontwerpen, implementeren en testen van nieuwe functionaliteit binnen een professionele ontwikkelomgeving.
+Het graduaatsproject richt zich op de ontwikkeling van een zelfstandige proof
+of concept (PoC) van een visuele e-maileditor voor Vesalius.ai. Het project
+combineert het analyseren van een technisch probleem met het onderzoeken,
+ontwerpen en realiseren van een oplossing binnen een professionele
+ontwikkelcontext.
 
+De focus ligt op het visueel aanpassen van automatisch gegenereerde
+e-mailtemplates, het veilig verwerken van de inhoud en het controleren van
+de gegenereerde e-mails in gangbare e-mailclients. Daarbij wordt rekening
+gehouden met de beperkingen van e-mailtechnologieën en met de noodzaak om
+de oplossing gescheiden te houden van de productieomgeving.
 
 \section{\IfLanguageName{dutch}{Conclusie}{Conclusion}}%
 \label{sec:conclusie}
-TODO!
-%% Geef een duidelijk antwoord op de doelstelling uit je inleiding. Is ze
-%% gehaald, gedeeltelijk gehaald, of niet? Wat levert je werk op voor het
-%% bedrijf?
-%%
-%% Verwijs terug naar wat je in Hoofdstuk 1 beloofde. Een conclusie die geen
-%% enkele band heeft met de doelstelling, leest als een ander project.
-De doelstelling van het project was om automatisch gegenereerde output binnen Vesalius.ai gerichter te kunnen afstemmen op de gebruiker en doelgroep.
-Voor documenttemplates werd hiervoor een mechanisme uitgewerkt waarmee templates optioneel aan specifieke artsen kunnen worden gekoppeld. Hierdoor kan automatische generatie gericht worden uitgevoerd zonder de bestaande zichtbaarheid van templates of de mogelijkheid tot manuele generatie te wijzigen.
-Voor Scribe-consultatemplates werd een doelgroepinstelling voorzien waarmee onderscheid kan worden gemaakt tussen patiëntgerichte en artsgerichte output.
-De belangrijkste meerwaarde voor Vesalius.ai is dat automatische output relevanter kan worden gemaakt voor de gebruiker. Tegelijk blijft de bestaande werking behouden wanneer de nieuwe configuratiemogelijkheden niet worden gebruikt. Hierdoor vormt de uitbreiding geen volledige herwerking van het bestaande systeem, maar een gerichte verbetering binnen de bestaande architectuur.
+De doelstelling van het graduaatsproject is het ontwikkelen van een
+zelfstandige PoC waarmee gebruikers de inhoud en ondersteunde opmaak van
+bepaalde e-mailtemplates visueel kunnen aanpassen, opslaan, vooraf bekijken
+en testen. Daarnaast wordt onderzocht hoe de gegenereerde HTML veilig kan
+worden verwerkt en hoe de e-mails worden weergegeven in verschillende
+e-mailclients.
+
+De PoC richt zich op drie piloottypes: afspraakbevestigingen,
+afspraakherinneringen en afspraakannuleringen. De vaste e-mailschil, met
+bijvoorbeeld het logo, de merkkleuren en de footer, blijft grotendeels
+behouden. De nadruk ligt op de bewerkbare inhoud en op een betrouwbare
+verwerking van de uiteindelijke e-mail.
+
+De meerwaarde voor Vesalius.ai bestaat erin dat het project de technische
+haalbaarheid van visueel aanpasbare e-mailtemplates onderzoekt. Een
+geslaagde PoC kan aantonen welke onderdelen nodig zijn om gebruikers meer
+controle te geven over de inhoud van e-mails, zonder dat hiervoor onmiddellijk
+een integratie in het bestaande productieplatform nodig is.
+
+De uiteindelijke beoordeling van de doelstelling gebeurt aan de hand van
+de gerealiseerde functionaliteiten, de geautomatiseerde tests en de
+compatibiliteitscontroles. Op basis daarvan kan worden vastgesteld welke
+vereisten volledig zijn gerealiseerd, welke slechts gedeeltelijk zijn
+aangetoond en welke verdere ontwikkeling vereisen. De PoC vormt daarmee
+een mogelijke technische basis voor een toekomstige integratie, maar is
+zelf geen productieklare oplossing.
 
 \section{\IfLanguageName{dutch}{Wat ik geleerd heb}{What I learned}}%
 \label{sec:geleerd}
-TODO!
-%% Zowel technisch als over jezelf als werkende professional. Wees concreet:
-%% "ik heb leren werken met X" zegt weinig, "ik onderschatte hoeveel tijd het
-%% opzetten van X kost, en ik plan dat voortaan apart in" zegt iets.
-Een belangrijk leerpunt was het werken binnen een bestaande professionele codebase. In een eigen schoolproject kan een technische oplossing vanaf het begin worden ontworpen. Binnen een bestaand product moet daarentegen eerst worden onderzocht waarom de huidige oplossing op een bepaalde manier is opgebouwd en welke bestaande functionaliteit door een wijziging kan worden beïnvloed.
-Daarnaast heb ik geleerd dat de functionele beschrijving van een JIRA-ticket niet automatisch gelijkstaat aan een technische oplossing. De acceptatiecriteria beschrijven wat de gebruiker moet kunnen, maar het is aan de ontwikkelaar om te bepalen hoe dit binnen de bestaande architectuur gerealiseerd wordt.
-Ook het belang van backwards compatibility werd duidelijk. Een nieuwe instelling toevoegen is niet voldoende. Er moet eveneens worden gegarandeerd dat bestaande configuraties zonder de nieuwe instelling zich blijven gedragen zoals voordien.
-Op professioneel vlak heb ik verder ervaring opgedaan met Git, Jira, code review, een bestaande CI/CD-omgeving, Docker en de samenwerking binnen een developmentteam. Hierdoor kreeg ik een beter inzicht in het verschil tussen een schoolproject en software die deel uitmaakt van een effectief gebruikt product.
+Een belangrijk leerpunt is het belang van een duidelijke afbakening bij
+softwareontwikkeling. Een visuele e-maileditor lijkt op het eerste gezicht
+een afgebakende gebruikersfunctionaliteit, maar omvat ook templatebeheer,
+HTML-verwerking, dynamische gegevens, CSS en compatibiliteit met
+verschillende e-mailclients. Door deze onderdelen afzonderlijk te
+onderzoeken, kan de complexiteit beter worden ingeschat en kan de oplossing
+stapsgewijs worden opgebouwd.
+
+Daarnaast leer ik dat een technische keuze niet alleen op basis van
+gebruiksgemak moet worden gemaakt. Een editor moet bijvoorbeeld niet enkel
+voldoende bewerkingsmogelijkheden aanbieden, maar ook HTML genereren die
+veilig kan worden verwerkt en geschikt is voor gebruik in e-mails. De
+geschiktheid van een technologie moet daarom worden beoordeeld aan de hand
+van concrete vereisten en technische tests.
+
+Ook het onderscheid tussen een preview en de uiteindelijke weergave van
+een e-mail is belangrijk. Een e-mail die correct wordt weergegeven in een
+browser, wordt niet noodzakelijk identiek weergegeven in Gmail, Outlook of
+Apple Mail. Dit maakt duidelijk waarom compatibiliteitscontroles een
+afzonderlijk onderdeel van het ontwikkelproces moeten vormen.
+
+Op professioneel vlak biedt het project de mogelijkheid om ervaring op te
+doen met het opdelen van een probleem in afzonderlijke technische onderdelen,
+het documenteren van ontwerpkeuzes en het systematisch controleren van
+vereisten. De werkzaamheden worden opgevolgd via Jira en de broncode wordt
+beheerd met Git en Bitbucket. De bestaande bedrijfscontext vraagt bovendien
+aandacht voor vertrouwelijkheid en voor het correct omgaan met interne
+broncode en configuratiegegevens.
+
+De verdere reflectie wordt aangevuld op basis van de werkelijk uitgevoerde
+werkzaamheden, de technische problemen die tijdens de ontwikkeling werden
+vastgesteld en de resultaten van de uitgevoerde tests.
 
 \section{\IfLanguageName{dutch}{Wat ik anders zou doen}{What I would do differently}}%
 \label{sec:anders}
-TODO!
-%% De vraag die vrijwel elke jury stelt. Wie ze vooraf beantwoord heeft, komt
-%% sterker over dan wie ter plaatse begint na te denken.
-Een volgende keer zou ik nog vroeger een volledige analyse van de bestaande functionaliteit uitvoeren voordat ik met de implementatie begin. Vooral bij een bestaand systeem kan een groot deel van het werk bestaan uit het begrijpen van bestaande relaties, businesslogica en uitzonderingen.
-Daarnaast zou ik de acceptatiecriteria vanaf het begin vertalen naar concrete testscenario's. Hierdoor kan tijdens de ontwikkeling sneller worden gecontroleerd of ieder onderdeel van de oorspronkelijke vraag effectief afgedekt is.
-Ook zou ik ontwerpbeslissingen en openstaande vragen systematischer documenteren tijdens de ontwikkeling. Dit maakt het eenvoudiger om later te verklaren waarom een bepaalde oplossing gekozen werd en voorkomt dat belangrijke beslissingen enkel in het geheugen of in gesprekken met teamleden blijven bestaan.
+Bij een gelijkaardig project zou ik de technische risico's zo vroeg mogelijk
+onderzoeken. Voor een WYSIWYG-e-maileditor betekent dit onder meer dat ik
+vroegtijdig zou testen welke HTML de gekozen editor genereert, welke
+bewerkingsmogelijkheden nodig zijn en welke beperkingen zich voordoen bij
+de weergave in verschillende e-mailclients.
+
+Daarnaast zou ik de functionele vereisten vanaf het begin vertalen naar
+concrete testscenario's. Voorbeelden hiervan zijn het aanpassen en opnieuw
+laden van een template, het veilig verwerken van placeholders en het
+controleren van de gerenderde HTML. Hierdoor kan tijdens de ontwikkeling
+sneller worden vastgesteld of een onderdeel aan de verwachtingen voldoet.
+
+Ook zou ik ontwerpbeslissingen, technische risico's en openstaande vragen
+systematisch documenteren. Dit maakt het eenvoudiger om achteraf te
+verklaren waarom een bepaalde technologie of architectuur werd gekozen.
+Het helpt bovendien om de voortgang te evalueren en om te vermijden dat
+belangrijke beslissingen uitsluitend in gesprekken of persoonlijke notities
+worden bijgehouden.
+
+Ten slotte zou ik voldoende tijd reserveren voor testen in echte
+e-mailclients. De implementatie van de editor en de renderingpipeline is
+slechts een deel van het werk; de uiteindelijke bruikbaarheid hangt ook af
+van de manier waarop de gegenereerde e-mails worden weergegeven.
 
 \section{\IfLanguageName{dutch}{Verder werk}{Future work}}%
 \label{sec:verder-werk}
-TODO!
-%% Wat zou een volgende stap zijn voor het bedrijf? Wat blijft er liggen, en
-%% wat is daarvoor nodig?
-Een mogelijke volgende stap is het verder uitbreiden van de templatefunctionaliteit naar andere templatecategorieën wanneer daar vanuit het product nood aan bestaat. Daarbij moet telkens eerst worden nagegaan of de betrokken templatecategorie technisch en functioneel op dezelfde manier werkt.
-Een afzonderlijk toekomstig project is het WYSIWYG-beheer van e-mails. Daarbij zou niet alleen een gebruiksvriendelijke editor moeten worden voorzien, maar ook een betrouwbare manier om compatibele e-mail-HTML te genereren. Omdat verschillende e-mailclients HTML en CSS op verschillende manieren interpreteren, vereist dit een afzonderlijke technische analyse en teststrategie.
-De functionaliteit uit dit graduaatsproject kan daarnaast verder worden uitgebreid wanneer het team nieuwe vereisten rond doelgroepen, gebruikersspecifieke configuratie of automatische output toevoegt.
+Een mogelijke volgende stap is de integratie van de PoC in de bestaande
+architectuur van Vesalius.ai. Hiervoor moet eerst worden onderzocht hoe de
+oplossing aansluit op het bestaande templatebeheer, de e-mailverwerking,
+de opslag en de geldende beveiligingsvereisten. Deze integratie valt buiten
+de scope van het huidige graduaatsproject.
+
+Daarnaast kan de compatibiliteit van de gegenereerde e-mails verder worden
+onderzocht. Verdere tests in verschillende versies en platformen van Gmail,
+Outlook en Apple Mail kunnen aantonen welke HTML- en CSS-elementen
+betrouwbaar worden weergegeven en waar aanvullende aanpassingen nodig zijn.
+
+Ook de editor zelf kan verder worden uitgebreid. Mogelijke uitbreidingen
+zijn extra opmaakmogelijkheden, ondersteuning voor bijkomende e-mailtypes
+en verbeteringen aan het beheer en de versieopvolging van templates.
+Dergelijke uitbreidingen moeten worden afgewogen tegen de noodzaak om de
+editor eenvoudig en beheersbaar te houden.
+
+Ten slotte kan een toekomstig project onderzoeken hoe de PoC op een veilige
+en onderhoudbare manier in de productieomgeving kan worden opgenomen.
+Daarbij zijn onder meer de keuze van de definitieve opslagmethode, de
+integratie met bestaande diensten, toegangsbeheer, validatie, monitoring
+en het beheer van wijzigingen aan templates van belang.
+
+De resultaten van dit graduaatsproject kunnen als uitgangspunt dienen om
+de technische haalbaarheid, de resterende risico's en de vereisten voor
+een mogelijke verdere ontwikkeling te beoordelen.
