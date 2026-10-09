@@ -1,93 +1,220 @@
 %%=============================================================================
 %% Realisatie
 %%=============================================================================
-
 \chapter{\IfLanguageName{dutch}{Realisatie}{Implementation}}%
 \label{ch:realisatie}
-TODO!
-%% Richtlengte: 3 tot 4 bladzijden - het langste hoofdstuk.
-%%
-%% Beschrijf wat je gebouwd hebt en hoe. Niet chronologisch ("op dag drie deed
-%% ik..."), maar per onderdeel of per probleem dat je opgelost hebt.
+Dit hoofdstuk beschrijft hoe de functionele en technische vereisten van het
+graduaatsproject worden vertaald naar een zelfstandige proof of concept (PoC)
+van een visuele e-maileditor. De nadruk ligt op de belangrijkste onderdelen
+van de oplossing, de gemaakte technische keuzes en de aandachtspunten bij de
+verwerking van e-mailtemplates.
 
-De realisatie bestond uit het vertalen van de functionele vereisten naar wijzigingen in de bestaande frontend, backend en gegevenslaag. De implementatie werd niet chronologisch opgebouwd in dit rapport, maar wordt besproken volgens de belangrijkste technische onderdelen.
-
+De realisatie wordt besproken aan de hand van de codeopbouw, de werkwijze en
+het versiebeheer, de belangrijkste technische onderdelen en de problemen die
+tijdens de ontwikkeling worden onderzocht. De concrete implementatie en de
+uiteindelijke resultaten worden beschreven op basis van de effectief
+gerealiseerde functionaliteiten.
 
 \section{\IfLanguageName{dutch}{Opbouw van de code}{Structure of the code}}%
 \label{sec:opbouw-code}
-TODO!
-%% Hoe is je repository ingedeeld, en waarom zo? Welke lagen of modules zijn
-%% er? Iemand die je code voor het eerst opent, moet na deze sectie weten waar
-%% hij moet beginnen kijken.
-De code werd geïntegreerd in de bestaande structuur van het Vesalius-platform. De frontendfunctionaliteit bevindt zich binnen de bestaande Angular-architectuur. Componenten en configuraties voor templates werden uitgebreid zodat de nieuwe instellingen via de bestaande gebruikersinterface beheerd kunnen worden.
-Aan de backendzijde werd de bestaande Laravel-structuur gevolgd. De backend staat in voor het verwerken en bewaren van de configuratie en voor het toepassen van de regels tijdens automatische generatie.
-De gegevenslaag werd uitgebreid volgens de bestaande MySQL-structuur. Hierbij werd rekening gehouden met de bestaande relaties en met het behoud van het huidige gedrag wanneer geen bijkomende configuratie aanwezig is.
-Door de bestaande structuur te volgen blijft de nieuwe functionaliteit herkenbaar voor andere ontwikkelaars binnen het team. Dit vermindert de onderhoudskost en maakt het eenvoudiger om de functionaliteit later verder uit te breiden.
+De proof of concept wordt opgezet als een zelfstandige toepassing, los van de
+productieomgeving van Vesalius.ai. Hierdoor kunnen de editor, de verwerking
+van e-mailtemplates en de gegenereerde uitvoer afzonderlijk worden ontwikkeld
+en getest, zonder de bestaande e-mailverwerking in productie te wijzigen.
 
+De beoogde architectuur bestaat uit een frontend, een mock-API en een
+verwerkingslaag voor e-mailtemplates. De frontend wordt ontwikkeld met
+Angular en TypeScript. De mock-API wordt opgezet met Node.js, TypeScript en
+Express en staat in voor de communicatie tussen de frontend en de logica voor
+templatebeheer.
+
+Binnen de frontend bevindt zich de gebruikersinterface waarmee een gebruiker
+een e-mailtemplate kan selecteren, de inhoud visueel kan aanpassen en het
+resultaat vooraf kan bekijken. Voor de WYSIWYG-functionaliteit wordt Quill 2
+als kandidaat onderzocht. De definitieve keuze wordt bepaald door de
+technische haalbaarheid en de ondersteuning van de vereiste
+bewerkingsmogelijkheden.
+
+De backendlaag behandelt het laden en opslaan van templates en coördineert
+de verwerking van de inhoud. De opslag wordt zo opgezet dat de PoC niet
+onnodig afhankelijk wordt van één specifieke databasetechnologie. Afhankelijk
+van de implementatie kunnen hiervoor tijdelijke opslag of vooraf gedefinieerde
+testgegevens worden gebruikt.
+
+De renderingpipeline vormt een afzonderlijk onderdeel van de toepassing.
+Deze laag verwerkt de HTML-inhoud, controleert toegestane placeholders en
+combineert de bewerkbare inhoud met de vaste structuur van de e-mail. Indien
+nodig wordt de CSS inline geplaatst om de compatibiliteit met e-mailclients
+te verbeteren.
+
+De lokale testomgeving ondersteunt het controleren van de gegenereerde
+e-mails. Hiervoor wordt Mailpit als mogelijke testmailservice gebruikt.
+Docker kan worden ingezet om de benodigde services reproduceerbaar op te
+starten.
+
+Door de frontend, de API, de templateopslag en de renderingpipeline logisch
+van elkaar te scheiden, blijven de verantwoordelijkheden duidelijk. Dit
+vereenvoudigt het afzonderlijk testen van de onderdelen en maakt het
+eenvoudiger om de PoC later technisch te evalueren met het oog op een
+mogelijke integratie in Vesalius.ai.
 
 \section{\IfLanguageName{dutch}{Werkwijze en versiebeheer}{Way of working and version control}}%
 \label{sec:werkwijze}
-TODO!
-%% Hoe heb je gewerkt: in welke stappen, met welk versiebeheer, met welke
-%% afspraken over commits en branches? Hoe hield je je voortgang bij, en hoe
-%% stemde je af met je mentor?
-%%
-%% Vermeld ook je ontwikkelomgeving: editor, hulpmiddelen, testomgeving,
-%% eventueel containers of een pijplijn. Ook dit is een verwacht onderdeel van
-%% je verdediging.
-De werkzaamheden werden opgevolgd via Jira. De geselecteerde JIRA-tickets vormden de functionele basis van het graduaatsproject. Tijdens de analyse werden de acceptatiecriteria gebruikt om de vereisten verder te concretiseren.
-De broncode werd beheerd met Git en Bitbucket. Wijzigingen werden tijdens de ontwikkeling afzonderlijk bijgehouden zodat de voortgang en aanpassingen aan de bestaande codebase traceerbaar bleven.
-Voor de ontwikkeling werd Visual Studio Code gebruikt. De lokale ontwikkelomgeving draaide op Windows 11 met Ubuntu via WSL2. Docker werd gebruikt binnen de bestaande ontwikkelworkflow.
-De ontwikkeling gebeurde iteratief. Eerst werd de bestaande werking onderzocht, vervolgens werd het gegevensmodel en de backendlogica aangepast, waarna de frontendconfiguratie en de interactie met de nieuwe functionaliteit werden toegevoegd. Na iedere relevante wijziging werd gecontroleerd of zowel het nieuwe gedrag als het bestaande gedrag correct bleef functioneren.
+De werkzaamheden worden opgevolgd via Jira. De beschikbare tickets en
+projectvereisten vormen het uitgangspunt voor de planning en de uitvoering
+van de werkzaamheden. Per onderdeel wordt bepaald welke functionaliteit nodig
+is, welke technische aandachtspunten onderzocht moeten worden en hoe het
+resultaat kan worden gecontroleerd.
 
+De broncode wordt beheerd met Git en Bitbucket binnen de interne
+ontwikkelomgeving van Vesalius.ai. Hierdoor kunnen wijzigingen worden
+opgevolgd en kan de evolutie van de implementatie worden nagegaan. De
+repository is intern en wordt niet als publieke broncode beschikbaar gesteld.
+
+Voor de ontwikkeling wordt Visual Studio Code gebruikt. De lokale
+ontwikkelomgeving draait op Windows 11 met Ubuntu via WSL2. Docker wordt
+gebruikt binnen de ontwikkelworkflow wanneer containers nodig zijn voor de
+testomgeving of ondersteunende services.
+
+De ontwikkeling volgt een iteratieve werkwijze. Eerst worden de vereisten en
+de technische haalbaarheid onderzocht. Vervolgens wordt de basisstructuur van
+de toepassing opgezet, waarna de editor, het templatebeheer en de
+renderingpipeline stapsgewijs worden uitgewerkt. Daarna worden de
+previewfunctionaliteit, de testmailomgeving en de geautomatiseerde tests
+toegevoegd volgens de projectplanning.
+
+Na iedere relevante wijziging wordt gecontroleerd of de aangepaste
+functionaliteit aan de verwachte vereisten voldoet. Daarbij wordt niet alleen
+rekening gehouden met de zichtbare werking van de editor, maar ook met de
+HTML-uitvoer, de verwerking van placeholders en de veiligheid van de
+gegenereerde e-mail.
+
+De precieze voortgang, de uitgevoerde taken en eventuele afwijkingen worden
+bijgehouden aan de hand van de projectplanning en de bijbehorende tickets.
+De definitieve werkwijze en de werkelijk uitgevoerde controles worden in dit
+hoofdstuk aangevuld op basis van de gerealiseerde implementatie.
 
 \section{\IfLanguageName{dutch}{Belangrijkste onderdelen}{Key components}}%
 \label{sec:onderdelen}
-TODO!+lees na 
-%% Bespreek de twee of drie onderdelen waar het echte werk zat. Toon per
-%% onderdeel een kort codefragment - een tiental regels, niet een volledig
-%% bestand - en leg uit waarom het zo opgelost is.
+De realisatie is opgebouwd rond drie belangrijke technische onderdelen:
+de visuele editor en het templatebeheer, de renderingpipeline en de
+testomgeving voor de gegenereerde e-mails.
 
-Een belangrijk onderdeel van de realisatie was de koppeling tussen documenttemplates en artsen. Hiervoor moest zowel de configuratie-interface als de onderliggende gegevensstructuur rekening houden met meerdere gekoppelde artsen.
-Een tweede belangrijk onderdeel was de logica voor automatische generatie. De aanwezigheid of afwezigheid van een artskoppeling bepaalt hierbij of het bestaande organisatiebrede gedrag behouden blijft of dat de generatie beperkt wordt tot de gekoppelde arts.
-Een derde onderdeel was de doelgroepconfiguratie van Scribe-consultatemplates. De gekozen doelgroep wordt als configuratiegegeven opgeslagen en vervolgens gebruikt om de gewenste vorm van de gegenereerde output te bepalen.
-Bij het implementeren van deze onderdelen werd geprobeerd om de verantwoordelijkheden duidelijk te scheiden. De frontend is verantwoordelijk voor configuratie en gebruikersinteractie, terwijl de backend verantwoordelijk blijft voor de bedrijfsregels en gegevensverwerking.
-Een representatief fragment uit de implementatie kan in het definitieve rapport worden opgenomen zodra de definitieve code is geselecteerd. Daarbij verdient een kort fragment dat de artsfiltering, de automatische-generatieregel of de doelgroepkeuze toont de voorkeur boven een volledig bestand.
+\subsection{Visuele editor en templatebeheer}
+De visuele editor vormt het centrale onderdeel van de PoC. Het doel is om
+gebruikers toe te laten de inhoud en ondersteunde opmaak van vooraf bepaalde
+e-mailtemplates aan te passen zonder rechtstreeks HTML-code te moeten
+bewerken.
 
-\begin{listing}[htbp]
-  \begin{minted}{php}
-  // Vervang dit voorbeeld door een werkelijk codefragment
-  // uit de eigen implementatie.
-  $template->doctors()
-      ->where('function', 'doctor')
-      ->get();
-  \end{minted}
-  \caption[Voorbeeld van een technisch codefragment]{Voorbeeld van het soort codefragment dat in het definitieve rapport kan worden opgenomen. Vervang dit door het effectieve fragment uit de implementatie.}
-  \label{lst:voorbeeld}
-\end{listing}
+De gebruiker selecteert een van de drie piloottypes: een
+afspraakbevestiging, een afspraakherinnering of een afspraakannulering.
+Vervolgens wordt de bijbehorende template geladen in de editor. De gebruiker
+kan de beschikbare inhoud aanpassen en het resultaat vooraf bekijken.
 
-%% Mag je je code niet tonen omdat ze eigendom is van het bedrijf of onder een
-%% NDA valt? Dan beschrijf je in plaats daarvan de werking, de architectuur en
-%% de tests, eventueel met sterk vereenvoudigde fragmenten. Vermeld
-%% uitdrukkelijk dat dat de reden is - een jury rekent je dat niet aan, maar
-%% ongemotiveerd ontbrekende code wel.
-%%
-%% Kwam een fragment met behulp van AI tot stand? Zeg dat er dan gewoon bij, in
-%% één zin, en leg uit wat je zelf gecontroleerd of aangepast hebt. Het volledige
-%% overzicht hoort in de bijlage over je AI-gebruik. Denk eraan: code die je
-%% niet kan uitleggen, hoort niet in je oplevering.
-%%
-%% Let ook op wat er in je schermafbeeldingen en fragmenten staat: geen
-%% wachtwoorden, geen sleutels, en geen echte persoonsgegevens van klanten of
-%% collega's.
+De editor richt zich op de inhoud van de e-mail. De vaste e-mailschil, met
+bijvoorbeeld het logo, de merkkleuren en de footer, blijft grotendeels
+buiten de bewerkingsmogelijkheden. Hierdoor blijft de scope van de PoC
+beperkt en kan de aandacht uitgaan naar het aanpassen en betrouwbaar
+renderen van de e-mailinhoud.
+
+Naast het bewerken is ook het opslaan en opnieuw laden van templates van
+belang. De opslaglaag wordt daarom gescheiden van de editorcomponent.
+Hierdoor hoeft de interface niet rechtstreeks afhankelijk te zijn van de
+gekozen opslagtechnologie.
+
+De concrete implementatie wordt geëvalueerd op basis van het laden van
+templates, het aanpassen van inhoud, het bewaren van wijzigingen en het
+opnieuw openen van een opgeslagen template.
+
+\subsection{Renderingpipeline en veilige verwerking}
+Een tweede belangrijk onderdeel is de omzetting van de bewerkte template
+naar uiteindelijke e-mailinhoud. De HTML die door een visuele editor wordt
+gegenereerd, kan niet zonder controle worden gebruikt. De invoer moet worden
+gevalideerd en niet-toegestane HTML-elementen of attributen moeten worden
+verwijderd of geweigerd.
+
+De renderingpipeline verwerkt daarom de inhoud volgens vooraf bepaalde
+regels. Eerst wordt de HTML gesanitiseerd. Vervolgens worden uitsluitend
+toegestane placeholders verwerkt met fictieve testgegevens. Daarna wordt de
+inhoud gecombineerd met de vaste e-mailschil. Indien nodig wordt CSS inline
+geplaatst om de weergave in e-mailclients te ondersteunen.
+
+Bij de placeholderverwerking is het belangrijk dat onbekende of ontbrekende
+waarden veilig worden afgehandeld. Ook moet rekening worden gehouden met de
+context waarin een waarde wordt ingevoegd. Het ontsnappen van waarden en het
+controleren van toegestane invoer blijven noodzakelijk om ongewenste HTML-
+of scriptinhoud te vermijden.
+
+De renderingpipeline wordt afzonderlijk beoordeeld van de editor. Een
+correct werkende editor garandeert immers niet dat de uiteindelijke HTML
+veilig is of in iedere e-mailclient hetzelfde wordt weergegeven.
+
+\subsection{Preview, testmails en compatibiliteitscontroles}
+Het derde onderdeel omvat de controle van de gegenereerde e-mail. De
+previewfunctie maakt het mogelijk om de gerenderde inhoud te beoordelen
+voordat een testmail wordt verstuurd. Daarbij wordt nagegaan of de inhoud,
+de placeholders en de vaste e-mailschil correct worden weergegeven.
+
+Voor het testen van e-mails wordt een lokale testomgeving voorzien. Mailpit
+kan worden gebruikt om testmails op te vangen en te inspecteren zonder dat
+deze naar echte ontvangers worden verstuurd. De testgegevens zijn fictief
+en bevatten geen echte patiëntinformatie.
+
+Daarnaast worden geautomatiseerde tests voorzien voor onderdelen zoals
+templatevalidatie, placeholderverwerking en HTML-sanitatie. Vitest kan
+worden ingezet voor unit- en integratietests en Playwright voor
+browsergebaseerde tests, afhankelijk van de uiteindelijke implementatie.
+
+Ten slotte wordt de weergave van de gegenereerde e-mails onderzocht in
+beschikbare e-mailclients, waaronder Gmail, Outlook en Apple Mail. Eventuele
+verschillen in HTML- en CSS-ondersteuning worden geregistreerd. De resultaten
+van deze controles worden opgenomen in de bijlage met testresultaten.
+
+\subsection{Broncode en vertrouwelijkheid}
+De broncode van de toepassing bevindt zich in de interne Bitbucket-omgeving
+van Vesalius.ai. Omdat de repository deel uitmaakt van de bedrijfsomgeving,
+worden interne bronbestanden, bedrijfsgegevens en vertrouwelijke configuratie
+niet zonder toestemming opgenomen in dit rapport.
+
+De technische werking kan worden toegelicht met architectuurschema's,
+beschrijvingen van de gegevensstroom en vereenvoudigde codefragmenten.
+Wanneer een codefragment uit de interne implementatie niet mag worden
+gepubliceerd, wordt de relevante logica op een hoger niveau beschreven.
+Zo blijft de technische onderbouwing van het project mogelijk zonder
+vertrouwelijke bedrijfsinformatie prijs te geven.
 
 \section{\IfLanguageName{dutch}{Problemen onderweg}{Problems along the way}}%
 \label{sec:problemen}
-TODO!
-%% Wat liep er anders dan gepland, en hoe ben je eruit geraakt? Dit is geen
-%% zwakte om te verbergen: het is een van de interessantste delen van je
-%% rapport, en het toont zelfstandigheid.
-Een belangrijk aandachtspunt tijdens de realisatie was het correct interpreteren van de bestaande functionaliteit. Omdat de tickets een uitbreiding vormen op bestaand gedrag, was het noodzakelijk om eerst te begrijpen hoe templates momenteel worden opgeslagen, geconfigureerd en automatisch gegenereerd.
-Een wijziging die op zichzelf functioneel correct is, kan immers bestaande workflows beïnvloeden wanneer de oorspronkelijke standaardlogica niet behouden blijft. Vooral de voorwaarde dat een template zonder gekoppelde artsen zich exact zoals voorheen moet gedragen, vraagt daarom bijzondere aandacht.
-Daarnaast moest rekening worden gehouden met het onderscheid tussen zichtbaarheid, manuele generatie en automatische generatie. Deze begrippen lijken functioneel verwant, maar hebben een verschillende betekenis. Het ontwerp en de implementatie moesten deze verantwoordelijkheden daarom afzonderlijk behandelen.
-Bij de Scribe-functionaliteit vormt vooral de vertaling van de doelgroepkeuze naar de effectieve output een aandachtspunt. De configuratie moet niet enkel in de interface beschikbaar zijn, maar moet uiteindelijk ook correct doorwerken naar het generatieproces.
+Een belangrijk aandachtspunt bij de realisatie is de betrouwbaarheid van de
+gegenereerde e-mail. Een WYSIWYG-editor kan inhoud visueel correct weergeven,
+maar de resulterende HTML moet ook veilig worden verwerkt en bruikbaar zijn
+in verschillende e-mailclients. Dit vraagt om een afzonderlijke controle van
+de editoruitvoer en de uiteindelijke rendering.
+
+Een tweede aandachtspunt is het correct verwerken van placeholders. Dynamische
+waarden moeten gecontroleerd worden ingevuld en mogen niet leiden tot
+onverwachte HTML-uitvoer. Daarom moet vooraf worden bepaald welke placeholders
+toegestaan zijn en hoe ontbrekende of onbekende waarden worden afgehandeld.
+
+Daarnaast is de ondersteuning van HTML en CSS niet identiek in alle
+e-mailclients. Een e-mail die in de browserpreview correct wordt weergegeven,
+kan in Outlook, Gmail of Apple Mail afwijkingen vertonen. De preview alleen
+volstaat daarom niet als bewijs van compatibiliteit. Waar mogelijk worden
+gegenereerde testmails ook in de beschikbare e-mailclients gecontroleerd.
+
+Ook de keuze van de opslagmethode vraagt aandacht. Omdat het project een
+zelfstandige PoC is en geen productie-integratie, moet de opslag voldoen aan
+de testvereisten zonder onnodige afhankelijkheden te introduceren. De
+opslaglaag wordt daarom zo veel mogelijk losgekoppeld van de rest van de
+toepassing.
+
+Tot slot moet de scope van het project bewaakt worden. De PoC is bedoeld om
+de haalbaarheid van een visuele e-maileditor aan te tonen en niet om de
+bestaande e-mailinfrastructuur van Vesalius.ai volledig te vervangen.
+Productieverzending, integratie met de bestaande platformarchitectuur en
+verwerking van echte patiëntgegevens vallen buiten de scope.
+
+De uiteindelijke bespreking van problemen wordt aangevuld met de concrete
+technische obstakels die tijdens de implementatie werden vastgesteld, de
+oplossingen die daarvoor werden gekozen en de resultaten van de uitgevoerde
+hertests.
