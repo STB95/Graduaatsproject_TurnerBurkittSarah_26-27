@@ -57,15 +57,14 @@ TODO! LEES ALLES NA
 % Alle persoonlijke en projectgebonden gegevens worden centraal beheerd in
 % projectgegevens.tex.
 \input{../projectgegevens}
-
-\author{\VoornaamAchternaam}
-\supervisor{\begeleider}
-\cosupervisor{\mentor}
-\title[\projectondertitel]{\projecttitel}
-\academicyear{\academiejaarwaarde}
-\examperiod{1}          %% 1 = eerste examenperiode, 2 = tweede, 3 = derde
-\degreesought{\IfLanguageName{dutch}{\opleidingnaam}{Associate Degree in Programming}}
-\institution{\stageplaats}
+\author{Sarah Turner Burkitt}
+\supervisor{Isabelle Demeulenaere}
+\cosupervisor{Bart D'Hoore}
+\title[Proof of Concept voor aanpasbare e-mailtemplates binnen Vesalius.ai]{Ontwikkeling van een visuele e-maileditor}
+\academicyear{2026-2027}
+\examperiod{1}          
+\degreesought{\IfLanguageName{dutch}{Graduaat Programmeren}{Associate Degree in Programming}}
+\institution{Vesalius.ai (dochterbedrijf binnen Endare)}
 
 
 %===============================================================================
@@ -109,7 +108,7 @@ TODO! LEES ALLES NA
 % Nederlandstalig titelblad toegevoegd. Voor dit rapport wordt Nederlands
 % gebruikt, waardoor dit gedeelte niet wordt uitgevoerd.
 \IfLanguageName{english}{%
-    \degreesought{\opleidingnaam}%
+    \degreesought{Associate Degree In Programming}%
     \begin{otherlanguage}{dutch}%
         \maketitle%
     \end{otherlanguage}%
@@ -166,12 +165,14 @@ TODO! LEES ALLES NA
 % Projectvoorstel
 %-------------------------------------------------------------------------------
 \chapter{Projectvoorstel}
+Het onderwerp van dit graduaatsproject is een zelfstandige proof of concept
+(PoC) van een visuele e-maileditor voor Vesalius.ai. Het projectvoorstel
+beschrijft de probleemstelling, doelstellingen, functionele afbakening,
+technologische keuzes en geplande validatie van de oplossing. Het voorstel
+wordt afgestemd met de bedrijfsmentor en de begeleider van HOGENT.
 
-Het onderwerp van dit graduaatsproject werd vooraf vastgelegd in een
-projectvoorstel. Het voorstel werd afgestemd met de mentor binnen Vesalius.ai
-en goedgekeurd door de begeleider van HOGENT.
-
-Het oorspronkelijke projectvoorstel wordt hieronder als bijlage opgenomen.
+Het oorspronkelijke projectvoorstel wordt als bijlage bij dit rapport
+opgenomen. 
 
 \input{../voorstel/voorstel-inhoud}
 
@@ -179,11 +180,20 @@ Het oorspronkelijke projectvoorstel wordt hieronder als bijlage opgenomen.
 % Repository
 %-------------------------------------------------------------------------------
 \chapter{Repository}
+De broncode van het graduaatsproject wordt beheerd in de interne
+Bitbucket-omgeving van Vesalius.ai. Deze repository bevat de projectstructuur,
+broncode en relevante configuratiebestanden die nodig zijn om de implementatie
+te ontwikkelen, te onderhouden en binnen de bedrijfsomgeving te testen.
 
-De broncode van het graduaatsproject wordt beheerd in een Git-repository.
-De repository bevat de projectstructuur en de broncode die nodig is om de
-implementatie te bekijken en, binnen de toegestane bedrijfsomgeving, te
-reproduceren.
+Omdat de repository deel uitmaakt van de interne ontwikkelomgeving van
+Vesalius.ai, is deze niet publiek toegankelijk. De toegang wordt beheerd
+volgens de interne afspraken van het bedrijf. Daarom wordt geen publieke
+repositorylink in dit rapport opgenomen. Om de vertrouwelijkheid van
+bedrijfsinformatie te beschermen, worden productiecredentials, API-sleutels,
+vertrouwelijke configuratiegegevens en echte patiëntgegevens niet opgenomen
+in het rapport. Waar relevant worden de architectuur, technische keuzes en
+testresultaten toegelicht aan de hand van informatie die binnen de gemaakte
+afspraken gedeeld mag worden.
 
 \begin{center}
     \url{\repolink}
@@ -204,14 +214,6 @@ het bedrijf kunnen worden gedeeld.
 %-------------------------------------------------------------------------------
 % Overige bijlagen
 %-------------------------------------------------------------------------------
-% Voeg hier indien nodig bijkomende bijlagen toe.
-%
-% Bijvoorbeeld:
-% \input{testresultaten}
-% \input{gebruikershandleiding}
-% \input{architectuur}
-%
-% Alleen toevoegen wanneer de bijlage daadwerkelijk relevant is.
 
 %===============================================================================
 % Nawerk
