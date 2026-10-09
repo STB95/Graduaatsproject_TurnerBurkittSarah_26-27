@@ -20,7 +20,12 @@
 % concrete behoefte is de aanleiding? Noem de mensen voor wie het een probleem
 % is. Vermijd algemeenheden als "bedrijven hebben nood aan".
 
-Vervang deze tekst.
+Tijdens mijn stage bij Vesalius.ai werk ik mee aan een digitaal platform dat
+artsen in ziekenhuizen ondersteunt bij consultaties en de administratieve
+verwerking ervan. Momenteel kunnen artsen en organisaties de inhoud en opmaak
+van de meeste automatisch verstuurde e-mails, zoals afspraakbevestigingen,
+herinneringen en annulaties, niet zelf aanpassen, waardoor de communicatie
+onvoldoende flexibel is om aan hun specifieke behoeften te voldoen.
 
 %---------- 2. Doelstelling ---------------------------------------------------
 
@@ -31,7 +36,12 @@ Vervang deze tekst.
 % het als een resultaat waarvan iemand kan vaststellen dat het er is, en
 % vermeld waaraan je zal merken dat het geslaagd is.
 
-Vervang deze tekst.
+Het doel is een werkende proof of concept (PoC) te ontwikkelen van een visuele
+e-maileditor waarmee gebruikers de tekst en opmaak van drie vooraf bepaalde
+e-mailtypes kunnen aanpassen, opslaan, vooraf bekijken en als testmail
+versturen. Het project is geslaagd wanneer de aangepaste e-mails correct worden
+gerenderd en de weergave ervan in gangbare e-mailclients, waaronder Gmail,
+Outlook.com en Apple Mail, systematisch werd getest en gedocumenteerd.
 
 %---------- 3. Technologieën --------------------------------------------------
 
@@ -49,7 +59,18 @@ Vervang deze tekst.
 % dat dan nu al in één zin: dan weet je begeleider meteen dat de AVG of de
 % AI Act meespeelt, en kan dat mee bekeken worden bij de goedkeuring.
 
-Vervang deze tekst.
+De frontend wordt ontwikkeld met Angular 21 en TypeScript, met Quill 2 als
+basis voor de visuele editor; voor de mock-API worden Node.js, TypeScript en
+Express gebruikt. Voor de verwerking en beveiliging van e-mails worden onder
+meer Handlebars, \texttt{sanitize-html}, \texttt{juice} en
+\texttt{html-to-text} ingezet; mockgegevens, geautomatiseerde tests met Vitest
+en Playwright en Docker met Mailpit ondersteunen de ontwikkeling en validatie.
+De oplossing wordt ontwikkeld in Bitbucket, conform de voorkeur van het
+bedrijf, en maakt uitsluitend gebruik van fictieve gegevens, zodat geen
+reële patiëntgegevens worden verwerkt; AI wordt niet ingezet, aangezien het
+project zich richt op deterministische tekstbewerking en e-mailrendering.
+Bij de ontwikkeling wordt aandacht besteed aan veilige HTML-verwerking,
+placeholders en de relevante principes van de AVG.
 
 %---------- 4. Afbakening -----------------------------------------------------
 
@@ -68,7 +89,16 @@ Vervang deze tekst.
 % Toets voor jezelf: welke analyse en welk ontwerp maak jij zelf? Kan je daar
 % niets over schrijven, dan heb je een taak en geen project.
 
-Vervang deze tekst.
+Mijn dagelijkse stagewerk bestaat uit het analyseren en oplossen van bugs en
+het uitvoeren van andere ontwikkeltaken binnen het bestaande Vesalius-platform.
+Het graduaatsproject is hiervan afzonderlijk afgebakend en omvat de analyse,
+het ontwerp, de realisatie en het testen van een zelfstandige PoC met één
+visuele editor, opslag van e-mailtemplates, ondersteuning voor placeholders,
+een voorbeeldweergave en het versturen van testmails voor drie e-mailtypes.
+De oplossing werkt met fictieve gegevens en een tijdelijke testopstelling;
+integratie in het bestaande platform, productiegebruik, Keycloak-e-mails,
+productieplanning en een volledig configureerbare layout-builder vallen buiten
+de scope.
 
 %---------- 5. Verwachte meerwaarde -------------------------------------------
 
@@ -79,7 +109,14 @@ Vervang deze tekst.
 % stage afgelopen is? Denk aan tijdwinst, minder fouten, nieuwe mogelijkheden,
 % lagere kosten, of een basis waarop verder gebouwd kan worden.
 
-Vervang deze tekst.
+De PoC toont aan in welke mate artsen en organisaties meer controle kunnen
+krijgen over de inhoud en opmaak van hun e-mailcommunicatie zonder dat de
+bestaande e-mailstructuur volledig moet worden vervangen. Het bedrijf ontvangt
+een werkende demonstratie, een testopstelling met herbruikbare mockgegevens,
+geautomatiseerde tests en een overzicht van de resultaten per e-mailclient.
+Daarnaast wordt een onderbouwd integratievoorstel opgeleverd met aandacht voor
+architectuur, beveiliging en mogelijke hergebruiksmogelijkheden binnen het
+bestaande Vesalius-platform.
 
 %---------- 6. Planning en werkbelasting --------------------------------------
 
@@ -91,24 +128,42 @@ Vervang deze tekst.
 % Vermeld ook of je die dagen gefocust opneemt of gespreid over de stageperiode,
 % en dat je dit met je mentor afgesproken hebt.
 
+Het graduaatsproject omvat ongeveer 100 uur, gespreid over tien wekelijkse
+sprints van telkens één gefocuste werkdag, aangevuld met maximaal 20 uur
+buffertijd voor eventuele correcties en de voorbereiding van de eindpresentatie.
+De planning en voortgang worden regelmatig met de bedrijfsmentor afgestemd;
+per sprint wordt een werkend resultaat nagestreefd en gedemonstreerd.
+
 \begin{table}[htbp]
   \centering
-  \begin{tabular}{llr}
+  \begin{tabular}{p{0.25\textwidth}p{0.57\textwidth}r}
     \toprule
     \textbf{Fase} & \textbf{Wat lever je op} & \textbf{Uren} \\
     \midrule
-    Analyse en vereisten      & overzicht van de vereisten   & 15  \\
-    Technologiekeuze          & verantwoorde keuze           & 10  \\
-    Ontwerp                   & architectuur en gegevensmodel& 15  \\
-    Realisatie                & werkende oplossing           & 40  \\
-    Testen en validatie       & testverslag                  & 10  \\
-    Rapport, poster en demo   & de op te leveren documenten  & 10  \\
+    Analyse en vereisten
+      & Scope, functionele vereisten en testcriteria
+      & 12 \\
+    Technologiekeuze en opzet
+      & Gemotiveerde technologiekeuzes en werkende ontwikkelomgeving
+      & 10 \\
+    Ontwerp
+      & Architectuur, editorconcept, templateopbouw en testmatrix
+      & 13 \\
+    Realisatie
+      & Werkende editor, templateopslag, renderpipeline, preview en testmails
+      & 40 \\
+    Testen en validatie
+      & Geautomatiseerde tests en resultaten van e-mailclienttests
+      & 15 \\
+    Rapport, poster en demo
+      & Eindrapport, integratievoorstel en demonstratie
+      & 10 \\
     \midrule
-    \textbf{Totaal}           &                              & \textbf{100} \\
+    \textbf{Totaal} & & \textbf{100} \\
     \bottomrule
   \end{tabular}
   \caption[Planning en werkbelasting]{\label{tab:vst-planning}%
-    Vervang deze verdeling door je eigen planning.}
+    Indicatieve verdeling van de 100 projecturen.}
 \end{table}
 
 %---------- 7. Risico's -------------------------------------------------------
@@ -123,4 +178,12 @@ Vervang deze tekst.
 %
 % Twee tot drie risico's met telkens één zin over wat je terugvalplan is.
 
-Vervang deze tekst.
+Omdat het project grotendeels zelfstandig en met een beperkte wekelijkse
+werkbelasting wordt uitgevoerd, worden de taken per sprint afgebakend en de
+voortgang regelmatig met de bedrijfsmentor besproken. Verschillen tussen de
+mock-opstelling en de bestaande Laravel-omgeving worden gedocumenteerd in een
+integratievoorstel, zodat de PoC geen volledige integratie vereist. Indien de
+gekozen editor onvoldoende mogelijkheden biedt of e-mailclients de uitvoer
+anders weergeven dan verwacht, worden alternatieve editoropties tijdig
+geëvalueerd en worden de belangrijkste compatibiliteitsproblemen prioritair
+opgelost binnen de voorziene scope en buffertijd.
