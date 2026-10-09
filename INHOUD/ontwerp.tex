@@ -1,132 +1,264 @@
+
 %%=============================================================================
 %% Analyse en ontwerp
 %%=============================================================================
-
 \chapter{\IfLanguageName{dutch}{Analyse en ontwerp}{Analysis and design}}%
 \label{ch:ontwerp}
+Voor de ontwikkeling van de proof of concept (PoC) werd eerst onderzocht
+welke behoefte aan de basis ligt van het project en welke functionaliteiten
+nodig zijn om deze behoefte te beantwoorden. De aanleiding is een bestaand
+backlog-item binnen Vesalius.ai rond het flexibeler beheren van automatisch
+verstuurde e-mails. De functionele verwachtingen werden verder verduidelijkt
+op basis van de bespreking met de CEO en de beschikbare projectafspraken.
 
-%% Richtlengte in TOTALITEIT van deze rubriek: 2 tot 3 bladzijden.
-%%
-%% Hier toon je dat er nagedacht is voordat er getypt werd. Dit hoofdstuk
-%% weegt zwaar: het is waar het verschil zichtbaar wordt tussen een uitgevoerde
-%% taak en een zelfstandig project.
-TODO: 
-Voor de implementatie werd eerst onderzocht welke bestaande functionaliteit door de twee JIRA-tickets wordt uitgebreid en welke gevolgen de nieuwe vereisten hebben voor de frontend, backend en database. Het ontwerp vertrekt daarom vanuit het bestaande gedrag en probeert de nieuwe functionaliteit zo beperkt mogelijk in te bouwen zonder bestaande workflows onnodig te wijzigen.
+De belangrijkste ontwerpuitdaging bestaat erin gebruikers de inhoud en opmaak
+van e-mails te laten aanpassen zonder de technische structuur van de
+e-mailverwerking volledig vrij te geven. Daarbij moet rekening worden gehouden
+met de veilige verwerking van HTML, de vervanging van dynamische placeholders
+en de beperkingen van verschillende e-mailclients.
+
+Om deze aspecten onafhankelijk van het bestaande productieplatform te kunnen
+onderzoeken, wordt gekozen voor een afzonderlijke testopstelling met een
+Angular-frontend en een mock-API. Hierdoor kunnen de editor, templateopslag
+en renderingpipeline afzonderlijk worden ontwikkeld en gevalideerd. De
+architectuur en functionele scope zijn bewust beperkt tot de onderdelen die
+nodig zijn om de technische haalbaarheid van de oplossing aan te tonen.
 
 \section{\IfLanguageName{dutch}{Vereisten}{Requirements}}%
 \label{sec:vereisten}
-TODO! (lees nog eens na)
-%% Wat moest het worden? Onderscheid wat noodzakelijk was van wat wenselijk
-%% was, en vermeld bij wie je die vereisten opgehaald hebt (je mentor, het
-%% team, de gebruikers).
-%%
-%% Vermeld ook de niet-functionele vereisten die er echt toe deden:
-%% snelheid, veiligheid, privacy, onderhoudbaarheid, beschikbaarheid.
-De functionele vereisten werden voornamelijk afgeleid uit de bestaande JIRA-tickets en afgestemd binnen het Vesalius.ai-team.
-Voor documenttemplates zijn de belangrijkste vereisten:
+De functionele vereisten werden afgeleid uit de bestaande productbehoefte en
+verder afgestemd tijdens de bespreking met de CEO. De PoC moet aantonen dat
+gebruikers e-mailtemplates visueel kunnen aanpassen en dat de gegenereerde
+e-mails correct worden verwerkt en getest, zonder daarvoor de productieomgeving
+van Vesalius.ai te wijzigen.
 
+De belangrijkste functionele vereisten zijn:
 \begin{itemize}
-    \item Een documenttemplate kan optioneel aan één of meerdere artsen worden gekoppeld.
-    \item Enkel gebruikers met de functie ``arts'' kunnen worden geselecteerd.
-    \item Een template zonder gekoppelde artsen behoudt het bestaande gedrag.
-    \item Een template met gekoppelde artsen wordt bij automatische generatie enkel gebruikt wanneer een gekoppelde arts is ingelogd.
-    \item Manuele generatie blijft mogelijk voor alle gebruikers.
-    \item De koppeling met artsen verandert de zichtbaarheid van de template niet.
+    \item \textbf{E-mailinhoud bewerken:} gebruikers kunnen de tekst en
+    opmaak van een e-mail aanpassen via een visuele editor, zonder rechtstreeks
+    HTML-code te moeten schrijven.
+
+    \item \textbf{Templatebeheer:} aangepaste templates kunnen worden
+    opgeslagen en opnieuw geladen op basis van e-mailtype, taal en configuratie.
+
+    \item \textbf{Standaardtemplates:} wanneer geen aangepaste template
+    beschikbaar is, kan de testopstelling terugvallen op een standaardtemplate.
+
+    \item \textbf{Dynamische placeholders:} ondersteunde placeholders kunnen
+    in de editor worden ingevoegd en tijdens de rendering worden vervangen
+    door fictieve gegevens.
+
+    \item \textbf{Vaste e-mailschil:} de gegenereerde e-mail wordt voorzien
+    van een vooraf bepaalde structuur met onder meer logo, kleuren en footer.
+    De PoC richt zich voornamelijk op het aanpassen van de e-mailbody.
+
+    \item \textbf{Rendering:} de HTML wordt opgeschoond, placeholders worden
+    veilig vervangen en CSS wordt inline verwerkt. Daarnaast wordt een
+    tekstuele versie van de e-mail gegenereerd.
+
+    \item \textbf{Voorbeeldweergave en testverzending:} gebruikers kunnen
+    de gerenderde e-mail bekijken en een testmail versturen naar de lokale
+    testmailserver.
+
+    \item \textbf{Ondersteunde e-mailtypes:} de PoC demonstreert de werking
+    aan de hand van afspraakbevestigingen, herinneringen en annulaties.
 \end{itemize}
 
-Voor Scribe-consultatemplates zijn de belangrijkste vereisten:
+Naast de functionele vereisten zijn er verschillende niet-functionele
+vereisten. De oplossing moet onderhoudbaar en testbaar zijn en een duidelijke
+scheiding behouden tussen de frontend en de mock-API. De HTML-verwerking moet
+rekening houden met onveilige invoer en ongeldige placeholders. Ook de
+weergave in verschillende e-mailclients vormt een belangrijk aandachtspunt,
+omdat HTML en CSS niet overal op dezelfde manier worden geïnterpreteerd.
 
-\begin{itemize}
-    \item Per consultatietemplate moet de doelgroep kunnen worden ingesteld.
-    \item De mogelijke doelgroepen zijn patiënt en arts.
-    \item Patiëntgerichte output moet begrijpelijk zijn voor een patiënt.
-    \item Artsgerichte output mag medische terminologie gebruiken.
-\end{itemize}
-
-Naast deze functionele vereisten zijn ook niet-functionele vereisten belangrijk. De uitbreiding moet onderhoudbaar blijven, aansluiten bij de bestaande architectuur en geen onnodige wijzigingen veroorzaken aan bestaande functionaliteit. Omdat het platform met medische informatie werkt, zijn privacy en toegangscontrole eveneens belangrijke aandachtspunten.
+De testopstelling moet bovendien reproduceerbaar zijn en uitsluitend gebruikmaken
+van fictieve gegevens. De PoC mag geen afhankelijkheid creëren van echte
+patiëntgegevens of productiecredentials.
 
 \section{\IfLanguageName{dutch}{Architectuur}{Architecture}}%
 \label{sec:architectuur}
-TODO!
-%% Toon de opbouw van je oplossing met een figuur: welke onderdelen zijn er,
-%% wat doet elk onderdeel, en hoe praten ze met elkaar? Een goed getekend
-%% schema vervangt een bladzijde tekst.
-%%
-%% Plaats je afbeeldingen in de map graphics/.
+De PoC wordt ontwikkeld als een afzonderlijke applicatie die losstaat van
+de bestaande Vesalius-codebase. In tegenstelling tot een rechtstreekse
+uitbreiding van het productieplatform, maakt deze opstelling gebruik van
+een eigen frontend, een mock-API en een lokale testmailserver.
 
-De oplossing wordt geïntegreerd in de bestaande architectuur van het Vesalius-platform. De Angular-frontend communiceert met de Laravel-backend. De backend verwerkt de bedrijfslogica en communiceert met MySQL voor persistente gegevens. Authenticatie en gebruikersinformatie worden beheerd via de bestaande Keycloak-integratie.
-Een vereenvoudigde voorstelling van de architectuur is:
+De Angular-frontend vormt de gebruikersinterface en bevat de visuele
+e-maileditor, de templateconfiguratie, de voorbeeldweergave en de bediening
+voor het versturen van testmails. De frontend communiceert via een API met
+de mock-backend, die instaat voor het opslaan en laden van templates en
+het uitvoeren van de renderingpipeline.
+
+Bij het verwerken van een template wordt eerst de HTML opgeschoond. Vervolgens
+worden de toegestane placeholders vervangen door fictieve voorbeeldgegevens
+en wordt de inhoud in de vaste e-mailschil geplaatst. De CSS wordt inline
+verwerkt en er wordt een tekstuele versie gegenereerd. De resulterende e-mail
+kan daarna worden weergegeven in de preview of worden verstuurd naar Mailpit.
+
+De testomgeving wordt met Docker en Docker Compose opgezet, zodat de lokale
+mailserver en de benodigde diensten reproduceerbaar kunnen worden gestart.
+Geautomatiseerde tests controleren de belangrijkste onderdelen van de
+verwerking. Aanvullende controles in echte e-mailclients worden gebruikt om
+weergaveverschillen vast te stellen.
+
+Een vereenvoudigde voorstelling van de beoogde architectuur is:
 
 \begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.8\textwidth]{architectuur}
-  \caption[Architectuur van de oplossing]{Architectuur van de uitbreiding binnen het Vesalius-platform. De Angular-frontend communiceert met de Laravel-backend, die de bedrijfslogica uitvoert en de benodigde gegevens uit MySQL haalt. Keycloak voorziet de bestaande authenticatie- en gebruikerscontext.}
-  \label{fig:architectuur}
+    \centering
+    \includegraphics[width=0.9\textwidth]{email-architectuur}
+    \caption[Architectuur van de e-maileditor-PoC]{%
+        Beoogde architectuur van de zelfstandige PoC. De Angular-frontend
+        communiceert met de mock-API voor templatebeheer en rendering.
+        Mailpit ontvangt testmails en ondersteunt de controle van de
+        gegenereerde e-mails.}
+    \label{fig:architectuur}
 \end{figure}
 
-De belangrijkste ontwerpkeuze hierbij is dat de nieuwe functionaliteit geen afzonderlijke applicatie of service vormt. De functionaliteit behoort inhoudelijk tot het bestaande template- en generatieproces en wordt daarom in dezelfde applicatie geïntegreerd.
+De belangrijkste ontwerpkeuze is de scheiding tussen de editor en de
+e-mailverwerking. De frontend is verantwoordelijk voor de interactie met de
+gebruiker, terwijl de mock-API de templateverwerking en het genereren van de
+e-mail uitvoert. Deze scheiding maakt het mogelijk beide onderdelen
+afzonderlijk te testen en vergemakkelijkt een eventuele latere integratie
+met de bestaande backend.
 
 \section{\IfLanguageName{dutch}{Gegevensmodel}{Data model}}%
 \label{sec:gegevensmodel}
-TODO!
-%% Werk je met gegevens, toon dan hoe ze gestructureerd zijn en waarom.
-%% Heeft je project geen noemenswaardig gegevensmodel, verwijder deze sectie
-%% dan gerust.
-Voor documenttemplates moet een relatie kunnen worden gelegd tussen een template en één of meerdere gebruikers met de functie ``arts''. Omdat één template aan meerdere artsen kan worden gekoppeld en één arts meerdere templates kan gebruiken, gaat het conceptueel om een many-to-many-relatie.
-Bij het ontwerpen van deze relatie moet rekening worden gehouden met het bestaande datamodel. De nieuwe koppeling mag de bestaande werking van templates zonder artsselectie niet breken. Daarom moet het ontbreken van gekoppelde artsen een geldige toestand blijven en moet dit geïnterpreteerd worden als het bestaande gedrag.
-Voor de Scribe-consultatemplates is een bijkomende configuratiewaarde nodig die de gewenste doelgroep van de output beschrijft. Deze waarde kan conceptueel worden voorgesteld als een beperkte keuze tussen patiëntgerichte en artsgerichte output. Een expliciete beperkte waarde voorkomt dat verschillende vrije tekstwaarden voor hetzelfde concept ontstaan.
+De PoC heeft een beperkt gegevensmodel dat voornamelijk gericht is op het
+beheren en renderen van e-mailtemplates. De gegevensstructuur moet voldoende
+informatie bevatten om een template terug te vinden, de juiste configuratie
+te selecteren en de inhoud met fictieve gegevens te kunnen renderen.
 
+Een template bevat conceptueel minstens de volgende gegevens:
+\begin{itemize}
+    \item \textbf{Identificatie:} een unieke identificatie van de template.
+    \item \textbf{Configuratie:} het bijbehorende e-mailtype, de taal en
+    de configuratie waarvoor de template bedoeld is.
+    \item \textbf{Inhoud:} de aanpasbare e-mailbody, met de ondersteunde
+    opmaak en placeholders.
+    \item \textbf{Status:} informatie die nodig is om onderscheid te maken
+    tussen een standaardtemplate en een aangepaste versie.
+\end{itemize}
 
-\section{\IfLanguageName{dutch}{Privacy, veiligheid en regelgeving}{Privacy, security and regulation}}%
+De mockgegevens bevatten daarnaast fictieve voorbeeldgegevens voor patiënten,
+afspraken, artsen en organisaties. Deze gegevens worden gebruikt om de
+placeholders tijdens de rendering te vervangen en om verschillende
+randgevallen te kunnen testen, zoals ontbrekende namen, lange adressen en
+speciale tekens.
+
+De opslagtechnologie wordt niet vooraf vastgelegd op basis van de
+productiedatabase van Vesalius.ai. Voor de PoC wordt een tijdelijke
+oplossing gekozen die eenvoudig op te zetten, reproduceerbaar en voldoende
+voor de testvereisten is. De precieze gegevensstructuur en opslagkeuze
+worden tijdens de implementatie verder gevalideerd.
+
+Een belangrijk aandachtspunt is dat onbekende placeholders niet stilzwijgend
+als geldige gegevens mogen worden behandeld. De renderingpipeline moet
+controleren welke placeholders ondersteund worden en moet rekening houden
+met ontbrekende of ongeldige waarden. Op die manier blijft de gegenereerde
+e-mail voorspelbaar en kunnen fouten tijdens het testen gemakkelijker
+worden opgespoord.
+
+\section{\IfLanguageName{dutch}{Privacy, veiligheid en regelgeving}
+{Privacy, security and regulation}}%
 \label{sec:privacy}
-TODO (goed nalezen!)
-%% Verwijder deze sectie NIET zonder na te denken: bij de meeste projecten is
-%% ze van toepassing, en deontologisch werken met oog voor veiligheid en
-%% privacy is een leerresultaat van dit opleidingsonderdeel.
-%%
-%% VERWERKT JE TOEPASSING PERSOONSGEGEVENS?
-%% Namen, e-mailadressen, klantnummers, foto's, locaties, logbestanden met
-%% IP-adressen: dat zijn persoonsgegevens, en dan geldt de AVG (Algemene
-%% Verordening Gegevensbescherming, in het Engels de GDPR). Beschrijf dan kort:
-%%   - welke gegevens je verwerkt en waarom je die nodig hebt (dataminimalisatie:
-%%     wat je niet nodig hebt, verzamel je niet);
-%%   - hoe lang ze bewaard blijven;
-%%   - wie ze kan zien, en hoe je dat afschermt;
-%%   - of ze het bedrijf verlaten, bijvoorbeeld naar een clouddienst.
-%%
-%% Werkte je tijdens de ontwikkeling met echte gegevens? Dat hoort in principe
-%% niet: gebruik verzonnen of geanonimiseerde testgegevens. Deed je het toch,
-%% leg dan uit met welke afspraken.
-%%
-%% ZIT ER AI IN JE TOEPASSING?
-%% Dan is de Europese AI-verordening (de AI Act, verordening 2024/1689) van
-%% belang; haar verplichtingen zijn sinds augustus 2026 grotendeels van
-%% toepassing. Vermeld in welke risicocategorie je toepassing valt en welke
-%% transparantieplichten gelden - een gebruiker moet bijvoorbeeld weten dat hij
-%% met een AI-systeem praat of dat inhoud automatisch gegenereerd is.
-%% Zit er geen AI in je toepassing, dan volstaat één zin die dat zegt.
-%%
-%% VEILIGHEID
-%% Wachtwoorden, sleutels en verbindingsgegevens horen niet in je repository,
-%% en niet in de schermafbeeldingen in dit rapport. Beschrijf kort hoe je
-%% toegang en geheimen geregeld hebt.
-Het Vesalius-platform verwerkt medische en andere persoonsgegevens. Daarom moet de uitbreiding rekening houden met de principes van gegevensbescherming en toegangscontrole. De nieuwe functionaliteit moet uitsluitend gebruikmaken van de gebruikersgegevens die noodzakelijk zijn om de templateconfiguratie en automatische generatie correct uit te voeren.
-Voor de artsselectie is het bijvoorbeeld niet nodig om bijkomende persoonsgegevens op te slaan wanneer de bestaande gebruikersidentiteit reeds beschikbaar is. De koppeling kan gebruikmaken van de bestaande gebruikersidentificatie binnen het platform.
-Authenticatie wordt niet opnieuw geïmplementeerd binnen dit project. Keycloak blijft verantwoordelijk voor de bestaande authenticatie- en identiteitscontext. De applicatie moet vervolgens de bestaande autorisatie- en gebruikersgegevens correct gebruiken.
-Tijdens ontwikkeling en testen moet bovendien vermeden worden dat echte medische patiëntgegevens onnodig worden gebruikt. Testscenario's kunnen uitgevoerd worden met test- of geanonimiseerde gegevens.
-Het project bevat geen nieuwe autonome AI-functionaliteit. De configuratie van patiënt- of artsgerichte output bepaalt wel hoe bestaande gegenereerde inhoud moet worden afgestemd, maar het graduaatsproject introduceert geen afzonderlijk AI-model.
-Geheimen, wachtwoorden, tokens en andere gevoelige configuratiegegevens worden niet opgenomen in de broncode of screenshots van het rapport.
+Hoewel de PoC gericht is op e-mailcommunicatie binnen een medische context,
+wordt de testopstelling bewust gescheiden gehouden van de productieomgeving.
+Alle gebruikte patiënt-, afspraak- en organisatiegegevens zijn fictief.
+Hierdoor is het niet nodig om voor de demonstratie echte medische
+persoonsgegevens te verwerken.
+
+Bij de ontwikkeling wordt rekening gehouden met de principes van de
+Algemene Verordening Gegevensbescherming (AVG/GDPR), waaronder
+gegevensminimalisatie en vertrouwelijkheid. De PoC verwerkt uitsluitend
+de gegevens die noodzakelijk zijn om de functionaliteiten van de editor
+en de renderingpipeline te demonstreren. De tijdelijke opslag bevat
+testgegevens en geen echte patiëntendossiers.
+
+Een belangrijk technisch risico is het verwerken van HTML die door een
+gebruiker kan worden aangepast of geplakt vanuit een andere toepassing.
+HTML mag daarom niet zonder controle worden overgenomen en gerenderd.
+De renderingpipeline voorziet in HTML-opschoning op basis van toegestane
+elementen en attributen. Daarnaast moeten placeholders volgens een
+whitelist worden verwerkt, waarbij waarden veilig worden geëncodeerd
+om ongewenste HTML-injectie te voorkomen. Deze maatregelen verkleinen
+het risico op cross-site scripting (XSS) en andere problemen door
+onveilige invoer.
+
+Ook de vaste e-mailschil en de verwerking van links en afbeeldingen moeten
+rekening houden met ongeldige of ongewenste waarden. De gebruikte
+testgegevens en screenshots mogen geen productiegegevens, wachtwoorden,
+API-sleutels, tokens of andere vertrouwelijke informatie bevatten.
+Gevoelige configuratiegegevens worden niet opgenomen in de repository.
+
+De PoC introduceert geen afzonderlijk AI-model of autonome AI-functionaliteit.
+De inhoud van de e-mails wordt door gebruikers aangepast en vervolgens
+volgens vooraf bepaalde regels verwerkt. De Europese AI-verordening is
+daarom niet de centrale focus van dit project; de relevante privacy- en
+veiligheidsprincipes blijven wel van toepassing op de beoogde latere
+integratie.
 
 \section{\IfLanguageName{dutch}{Ontwerpkeuzes}{Design decisions}}%
 \label{sec:ontwerpkeuzes}
-TODO!+rewrite 
-%% Noteer drie tot vijf keuzes die je bewust gemaakt hebt, telkens in deze
-%% vorm: de keuze, de alternatieven, de reden, en het gevolg.
-%%
-%% Dit is de sectie waaruit een jurylid zijn vragen haalt. Een keuze waarvan
-%% je het alternatief niet kan benoemen, was geen keuze.
-1) om de artskoppeling optioneel te maken. Een alternatief zou zijn om voor elke template verplicht één of meerdere artsen te selecteren. Dat zou echter het bestaande gedrag wijzigen voor templates die vandaag organisatiebreed worden gebruikt. Door de koppeling optioneel te maken, blijft backwards compatibility behouden.
-2) om de artskoppeling enkel invloed te laten hebben op automatische generatie en niet op zichtbaarheid. Een alternatief zou zijn om templates die aan bepaalde artsen gekoppeld zijn ook voor andere gebruikers te verbergen. Dat zou echter twee verschillende concepten door elkaar halen: wie een template mag zien en voor wie een template automatisch wordt gebruikt. Door deze verantwoordelijkheden gescheiden te houden, blijft het gedrag duidelijker.
-3) om enkel gebruikers met de functie ``arts'' te tonen in de selectie. Een vrije gebruikersselectie zou technisch eenvoudiger kunnen lijken, maar zou functioneel incorrecte configuraties mogelijk maken. De selectie wordt daarom beperkt op basis van de bestaande gebruikersfunctie.
-4) om voor Scribe een expliciete doelgroepinstelling te gebruiken in plaats van vrije tekst. De alternatieve aanpak waarbij een gebruiker zelf instructies of een doelgroep beschrijft, zou meer flexibiliteit bieden maar ook meer variatie en onvoorspelbaarheid veroorzaken. Een beperkte keuze tussen patiënt en arts maakt de configuratie duidelijker en eenvoudiger te valideren.
-5) om de nieuwe functionaliteit binnen de bestaande Laravel- en Angulararchitectuur te implementeren in plaats van een afzonderlijke service te bouwen. Hierdoor blijven gegevens, authenticatie, deployment en onderhoud binnen dezelfde technische context.
+Tijdens de analyse werden verschillende ontwerpkeuzes gemaakt om de
+haalbaarheid van de PoC te bewaken en de oplossing voldoende eenvoudig
+te houden voor de beschikbare projecttijd.
+
+\begin{enumerate}
+    \item \textbf{Een zelfstandige PoC in plaats van een rechtstreekse
+    productie-integratie.}
+    Een alternatief zou zijn om de editor meteen in de bestaande
+    Laravel-backend en Angular-applicatie te integreren. Dat zou echter
+    bijkomende afhankelijkheden creëren van de bestaande infrastructuur
+    en productiearchitectuur. Door eerst een afzonderlijke mock-opstelling
+    te ontwikkelen, kunnen de editor en renderingpipeline onafhankelijk
+    worden getest. Het gevolg is dat een eventuele integratie later nog
+    afzonderlijk moet worden ontworpen en gevalideerd.
+
+    \item \textbf{Een vaste e-mailschil in plaats van een volledige
+    layout-builder.}
+    Een volledig configureerbare layout-builder zou gebruikers meer vrijheid
+    bieden om de volledige structuur van een e-mail te wijzigen. Dit zou
+    de complexiteit van de editor en de compatibiliteitstests echter sterk
+    verhogen. Daarom blijft de e-mailschil in de PoC grotendeels vast en
+    ligt de nadruk op het aanpassen van de e-mailbody.
+
+    \item \textbf{Een visuele editor in plaats van rechtstreekse
+    HTML-bewerking.}
+    Bij rechtstreekse HTML-bewerking moeten gebruikers technische kennis
+    hebben van HTML en de structuur van e-mails. Een WYSIWYG-editor biedt
+    een toegankelijkere manier om tekst en opmaak aan te passen. De gekozen
+    editor moet voldoende functionaliteit bieden voor de vereiste opmaak,
+    placeholders en links, zonder onnodige complexiteit toe te voegen.
+
+    \item \textbf{Een mock-API in plaats van de bestaande productiebackend.}
+    Rechtstreeks gebruik van de Laravel-backend zou de PoC afhankelijk
+    maken van bestaande bedrijfslogica, authenticatie en gegevensstructuren.
+    Een afzonderlijke mock-API maakt het mogelijk de functionaliteiten
+    gecontroleerd te ontwikkelen en te testen. Het nadeel is dat de
+    implementatie niet zonder verdere aanpassingen naar de productieomgeving
+    kan worden overgedragen.
+
+    \item \textbf{Veilige templateverwerking met toegestane placeholders.}
+    Een alternatief zou zijn om HTML en dynamische waarden zo weinig
+    mogelijk te beperken. Dat vergroot echter het risico op onveilige
+    invoer en onverwachte uitvoer. Daarom wordt gekozen voor HTML-opschoning,
+    een whitelist van ondersteunde placeholders en veilige vervanging van
+    dynamische waarden. Dit beperkt de flexibiliteit, maar verhoogt de
+    voorspelbaarheid en veiligheid van de gegenereerde e-mails.
+
+    \item \textbf{Validatie met geautomatiseerde tests en echte
+    e-mailclients.}
+    Alleen de HTML-output technisch controleren volstaat niet om te
+    garanderen dat een e-mail in alle clients correct wordt weergegeven.
+    Daarom worden geautomatiseerde tests gecombineerd met praktijktests
+    in beschikbare e-mailclients. Dit levert meer inzicht op in
+    compatibiliteitsproblemen, maar betekent ook dat niet iedere combinatie
+    van client, apparaat, taal en template volledig kan worden getest
+    binnen de beschikbare tijd.
+\end{enumerate}
+
+Deze ontwerpkeuzes ondersteunen het doel om binnen de beschikbare
+projecttijd een werkende en testbare PoC op te leveren. Ze houden de
+functionele scope beperkt, maken de belangrijkste technische risico's
+expliciet en leveren tegelijk informatie op voor een mogelijke latere
+integratie in Vesalius.ai.
+
