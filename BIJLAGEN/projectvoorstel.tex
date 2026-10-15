@@ -1,22 +1,35 @@
 \chapter{Projectvoorstel}
 \label{app:projectvoorstel}
 
-\section{Projectcontext en probleemstelling}
+\section{Samenvatting}
+Binnen het ontwikkelingsteam van Vesalius.ai richt dit graduaatsproject
+zich op de aanpasbaarheid van automatisch verstuurde e-mails binnen een
+digitaal platform voor artsen en ziekenhuizen. Momenteel kunnen organisaties
+de inhoud en opmaak van e-mails, zoals afspraakbevestigingen, herinneringen
+en annulaties, slechts beperkt aanpassen.
 
-Vesalius.ai ontwikkelt software die ziekenhuizen en artsen ondersteunt bij
-patiëntcommunicatie en administratieve processen. Het platform verstuurt
-automatisch e-mails, onder meer voor afspraakbevestigingen, herinneringen en
-annulaties. De inhoud en opmaak hiervan liggen grotendeels vast. Hoewel
-organisaties visuele elementen zoals logo's en merkkleuren kunnen aanpassen,
-is de mogelijkheid om teksten en opmaak zelfstandig te wijzigen beperkt.
-Voor bepaalde convomails bestaat al een beperkte vorm van tekstaanpassing,
-maar voor andere e-mailtypes ontbreken deze mogelijkheden grotendeels.
+Het project omvat de ontwikkeling van een zelfstandige proof of concept
+(PoC) van een WYSIWYG-editor waarmee gebruikers e-mailtemplates visueel
+kunnen bewerken, opslaan, vooraf bekijken en als testmail versturen.
+De oplossing ondersteunt dynamische placeholders en meertalige templates,
+met bijzondere aandacht voor veilige HTML-verwerking en een betrouwbare
+weergave in gangbare e-mailclients. Het resultaat omvat een werkende
+demonstratie, technische documentatie en testresultaten. Indien de
+beschikbare tijd dit toelaat, wordt ook een voorstel voor toekomstige
+integratie uitgewerkt.
 
-Hierdoor kunnen artsen en organisaties hun communicatie onvoldoende afstemmen
-op specifieke behoeften. Bovendien moet aangepaste HTML veilig worden verwerkt
-en correct worden weergegeven in verschillende e-mailclients.
+\section{Context en probleemstelling}
+Vesalius.ai ondersteunt artsen en ziekenhuizen bij patiëntcommunicatie
+en administratieve processen. De inhoud van automatisch verstuurde
+e-mails wordt grotendeels centraal bepaald. Hoewel organisaties bepaalde
+visuele elementen kunnen configureren, ontbreekt voor de meeste
+e-mailtypes de mogelijkheid om teksten en opmaak zelfstandig aan te
+passen. Hierdoor kunnen gebruikers hun communicatie onvoldoende afstemmen
+op specifieke behoeften.
 
-De centrale onderzoeksvraag luidt:
+Daarnaast moet aangepaste e-mailinhoud veilig worden verwerkt en correct
+worden weergegeven op verschillende apparaten en in uiteenlopende
+e-mailclients. De centrale onderzoeksvraag luidt daarom:
 
 \begin{quote}
 Hoe kan een veilige en gebruiksvriendelijke WYSIWYG-e-maileditor worden
@@ -25,112 +38,95 @@ en waarvan de gegenereerde e-mails betrouwbaar worden weergegeven in
 gangbare e-mailclients?
 \end{quote}
 
-\section{Doelstelling en functionele vereisten}
+\section{Doelstelling}
+Het doel is een zelfstandige, losgekoppelde PoC te ontwikkelen waarmee
+gebruikers de inhoud en basisopmaak van drie e-mailtemplates kunnen
+aanpassen, opslaan, vooraf bekijken en als testmail versturen. De bestaande
+layoutschil, met onder meer het logo, de merkkleuren en de footer, blijft
+behouden.
 
-Het doel is een zelfstandige, losgekoppelde proof of concept (PoC) te
-ontwikkelen waarmee gebruikers de inhoud en basisopmaak van drie
-e-mailtemplates visueel kunnen bewerken, opslaan, vooraf bekijken en als
-testmail versturen. De bestaande layoutschil, waaronder het logo, de
-merkkleuren en de footer, blijft behouden.
+De PoC omvat drie piloottemplates: afspraakbevestiging,
+afspraakherinnering en afspraakannulering. De werking wordt gevalideerd
+met fictieve gegevens, geautomatiseerde tests en controles in beschikbare
+e-mailclients.
 
-De PoC ondersteunt minimaal:
-\begin{itemize}
-    \item Het laden, bewerken, opslaan en opnieuw laden van templates per
-    e-mailtype en taal.
-    \item Tekstopmaak, links en gecontroleerde dynamische placeholders.
-    \item Een voorbeeldweergave en een lokale testmailomgeving.
-    \item Veilige HTML-verwerking, CSS-inlining en een tekstuele e-mailversie.
-    \item Geautomatiseerde tests en compatibiliteitscontroles.
-\end{itemize}
-
-De piloottemplates zijn afspraakbevestiging, afspraakherinnering en
-afspraakannulering. Het project moet aantonen dat de volledige verwerkingsketen
-werkt en de resultaten systematisch kunnen worden geëvalueerd.
-
-\section{Afbakening}
-
-Binnen de scope vallen de editor, mock-API, templateopslag, renderingpipeline,
-preview, testmails, fictieve testgegevens, meertalige templates en
-geautomatiseerde tests. Ook technische documentatie en een evaluatie van de
-weergave in verschillende e-mailclients behoren tot de oplevering.
-
-Buiten de scope vallen integratie in het productieplatform, het plannen of
-versturen van productie-e-mails, Keycloak-e-mails, echte patiëntgegevens,
-AI-functionaliteiten en een volledig configureerbare layout-builder.
-
-Een integratievoorstel wordt alleen verder uitgewerkt indien de kernfuncties
-tijdig zijn gerealiseerd, de belangrijkste tests slagen en voldoende tijd
-beschikbaar blijft. De prioriteit ligt bij een werkende, veilige en
-gedocumenteerde PoC. Een daadwerkelijke integratie vereist afzonderlijke
-goedkeuring en valt buiten de oorspronkelijke scope.
-
-\section{Technologische aanpak}
-
-De frontend wordt ontwikkeld met Angular 21 en TypeScript. Voor de visuele
-editor worden Quill 2 en ngx-quill gebruikt, na een technische evaluatie van
-de vereiste bewerkingsmogelijkheden. De mock-API wordt gebouwd met Node.js,
-TypeScript en Express.
+\section{Technologieën}
+De frontend wordt ontwikkeld met Angular 21 en TypeScript. Voor de
+visuele editor worden Quill 2 en ngx-quill geëvalueerd. De mock-API
+wordt gebouwd met Node.js, TypeScript en Express.
 
 Voor de renderingpipeline worden \texttt{sanitize-html} voor HTML-sanitatie,
 Handlebars voor de vaste layoutschil, gecontroleerde placeholdervervanging
-met escaping en Juice voor CSS-inlining voorzien. Met \texttt{html-to-text}
-wordt een tekstuele versie gegenereerd. De tijdelijke opslagoplossing wordt
-gekozen op basis van eenvoud en reproduceerbaarheid; de databasekeuze is
-ondergeschikt aan het doel van de PoC.
+met escaping en Juice voor CSS-inlining voorzien. De bibliotheek
+\texttt{html-to-text} ondersteunt de generatie van een tekstuele e-mailversie.
+Voor de tijdelijke testopstelling wordt een geschikte opslagoplossing
+gekozen op basis van eenvoud en reproduceerbaarheid. De opslagtechnologie
+wordt niet als een vaste vereiste beschouwd.
 
-De ontwikkeling gebeurt bij voorkeur binnen Bitbucket, volgens de werkwijze
-van Vesalius.ai. Docker en Mailpit ondersteunen de lokale testomgeving.
-Vitest wordt ingezet voor geautomatiseerde tests en Playwright voor
-browsercontroles en screenshotvergelijkingen.
+Docker en Mailpit ondersteunen de lokale testomgeving. Vitest wordt
+ingezet voor geautomatiseerde tests en Playwright voor browsercontroles
+en screenshotvergelijkingen. De ontwikkeling gebeurt bij voorkeur binnen
+de bestaande Bitbucket-omgeving van Vesalius.ai, overeenkomstig de
+interne werkwijze.
 
-\section{Privacy, veiligheid en teststrategie}
+\section{Afbakening}
+Binnen de scope vallen de visuele editor, mock-API, templateopslag,
+rendering, voorbeeldweergave, testmails, fictieve testgegevens,
+meertalige templates en geautomatiseerde tests. Ook de documentatie
+en evaluatie van de e-mailweergave maken deel uit van het project.
 
-Er wordt uitsluitend gewerkt met fictieve gegevens. Geheimen en
-productiegegevens worden niet in versiebeheer opgenomen. HTML wordt beperkt
-tot toegestane elementen en attributen; placeholders worden gecontroleerd
-tegen een allowlist en veilig ingevuld. Tests controleren onder meer
-ongewenste HTML, onbekende placeholders en foutieve links.
+Buiten de scope vallen integratie in de productieomgeving, het plannen
+of versturen van productie-e-mails, e-mails van Keycloak, het verwerken
+van echte patiëntgegevens, AI-functionaliteiten en een volledig
+configureerbare layout-builder. De vaste layoutschil, waaronder het
+logo, de merkkleuren en de footer, wordt niet volledig bewerkbaar gemaakt.
 
-De validatie combineert geautomatiseerde tests, controles van de gegenereerde
-HTML en praktijktests in Gmail, Hotmail/Outlook.com en Apple Mail op macOS
-en iPhone. Outlook Desktop wordt getest indien de omgeving dit toelaat.
-Waar beschikbaar kunnen Litmus of Email on Acid aanvullend worden gebruikt.
+Een integratievoorstel wordt uitsluitend uitgewerkt wanneer de drie
+piloottemplates en de kernfunctionaliteiten gerealiseerd zijn, de
+belangrijkste tests uitgevoerd zijn en voldoende tijd resteert voor
+documentatie en evaluatie. De uitwerking van dit voorstel blijft
+ondergeschikt aan de kernfunctionaliteiten. Een daadwerkelijke integratie
+vereist afzonderlijke goedkeuring en valt buiten de scope van de PoC.
 
-De testmatrix omvat waar haalbaar verschillende e-mailtypes, talen,
-instellingen en fictieve patiëntgegevens. Ook lange namen, speciale tekens,
-ontbrekende gegevens, lange links en gekopieerde tekst uit Word of Outlook
-worden onderzocht. Resultaten en screenshots worden gedocumenteerd, met
-onderscheid tussen correcte weergave, beperkte afwijkingen en blokkerende
-problemen.
+\section{Verwachte meerwaarde}
+De PoC moet aantonen in welke mate een visuele e-maileditor gebruikers
+meer autonomie kan bieden bij het aanpassen van communicatie, met behoud
+van de vaste structuur en technische vereisten van e-mails. Vesalius.ai
+krijgt inzicht in de technische haalbaarheid, beperkingen en relevante
+veiligheidsmaatregelen.
 
-\section{Planning, opvolging en risico's}
+De testresultaten bieden een basis om de compatibiliteit tussen
+e-mailclients te beoordelen. De technische documentatie en eventuele
+integratieaanbevelingen kunnen als uitgangspunt dienen voor een mogelijke
+verdere ontwikkeling binnen het bestaande platform.
 
-Het project omvat tien wekelijkse sprints van telkens één gefocuste werkdag,
-van 15 oktober tot en met 17 december 2026, aangevuld met maximaal 20 uur
-buffertijd. De sprintvolgorde is: omgevingsopzet, templates en mockdata,
-editorselectie, bewerkingsfunctionaliteiten, opslag en API, rendering en
-veiligheid, preview en testmails, compatibiliteitstests, correcties en
-afronding.
+\section{Planning en werkbelasting}
+Het project wordt uitgevoerd in tien wekelijkse sprints van één werkdag,
+van 15 oktober tot en met 17 december 2026. De werkzaamheden verlopen
+gefaseerd: omgevingsopzet, templates en mockdata, editorselectie,
+bewerkfunctionaliteiten, opslag en API, rendering en veiligheid, preview
+en testmails, compatibiliteitstests, correcties en afronding.
 
-Per sprint wordt een concreet resultaat nagestreefd. Voortgang, knelpunten
-en volgende stappen worden bijgehouden in een werklog en besproken met de
-bedrijfsmentor.
+Elke sprint levert een concreet resultaat op. De voortgang, knelpunten
+en volgende stappen worden bijgehouden in een werklog en besproken met
+de bedrijfsmentor. In januari is maximaal 20 uur buffertijd voorzien
+voor noodzakelijke correcties, aanvullende tests, documentatie en de
+voorbereiding van de eindpresentatie.
 
-De beperkte beschikbare tijd wordt beheerst door de scope vast te houden
-aan drie piloottemplates en één editor. Verschillen tussen e-mailclients
-worden aangepakt door de layoutschil eenvoudig te houden en vroeg te testen.
-Indien de gekozen editor tekortschiet, wordt tijdig een alternatief
-geëvalueerd. Verschillen tussen de mock-API en de bestaande Laravel-backend
-worden gedocumenteerd voor een eventuele latere integratie.
+\section{Risico's}
+De beperkte werkbelasting vormt een belangrijk risico. Daarom blijft
+de scope beperkt tot drie piloottemplates en één editor. Blokkerende
+fouten, noodzakelijke tests en documentatie krijgen voorrang op
+uitbreidingen.
 
-\section{Verwachte resultaten}
+Een tweede risico is de afwijkende weergave tussen e-mailclients,
+met name Outlook. Dit wordt beperkt door de layoutschil eenvoudig te
+houden, CSS inline te plaatsen en de uitvoer tijdig te testen in Gmail,
+Hotmail/Outlook.com en Apple Mail op macOS en iPhone. Outlook Desktop
+wordt meegenomen voor zover de beschikbare testomgeving dit toelaat.
 
-De beoogde oplevering bestaat uit een werkende PoC met editor, preview,
-templateopslag en testmailfunctionaliteit; een mock-API met fictieve gegevens
-en gecontroleerde placeholders; geautomatiseerde tests en een testmatrix
-met compatibiliteitsresultaten; en technische documentatie met een
-demonstratie. Indien de beschikbare tijd dit toelaat, wordt ook een
-onderbouwd integratievoorstel voor Vesalius.ai opgeleverd.
-
-De uiteindelijke realisatie, testbevindingen en eventuele beperkingen worden
-in het resultatenhoofdstuk beschreven.
+Ook mogelijke beperkingen van de gekozen editor en verschillen tussen
+de mock-API en de bestaande Laravel-backend vormen aandachtspunten.
+De editorselectie wordt vooraf technisch geëvalueerd. Eventuele
+integratieverschillen worden gedocumenteerd, zodat de PoC zelfstandig
+kan functioneren zonder afhankelijk te zijn van de productieomgeving.

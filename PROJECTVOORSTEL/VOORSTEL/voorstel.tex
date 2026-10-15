@@ -28,27 +28,56 @@
 \begin{document}
 
 \begin{abstract}
-Probleemstelling
-Binnen Vesalius.ai zijn de mogelijkheden om automatisch verstuurde e-mails, zoals afspraakbevestigingen, herinneringen en annulaties, aan te passen beperkt. 
-Artsen en organisaties kunnen de inhoud en opmaak onvoldoende afstemmen op hun eigen behoeften.
 
-Voorgestelde oplossing
-Dit graduaatsproject ontwikkelt een zelfstandige proof of concept (PoC) van een WYSIWYG-editor waarmee gebruikers e-mailtemplates visueel kunnen bewerken, opslaan, vooraf bekijken en als testmail versturen.
-De oplossing ondersteunt dynamische placeholders en meertalige templates.
+\noindent\textbf{Probleemstelling}
 
-Technische aanpak
-De editor wordt ontwikkeld met Angular en TypeScript, aangevuld met een mock-API op basis van Node.js en Express en lokale opslag met SQLite. 
-Er is o.a. aandacht voor veilige HTML-verwerking en een correcte e-mailweergave in Gmail, Outlook en Apple Mail. 
-Docker, Mailpit en geautomatiseerde tests, ondersteunen de validatie.
+Binnen Vesalius.ai zijn de mogelijkheden om automatisch verstuurde
+e-mails, zoals afspraakbevestigingen, herinneringen en annulaties,
+aan te passen beperkt. Hierdoor kunnen artsen en organisaties de
+inhoud en opmaak onvoldoende afstemmen op hun communicatiebehoeften.
 
-Verwachte oplevering
-* Een werkende demonstratie van de e-maileditor met preview en testmailfunctionaliteit.
-* Een mock-API voor de opslag en verwerking van templates.
-* Een testomgeving met fictieve gegevens en geautomatiseerde tests.
-* Testresultaten van controles in verschillende e-mailclients.
-* Technische documentatie en een onderbouwd voorstel voor toekomstige integratie in Vesalius.ai.
+\medskip
+\noindent\textbf{Voorgestelde oplossing}
 
-Het project biedt Vesalius.ai inzicht in de technische haalbaarheid en mogelijke meerwaarde van een visuele e-maileditor binnen het bestaande platform.\end{abstract}
+Dit graduaatsproject omvat de ontwikkeling van een zelfstandige
+proof of concept (PoC) van een WYSIWYG-editor waarmee gebruikers
+e-mailtemplates visueel kunnen bewerken, opslaan, vooraf bekijken
+en als testmail versturen. De oplossing ondersteunt dynamische
+placeholders en meertalige templates.
+
+\medskip
+\noindent\textbf{Technische aanpak}
+
+De editor wordt ontwikkeld met Angular en TypeScript, aangevuld
+met een mock-API op basis van Node.js en Express. Voor de tijdelijke
+testopstelling wordt een geschikte opslagoplossing gekozen.
+De focus ligt op veilige HTML-verwerking en een correcte weergave
+in Gmail, Hotmail/Outlook.com en Apple Mail op macOS en iPhone.
+Docker, Mailpit en geautomatiseerde tests ondersteunen de validatie.
+De ontwikkeling gebeurt bij voorkeur binnen de bestaande
+Bitbucket-omgeving van Vesalius.ai.
+
+\medskip
+\noindent\textbf{Verwachte oplevering}
+
+De beoogde resultaten zijn:
+\begin{itemize}
+    \item Een werkende e-maileditor met voorbeeldweergave en
+    testmailfunctionaliteit.
+    \item Een mock-API voor het laden, opslaan en verwerken van templates.
+    \item Een reproduceerbare testomgeving met fictieve gegevens
+    en geautomatiseerde tests.
+    \item Testresultaten van controles in verschillende e-mailclients.
+    \item Technische documentatie en, indien de beschikbare tijd
+    dit toelaat, een voorstel voor toekomstige integratie in Vesalius.ai.
+\end{itemize}
+
+Het project biedt Vesalius.ai inzicht in de technische haalbaarheid,
+beperkingen en mogelijke meerwaarde van een visuele e-maileditor
+als basis voor een eventuele toekomstige integratie.
+
+\end{abstract}
+
 \input{voorstel-inhoud}
 
 \printbibliography[heading=bibintoc]
