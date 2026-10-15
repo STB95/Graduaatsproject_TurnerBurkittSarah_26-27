@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.10.15)  15 OCT 2026 09:33
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2025/dev/Debian) (preloaded format=xelatex 2026.10.15)  15 OCT 2026 12:23
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -1314,6 +1314,11 @@ LaTeX Font Info:    Font shape `TU/FiraMath(3)/m/n' will be
 Package mdframed Info: mdframed inside a box 
  mdframed uses option nobreak mdframed on input line 79.
  (./voorstel-inhoud.tex
+Overfull \hbox (3.7657pt too wide) in paragraph at lines 17--19
+[]\TU/Montserrat(2)/m/n/10 De inhoud en opmaak van verstuurde e-mails
+ []
+
+
 
 
 
@@ -1323,64 +1328,83 @@ File: ../graphics/HOGENT_Logo_Pos_rgb.png Graphic file (type bmp)
 
 
 ]
-Overfull \hbox (0.22903pt too wide) in paragraph at lines 44--54
-\TU/Montserrat(2)/m/n/10 van andere ontwikkeltaken binnen het bestaande
+Overfull \hbox (4.1857pt too wide) in paragraph at lines 40--41
+[]\TU/Montserrat(2)/m/n/10 Quill 2 (basis voor de visuele WYSIWYG-editor) 
  []
 
 
-Overfull \hbox (10.62834pt too wide) in paragraph at lines 44--54
-\TU/Montserrat(2)/m/n/10 productiegebruik, Keycloak-e-mails, productieplan-
+Overfull \hbox (1.77237pt too wide) in paragraph at lines 48--49
+[]\TU/Montserrat(2)/m/n/10 Express(opzetten van API-endpoints voor het
  []
 
 
-Overfull \hbox (9.17905pt too wide) in paragraph at lines 44--54
-\TU/Montserrat(2)/m/n/10 ning en een volledig configureerbare layout-builder
+Overfull \hbox (5.70233pt too wide) in paragraph at lines 56--57
+[]\TU/Montserrat(2)/m/n/10 Placeholdervervanging met escaping (om dy-
  []
 
 
-Overfull \hbox (1.47368pt too wide) in paragraph at lines 71--76
-\TU/Montserrat(2)/m/n/10 één gefocuste werkdag, aangevuld met maximaal
+Overfull \hbox (0.80566pt too wide) in paragraph at lines 72--73
+[]\TU/Montserrat(2)/m/n/10 Playwright (browsercontroles en screenshot-
  []
 
 
-Overfull \hbox (10.26234pt too wide) in paragraph at lines 71--76
-\TU/Montserrat(2)/m/n/10 werkend resultaat nagestreefd en gedemonstreerd. 
+Overfull \hbox (1.56235pt too wide) in paragraph at lines 89--90
+[]\TU/Montserrat(2)/m/n/10 Keycloak e-mails met echte patiëntgegevens
  []
 
 
 
-LaTeX Font Info:    Font shape `TU/FiraMath(2)/m/n' will be
-(Font)              scaled to size 10.00107pt on input line 79.
-LaTeX Font Info:    Font shape `TU/FiraMath(2)/m/n' will be
-(Font)              scaled to size 7.20076pt on input line 79.
-LaTeX Font Info:    Font shape `TU/FiraMath(2)/m/n' will be
-(Font)              scaled to size 5.80061pt on input line 79.
-LaTeX Font Info:    Font shape `TU/FiraMath(3)/m/n' will be
-(Font)              scaled to size 9.99893pt on input line 79.
-LaTeX Font Info:    Font shape `TU/FiraMath(3)/m/n' will be
-(Font)              scaled to size 7.19922pt on input line 79.
-LaTeX Font Info:    Font shape `TU/FiraMath(3)/m/n' will be
-(Font)              scaled to size 5.79938pt on input line 79.
 
-Underfull \hbox (badness 10000) in paragraph at lines 96--97
-[]\TU/Montserrat(2)/m/n/10 Geautomatiseerde tests en resultaten van e-
+Overfull \hbox (6.49702pt too wide) in paragraph at lines 100--101
+[]\TU/Montserrat(2)/m/n/10 Technische haalbaarheid, beperkingen en vei-
  []
 
 
-Overfull \hbox (226.56966pt too wide) in paragraph at lines 79--106
- [][] 
+Overfull \hbox (10.26569pt too wide) in paragraph at lines 100--101
+\TU/Montserrat(2)/m/n/10 ligheidsaspecten van visuele e-mailbewerking. 
+ []
+
+
+Overfull \hbox (4.16235pt too wide) in paragraph at lines 108--109
+[]\TU/Montserrat(2)/m/n/10 Geautomatiseerde tests en testresultaten van
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 123--123
+[]\TU/Montserrat(2)/m/n/9 Technologiekeuze
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 123--123
+[]\TU/Montserrat(2)/m/n/9 Technologiekeuzes en
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--124
+[]\TU/Montserrat(2)/m/n/9 Architectuur, editorcon-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 125--125
+[]\TU/Montserrat(2)/m/n/9 Editor, templates, pre-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--126
+[]\TU/Montserrat(2)/m/n/9 Geautomatiseerde tests
+ []
+
+
+Underfull \hbox (badness 4001) in paragraph at lines 127--127
+[]\TU/Montserrat(2)/m/n/9 Eindrapport en demon-
+ []
+
+
+Overfull \hbox (17.0731pt too wide) in paragraph at lines 118--132
+ [] 
  []
 
 )
-Overfull \hbox (0.80902pt too wide) in paragraph at lines 113--82
-\TU/Montserrat(2)/m/n/10 met een beperkte wekelijkse werkbelasting wordt
- []
-
-
-Overfull \hbox (13.05237pt too wide) in paragraph at lines 113--82
-\TU/Montserrat(2)/m/n/10 mock-opstelling en de bestaande Laravel-omgeving
- []
-
 
 LaTeX Warning: Empty bibliography on input line 83.
 
@@ -1402,13 +1426,13 @@ Package logreq Info: Writing requests to 'voorstel.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 27639 strings out of 475309
- 523278 string characters out of 5761688
- 1607361 words of memory out of 5000000
- 50212 multiletter control sequences out of 15000+600000
- 562503 words of font info for 105 fonts, out of 8000000 for 9000
+ 27618 strings out of 475309
+ 522584 string characters out of 5761688
+ 1604315 words of memory out of 5000000
+ 50200 multiletter control sequences out of 15000+600000
+ 561270 words of font info for 95 fonts, out of 8000000 for 9000
  350 hyphenation exceptions out of 8191
  101i,12n,121p,699b,3899s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on /project/PROJECTVOORSTEL/output/voorstel.xdv (2 pages, 78016 
+Output written on /project/PROJECTVOORSTEL/output/voorstel.xdv (2 pages, 64528 
 bytes).

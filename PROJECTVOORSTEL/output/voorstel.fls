@@ -272,8 +272,6 @@ INPUT voorstel-inhoud.tex
 INPUT /project/PROJECTVOORSTEL/output/../graphics/HOGENT_Logo_Pos_rgb.png
 INPUT /project/PROJECTVOORSTEL/output/../graphics/HOGENT_Logo_Pos_rgb.png
 OUTPUT /project/PROJECTVOORSTEL/output/voorstel.xdv
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi7.tfm
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi5.tfm
 INPUT /project/PROJECTVOORSTEL/output/../graphics/HOGENT_Logo_Pos_rgb.png
 INPUT /project/PROJECTVOORSTEL/output/../graphics/HOGENT_Logo_Pos_rgb.png
 INPUT /project/PROJECTVOORSTEL/output/voorstel.aux

@@ -5,117 +5,152 @@
 %---------- 1. Context en probleemstelling ------------------------------------
 \section{Context en probleemstelling}%
 \label{vst:context}
-Tijdens mijn stage bij Vesalius.ai werk ik mee aan een digitaal platform dat
-artsen in ziekenhuizen ondersteunt bij consultaties en de administratieve
-verwerking ervan. Momenteel kunnen artsen en organisaties de inhoud en opmaak
-van de meeste automatisch verstuurde e-mails, zoals afspraakbevestigingen,
-herinneringen en annulaties, niet zelf aanpassen, waardoor de communicatie
-onvoldoende flexibel is om aan hun specifieke behoeften te voldoen.
 
-%---------- 2. Doelstelling ---------------------------------------------------
+\textbf{Context}
+\begin{itemize}
+    \item Een digitaal platform dat artsen ondersteunt 
+bij consultaties en administratieve taken. 
+\end{itemize}
+
+\textbf{Probleemstelling}
+\begin{itemize}
+    \item De inhoud en opmaak van verstuurde e-mails
+zijn onvoldoende aanpasbaar. 
+\end{itemize}
+Gevolg: communicatie tussen arts en patiënt 
+voldoen niet aan beide partijen hun specifieke behoeftes. 
+
+%---------- 2. Doelstelling ----------------------------------------------------
 \section{Doelstelling}%
 \label{vst:doelstelling}
-Het doel is een werkende proof of concept (PoC) te ontwikkelen van een visuele
-e-maileditor waarmee gebruikers de tekst en opmaak van drie vooraf bepaalde
-e-mailtypes kunnen aanpassen, opslaan, vooraf bekijken en als testmail
-versturen. Het project is geslaagd wanneer de aangepaste e-mails correct worden
-gerenderd en de weergave ervan in gangbare e-mailclients, waaronder Gmail,
-Outlook.com en Apple Mail, systematisch werd getest en gedocumenteerd.
-
+\begin{itemize}
+    \item Een proof of concept (PoC) ontwikkelen van een WYSIWYG-e-maileditor
+    \item Gebruikers kunnen templates* aanpassen, opslaan, vooraf bekijken en als testmail versturen 
+\end{itemize}
+templates*: afspraakbevestiging, afspraakherinnering en afspraakannulering
+ 
+\newpage
 %---------- 3. Technologieën --------------------------------------------------
 \section{Technologieën}%
 \label{vst:technologieen}
-De frontend wordt ontwikkeld met Angular 21 en TypeScript, met Quill 2 als
-basis voor de visuele editor; voor de mock-API worden Node.js, TypeScript en
-Express gebruikt. Voor de verwerking en beveiliging van e-mails worden onder
-meer Handlebars, \texttt{sanitize-html}, \texttt{juice} en
-\texttt{html-to-text} ingezet; mockgegevens, geautomatiseerde tests met Vitest
-en Playwright en Docker met Mailpit ondersteunen de ontwikkeling en validatie.
-De oplossing wordt ontwikkeld in Bitbucket, conform de voorkeur van het
-bedrijf, en maakt uitsluitend gebruik van fictieve gegevens, zodat geen
-reële patiëntgegevens worden verwerkt; AI wordt niet ingezet, aangezien het
-project zich richt op deterministische tekstbewerking en e-mailrendering.
-Bij de ontwikkeling wordt aandacht besteed aan veilige HTML-verwerking,
-placeholders en de relevante principes van de AVG.
+\textbf{Frontend}
+\begin{itemize}
+    \item Angular 22 (opbouw van de interactieve UI)
+    \item TypeScript(voor typed en onderhoud code)
+    \item Quill 2  (basis voor de visuele WYSIWYG-editor)
+\end{itemize}
 
-%---------- 4. Afbakening -----------------------------------------------------
+\medskip
+\textbf{Mock-API en opslag}
+\begin{itemize}
+    \item Node.js (uitvoering van de servercode)
+    \item TypeScript(getypeerde serverlogica)
+    \item Express(opzetten van API-endpoints voor het laden en opslaan van templates)
+\end{itemize}
+
+\medskip
+\textbf{HTML-verwerking en e-mailrendering}
+\begin{itemize}
+    \item Handlebars(templateverwerking en het behoud van de vaste layoutschil)
+    \item \texttt{sanitize-html}(om onveilige HTML te verwijderen)
+    \item Placeholdervervanging met escaping (om dynamische waarden gecontroleerd en veilig in te voegen)
+    \item Juice (om CSS inline te plaatsen voor een betere ondersteuning door e-mailclients)
+    \item \texttt{html-to-text} (om naast HTML ook een tekstuele e-mailversie te genereren)
+\end{itemize}
+
+\medskip
+\textbf{Testomgeving}
+\begin{itemize}
+    \item Docker (reproduceerbare lokale testomgeving)
+    \item Mailpit (om uitgaande testmails lokaal op te vangen en te controleren)
+\end{itemize}
+
+\medskip
+\textbf{Geautomatiseerde tests}
+\begin{itemize}
+    \item Vitest (unit- en integratietests)
+    \item Playwright (browsercontroles en screenshotvergelijkingen)
+\end{itemize}
+
+\medskip
+\textbf{Versiebeheer}
+\begin{itemize}
+    \item Bitbucket (versiebeheer, samenwerking en het bijhouden van codewijzigingen)
+\end{itemize}
+
+
+%---------- 4. Afbakening ------------------------------------------------------
 \section{Afbakening}%
 \label{vst:afbakening}
-Mijn dagelijkse stagewerk bestaat uit het analyseren en oplossen van bugs en
-het uitvoeren van andere ontwikkeltaken binnen het bestaande Vesalius-platform.
-Het graduaatsproject is hiervan afzonderlijk afgebakend en omvat de analyse,
-het ontwerp, de realisatie en het testen van een zelfstandige PoC met één
-visuele editor, opslag van e-mailtemplates, ondersteuning voor placeholders,
-een voorbeeldweergave en het versturen van testmails voor drie e-mailtypes.
-De oplossing werkt met fictieve gegevens en een tijdelijke testopstelling;
-integratie in het bestaande platform, productiegebruik, Keycloak-e-mails,
-productieplanning en een volledig configureerbare layout-builder vallen buiten
-de scope.
+\textbf{Out-Of-Scope (OOS)}
+\begin{itemize}
+    \item Integratie in productieplatform
+    \item Plannen of versturen van productie e-mails
+    \item Keycloak e-mails met echte patiëntgegevens en AI-functionaliteiten
+\end{itemize}
+De bestaande layoutschil met logo, merkkleuren en footer blijft behouden. 
+Een mogelijk integratievoorstel kan als de kernfunctionaliteiten en belangrijkste tests correct en tijdig afgerond zijn.
 
 %---------- 5. Verwachte meerwaarde -------------------------------------------
 \section{Verwachte meerwaarde}%
 \label{vst:meerwaarde}
-De PoC toont aan in welke mate artsen en organisaties meer controle kunnen
-krijgen over de inhoud en opmaak van hun e-mailcommunicatie zonder dat de
-bestaande e-mailstructuur volledig moet worden vervangen. Het bedrijf ontvangt
-een werkende demonstratie, een testopstelling met herbruikbare mockgegevens,
-geautomatiseerde tests en een overzicht van de resultaten per e-mailclient.
-Daarnaast wordt een onderbouwd integratievoorstel opgeleverd met aandacht voor
-architectuur, beveiliging en mogelijke hergebruiksmogelijkheden binnen het
-bestaande Vesalius-platform.
+
+\textbf{Inzichten in}
+\begin{itemize}
+    \item Technische haalbaarheid, beperkingen en veiligheidsaspecten van visuele e-mailbewerking. 
+\end{itemize}
+
+\medskip  
+\textbf{Deliverables}
+\begin{itemize}
+    \item Een werkende demonstratie
+    \item Een reproduceerbare testopstelling 
+    \item Geautomatiseerde tests en testresultaten van verschillende e-mailclients
+\end{itemize}
+
 
 %---------- 6. Planning en werkbelasting --------------------------------------
-
 \section{Planning en werkbelasting}%
 \label{vst:planning}
-Het graduaatsproject omvat ongeveer 100 uur, gespreid over tien wekelijkse
-sprints van telkens één gefocuste werkdag, aangevuld met maximaal 20 uur
-buffertijd voor eventuele correcties en de voorbereiding van de eindpresentatie.
-De planning en voortgang worden regelmatig met de bedrijfsmentor afgestemd;
-per sprint wordt een werkend resultaat nagestreefd en gedemonstreerd.
 
-\begin{table}[htbp]
-  \centering
-  \begin{tabular}{p{0.25\textwidth}p{0.57\textwidth}r}
-    \toprule
-    \textbf{Fase} & \textbf{Wat lever je op} & \textbf{Uren} \\
-    \midrule
-    Analyse en vereisten
-      & Scope, functionele vereisten en testcriteria
-      & 12 \\
-    Technologiekeuze en opzet
-      & Gemotiveerde technologiekeuzes en werkende ontwikkelomgeving
-      & 10 \\
-    Ontwerp
-      & Architectuur, editorconcept, templateopbouw en testmatrix
-      & 13 \\
-    Realisatie
-      & Werkende editor, templateopslag, renderpipeline, preview en testmails
-      & 40 \\
-    Testen en validatie
-      & Geautomatiseerde tests en resultaten van e-mailclienttests
-      & 15 \\
-    Rapport, poster en demo
-      & Eindrapport, integratievoorstel en demonstratie
-      & 10 \\
-    \midrule
-    \textbf{Totaal} & & \textbf{100} \\
-    \bottomrule
-  \end{tabular}
-  \caption[Planning en werkbelasting]{\label{tab:vst-planning}%
-    Indicatieve verdeling van de 100 projecturen.}
-\end{table}
+\begin{center}
+\small
+\begin{tabular}{p{0.36\linewidth}p{0.47\linewidth}r}
+\toprule
+\textbf{Fase} & \textbf{Resultaat} & \textbf{Uren} \\
+\midrule
+Analyse & Scope, vereisten en testcriteria & 12 \\
+Technologiekeuze en opzet & Technologiekeuzes en ontwikkelomgeving & 10 \\
+Ontwerp & Architectuur, editorconcept en testmatrix & 13 \\
+Realisatie & Editor, templates, preview en testmails & 40 \\
+Testen en validatie & Geautomatiseerde tests en clientcontroles & 15 \\
+Rapport, poster en demo & Eindrapport en demonstratie & 10 \\
+\midrule
+\textbf{Totaal} & & \textbf{100} \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-%---------- 7. Risico's -------------------------------------------------------
-
+%---------- 7. Risico's --------------------------------------------------------
 \section{Risico's}%
 \label{vst:risicos}
-Omdat het project grotendeels zelfstandig en met een beperkte wekelijkse
-werkbelasting wordt uitgevoerd, worden de taken per sprint afgebakend en de
-voortgang regelmatig met de bedrijfsmentor besproken. Verschillen tussen de
-mock-opstelling en de bestaande Laravel-omgeving worden gedocumenteerd in een
-integratievoorstel, zodat de PoC geen volledige integratie vereist. Indien de
-gekozen editor onvoldoende mogelijkheden biedt of e-mailclients de uitvoer
-anders weergeven dan verwacht, worden alternatieve editoropties tijdig
-geëvalueerd en worden de belangrijkste compatibiliteitsproblemen prioritair
-opgelost binnen de voorziene scope en buffertijd.
+
+\textbf{Beperkte werkbelasting}
+\begin{itemize}
+    \item Niet alle uitbreidingen worden tijdig gerealiseerd
+\end{itemize}
+
+\textbf{Verschillen tussen e-mailclients}
+\begin{itemize}
+    \item Gegenereerde inhoud en opmaak wordt verschillend weergegeven (Outlook)
+    \item CSS inline 
+    \item Output tests in Gmail, Outlook en Apple
+    \item Outlook Desktop wordt meegenomen voor zover de beschikbare testomgeving het toelaat
+\end{itemize}
+
+\textbf{Verschillen met de bestaande backend}
+\begin{itemize}
+    \item De mock-API kan afwijken van de bestaande Laravel-backend van Vesalius.ai
+    \item Verschillen in architectuur en gegevensverwerking
+\end{itemize}
+
