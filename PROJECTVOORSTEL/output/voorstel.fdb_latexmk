@@ -1,26 +1,26 @@
 # Fdb version 4
-["biber /project/PROJECTVOORSTEL/output/voorstel"] 1792056486.56612 "/project/PROJECTVOORSTEL/output/voorstel.bcf" "/project/PROJECTVOORSTEL/output/voorstel.bbl" "/project/PROJECTVOORSTEL/output/voorstel" 1792056493.81841 0
-  "/project/PROJECTVOORSTEL/output/voorstel.bcf" 1792056492.78475 133713 601dfec0c3e8230219379383152cb840 "xelatex"
+["biber /project/PROJECTVOORSTEL/output/voorstel"] 1792056789.09877 "/project/PROJECTVOORSTEL/output/voorstel.bcf" "/project/PROJECTVOORSTEL/output/voorstel.bbl" "/project/PROJECTVOORSTEL/output/voorstel" 1792056796.37582 0
+  "/project/PROJECTVOORSTEL/output/voorstel.bcf" 1792056795.34265 133713 601dfec0c3e8230219379383152cb840 "xelatex"
   (generated)
   "/project/PROJECTVOORSTEL/output/voorstel.bbl"
   "/project/PROJECTVOORSTEL/output/voorstel.blg"
   (rewritten before read)
-["xdvipdfmx"] 1792056493.01793 "/project/PROJECTVOORSTEL/output/voorstel.xdv" "/project/PROJECTVOORSTEL/output/voorstel.pdf" "/project/PROJECTVOORSTEL/output/voorstel" 1792056493.83378 0
-  "/project/PROJECTVOORSTEL/output/voorstel.xdv" 1792056492.78907 76552 39462d3c406fb6797340a307a94fe5fd "xelatex"
+["xdvipdfmx"] 1792056795.57907 "/project/PROJECTVOORSTEL/output/voorstel.xdv" "/project/PROJECTVOORSTEL/output/voorstel.pdf" "/project/PROJECTVOORSTEL/output/voorstel" 1792056796.3908 0
+  "/project/PROJECTVOORSTEL/output/voorstel.xdv" 1792056795.3478 78016 2f6d13d55b81aa4d108edfafe519d0ea "xelatex"
   (generated)
   "/project/PROJECTVOORSTEL/output/voorstel.pdf"
   (rewritten before read)
-["xelatex"] 1792056490.08144 "./voorstel.tex" "/project/PROJECTVOORSTEL/output/voorstel.xdv" "voorstel" 1792056493.82172 0
+["xelatex"] 1792056792.63156 "./voorstel.tex" "/project/PROJECTVOORSTEL/output/voorstel.xdv" "voorstel" 1792056796.37909 0
   "../graphics/HOGENT_Logo_Pos_rgb.png" 1791189081.61821 70624 2a3768fb14a71ce1a1b2815e9d5ef86c ""
   "../projectgegevens.tex" 1792054325.6097 2369 3a4fdcd936d6ffcb24dff8195279f8da ""
-  "./voorstel.tex" 1792056476.88648 2949 8af9bc6eed684f5b9bd4a15c1fed085c ""
+  "./voorstel.tex" 1792056674.3954 3110 2ce6918c2435978f5db7d2ba63c3cef0 ""
   "/etc/texmf/web2c/texmf.cnf" 1792053175 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/project/PROJECTVOORSTEL/output/../graphics/HOGENT_Logo_Pos_rgb.png" 1791189081.61821 70624 2a3768fb14a71ce1a1b2815e9d5ef86c ""
   "/project/PROJECTVOORSTEL/output/../projectgegevens.tex" 1792054325.6097 2369 3a4fdcd936d6ffcb24dff8195279f8da ""
-  "/project/PROJECTVOORSTEL/output/voorstel.aux" 1792056492.77106 1993 34c5bbecb6269e378e0fdaef2e1b1836 "xelatex"
-  "/project/PROJECTVOORSTEL/output/voorstel.bbl" 1792056487.08311 466 76d65a242ec496c9b4361af646ff12cb "biber /project/PROJECTVOORSTEL/output/voorstel"
-  "/project/PROJECTVOORSTEL/output/voorstel.out" 1792056492.77781 894 6992fb02b2927217199ea57475d28980 "xelatex"
-  "/project/PROJECTVOORSTEL/output/voorstel.run.xml" 1792056492.78907 2416 2681f8edf7ad85624b071485729b0459 "xelatex"
+  "/project/PROJECTVOORSTEL/output/voorstel.aux" 1792056795.32942 1993 9f04a9df5ae50106cf6166e2b32c40cf "xelatex"
+  "/project/PROJECTVOORSTEL/output/voorstel.bbl" 1792056789.60654 466 76d65a242ec496c9b4361af646ff12cb "biber /project/PROJECTVOORSTEL/output/voorstel"
+  "/project/PROJECTVOORSTEL/output/voorstel.out" 1792056795.33619 894 6992fb02b2927217199ea57475d28980 "xelatex"
+  "/project/PROJECTVOORSTEL/output/voorstel.run.xml" 1792056795.34731 2416 2681f8edf7ad85624b071485729b0459 "xelatex"
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi5.tfm" 1136768653 1508 3b32edd0d68f6498a5a375e78f9edc5e ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm" 1136768653 1512 f21f83efb36853c0b70002322c1ab3ad ""
@@ -138,7 +138,7 @@
   "/var/lib/texmf/web2c/xetex/xelatex.fmt" 1792053200 4807122 99ae1a290436c7bf14d493c020fc0364 ""
   "hogent-article.cls" 1791189081.63404 13631 54b32dab8427cb8e80f8a64ce892d99d ""
   "voorstel-inhoud.tex" 1791533437.38811 6303 80c3d3389fb6dac8c2eec4208d53647f ""
-  "voorstel.tex" 1792056476.88648 2949 8af9bc6eed684f5b9bd4a15c1fed085c ""
+  "voorstel.tex" 1792056674.3954 3110 2ce6918c2435978f5db7d2ba63c3cef0 ""
   (generated)
   "/project/PROJECTVOORSTEL/output/voorstel.aux"
   "/project/PROJECTVOORSTEL/output/voorstel.bcf"
