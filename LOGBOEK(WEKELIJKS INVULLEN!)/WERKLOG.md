@@ -1,43 +1,41 @@
 # Werklog
 
-Houd hier per week bij waaraan je gewerkt hebt. Dat kost je een halve minuut per
-week en levert je in week 13 een bladzijde aan aantekeningen op waar je anders
-vanaf nul begint: **dit is de grondstof van je rapport.**
-
-Bevestig ook de weken waarin je *niets* aan je project gedaan hebt. Anders lijkt
-"even niets gedaan" achteraf op "nooit ingevuld", en dat is een verschil dat
-meetelt onder criterium C.
-
-Vul dit bestand aan en commit het samen met je werk. Zo staat je voortgang ook
-in je git-historiek.
-
 ## Urenverdeling
 
-Het graduaatsproject is ongeveer **tien werkdagen, samen ongeveer 100 uren**.
+Het graduaatsproject is ongeveer 10 **werkdagen, samen ongeveer 100 uren**.
 Houd stage-uren en projecturen apart: de jury beoordeelt je project, niet je
 stage.
 
-**TODO!!!**
-
 |                  | Uren tot nu toe |
 | ---------------- | --------------- |
-| Graduaatsproject | .... / ±100    |
+| Graduaatsproject | 16 (W2)/ ±100  |
 
 ## Per week
 
-### Week 1 — 05/10/26–09/10/26
+### Week 1 — 05/10/26–09/10/26 (SPRINT 0: DE AANLOOP + VOORBEREIDING VOORAF)
 
 - **Uren op het project**: 8
 - **Waaraan gewerkt**: Voorbereiding van het graduaatsproject, uitschrijven van het projectvoorstel en bespreken met de CEO voor goedkeuring.
 - **Wat blokkeert er**: NVT
 
-### Week 2 — 12/10/26–16/10/26
+### Week 2 — 12/10/26–16/10/26 (SPRINT 1: OPSTART)
 
 - **Uren op het project**: 8 (gepland)
 - **Waaraan gewerkt**: Opzetten van de projectrepository in Bitbucket, configureren van de Angular-frontend en Node.js-mock-API, instellen van linting en CI en opzetten van Mailpit via Docker. Voorbereiden van de projectdocumentatie.
 - **Wat blokkeert er**: Eventuele configuratieproblemen met Docker, de ontwikkelomgeving of de CI-pipeline.
 
-### Week 3 — 19/10/26–23/10/26
+| # | Wat                                           | Waarom                                                                                                                                                                              | Waar                                                                               |
+| - | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| 1 | Monorepo met npm workspaces                   | 1 npm install + shared scripts (dev:web/dev:api/lint/test/build) voor beide apps; package-lock.json zorgt voor reproduceerbare installs + npm ci in pipeline                        | package.json, package-lock.json, apps/                                             |
+| 2 | Angular 22 webapp (standalone/css/no routing) | basis voor latere WYSIWYG-editor                                                                                                                                                    | apps/web/ (angular.json, src/app/*, proxy.conf.json, tsconfigs)                    |
+| 3 | Mock-API (Node/TS/Express/Nodemailer)         | Simulatie backend GET/health + POST/test-mail dekken flow editor - API -testmail + Vitest-test + manueel script om testmail te sturen (later: template beheer/rendering/sanitizing) | apps/mock-api/src/ (app.ts, mailer.ts, server.ts, send-test-email.ts, app.spec.ts) |
+| 4 | Mailpit via Docker                            | Lokale testmailserver (SMTP 1025, UI 8025). Testmails bereiken  zo nooit echte mensen, wat past bij de privacyregels (geen echte patiëntgegevens)                                 | docker-compose.yml                                                                 |
+| 5 | Kwaliteitstools                               | Consistente code+opmaak; gegenereerde bestanden (dist, .angular, lockfile) staan in .prettierignore                                                                                 | eslint.config.js, .prettierrc, .prettierignore, .editorconfig                      |
+| 6 | CI-pipeline (BitBucket)                       | npm ci draait per push/format-check/lint_test+build= regressies vallen snel op; main=manuele deploy-stap (placeholder, doelgroep is nog onbepaald, vandaar)                         | bitbucket-pipelines.yml                                                            |
+| 7 | Docs                                          | projectvoorstel + korte "aan de slag" in readme + studynotes beschrijven de 3 mailtypes + placeholders + bronnen.md                                                                 | README.md, docs/studienotities.md, docs/bronnen.md                                 |
+| 8 | Commandolog                                   | alle gebruikte commando's + toepassingen                                                                                                                                            | docs/commands.md                                                                   |
+
+### Week 3 — 19/10/26–23/10/26 (SPRINT 2: ....enz)
 
 - **Uren op het project**: 8 (gepland)
 - **Waaraan gewerkt**: Ontwerpen van de mockgegevens en de vaste e-mailschil. Opstellen van voorbeeldtemplates voor afspraakbevestigingen, herinneringen en annulaties. Eerste rendering van de voorbeeldmails en controle via Mailpit.
@@ -137,6 +135,10 @@ de interessantste stukken voor de jury.
 -->
 
 ## Afspraken met mijn mentor
+
+*enkel als er zaken mislopen; ik hou hem up-to-date via Google Chat + via JIRA (individuele workspace aangemaakt en gekoppeld aan poc-mail-editor van het Vesalius project uit BitBucket + sprints waarbij ik zelf JIRA-tickets heb aangemaakt per sprint(/epic) en toegewezen heb aan mezelf). 
+
+*als er vragen zijn, stel ik die meestal gewoon via Google Chat. 
 
 | Datum | Waarover | Wat afgesproken |
 | ----- | -------- | --------------- |
